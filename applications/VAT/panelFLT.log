@@ -1,0 +1,175 @@
+MSC Nastran V2023.4 (Intel Linux 6.8.0-57-generic) Control File:
+-----------------------------------------------------------------
+Nastran BUFFSIZE=65537 $(/home/dario/msc/Nastran/20234/conf/nast20234rc[4])
+$ $(/home/dario/msc/Nastran/20234/conf/nast20234rc[6])
+$ $(/home/dario/msc/Nastran/20234/conf/nast20234rc[14])
+$ End $(/home/dario/msc/Nastran/20234/conf/nast20234rc[16])
+JID=./panelFLT.bdf
+OUT=./panelFLT
+PWDDIR=/home/dario/RACE/Extern/NastranGen/applications/VAT
+MEM=96206MB      $ 
+PMEM=0+
+MACH='Intel'
+OPER='Linux'
+OSV='6.8.0-57-generic'
+MODEL='2212.541992 MHz (ws-aeropa)'
+CONFIG=186640
+NPROC=56
+symbol=DELDIR='/home/dario/msc/Nastran/20234/msc20234/nast/del' $(program default)
+symbol=DEMODIR='/home/dario/msc/Nastran/20234/msc20234/nast/demo' $(program default)
+symbol=SSSALTERDIR='/home/dario/msc/Nastran/20234/msc20234/nast/sssalter' $(program default)
+symbol=TPLDIR='/home/dario/msc/Nastran/20234/msc20234/nast/tpl' $(program default)
+SDIR=/home/dario/scratch/panelFLT.T1568305_13
+DBS=/home/dario/scratch/panelFLT.T1568305_13
+SCR=yes
+SMEM=100
+BPOOL=24051.6MB
+DMPMEM=estimate
+NEWDEL='/home/dario/msc/Nastran/20234/msc20234/linux64i8/SSS'
+DEL='MSCDEF'
+SPOTWELD=''
+UDR=''
+DML=MSCDEF
+SDL=MSCDEF
+AUTH=27500@147.163.18.87
+AUTHQUE=20
+MSGCAT='/home/dario/msc/Nastran/20234/msc20234/linux64i8/analysis.msg'
+MSGDEST='f06'
+NEWS=/home/dario/msc/Nastran/20234/msc20234/nast/news.txt
+-----------------------------------------------------------------
+MSC_ISHELLPATH=/home/dario/msc/Nastran/20234/msc20234/actran/linux64/Actran_2023.2/bin:/home/dario/msc/Nastran/20234/msc20234/nast:
+MSC_JIDPATH=
+PATH=/home/dario/msc/Nastran/20234/msc20234/linux64i8:/home/dario/msc/Nastran/20234/msc20234/linux64i8:/opt/intel/oneapi/compiler/2022.1.0/linux/bin/intel64:/home/dario/msc/Nastran/20234/msc20234/linux64i8/intel/libfabric/bin:/home/dario/msc/Nastran/20234/bin:/usr/local/MATLAB/R2024b/bin:/opt/paraview/bin:/home/dario/.vscode-server/cli/servers/Stable-91fa95bccb027ece6a968589bb1d662fa9c8e170/server/bin/remote-cli:/home/dario/msc/Nastran/20234/bin:/opt/intel/oneapi/vtune/2024.1/bin64:/opt/intel/oneapi/mpi/2021.12/bin:/opt/intel/oneapi/mkl/2024.1/bin:/opt/intel/oneapi/dpcpp-ct/2024.1/bin:/opt/intel/oneapi/dev-utilities/2024.1/bin:/opt/intel/oneapi/debugger/2024.1/opt/debugger/bin:/opt/intel/oneapi/compiler/2024.1/opt/oclfpga/bin:/opt/intel/oneapi/compiler/2024.1/bin:/opt/intel/oneapi/advisor/2024.1/bin64:/usr/local/MATLAB/R2024b/bin:/opt/paraview/bin:/home/dario/miniconda3/envs/py310/bin:/home/dario/miniconda3/condabin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/home/dario/.vscode-server/extensions/ms-python.debugpy-2025.8.0/bundled/scripts/noConfigScripts
+LD_LIBRARY_PATH=/home/dario/msc/Nastran/20234/msc20234/linux64i8/lib:/home/dario/msc/Nastran/20234/msc20234/linux64i8:/home/dario/msc/Nastran/20234/msc20234/linux64i8/nvidia:/home/dario/msc/Nastran/20234/msc20234/linux64i8/lib:/home/dario/msc/Nastran/20234/msc20234/linux64i8:/home/dario/msc/Nastran/20234/msc20234/linux64i8/intel/lib64/release:/home/dario/msc/Nastran/20234/msc20234/linux64i8/intel/lib64/:/home/dario/msc/Nastran/20234/msc20234/linux64i8/intel/libfabric/lib:/home/dario/msc/Nastran/20234/msc20234/linux64i8/intel/libfabric/lib:/home/dario/msc/Nastran/20234/msc20234/linux64i8:/home/dario/msc/Nastran/20234/msc20234/linux64i8/lib:/home/dario/msc/Nastran/20234/msc20234/linux64i8/nCode/bin:/home/dario/msc/Nastran/20234/msc20234/linux64i8/nvidia:/opt/intel/oneapi/tbb/2021.12/env/../lib/intel64/gcc4.8:/opt/intel/oneapi/mpi/2021.12/opt/mpi/libfabric/lib:/opt/intel/oneapi/mpi/2021.12/lib:/opt/intel/oneapi/mkl/2024.1/lib:/opt/intel/oneapi/ippcp/2021.11/lib/:/opt/intel/oneapi/ipp/2021.11/lib:/opt/intel/oneapi/dpl/2022.5/lib:/opt/intel/oneapi/dnnl/2024.1/lib:/opt/intel/oneapi/debugger/2024.1/opt/debugger/lib:/opt/intel/oneapi/dal/2024.2/lib:/opt/intel/oneapi/compiler/2024.1/opt/oclfpga/host/linux64/lib:/opt/intel/oneapi/compiler/2024.1/opt/compiler/lib:/opt/intel/oneapi/compiler/2024.1/lib:/opt/intel/oneapi/ccl/2021.12/lib/
+SCA_SERVICE_CATALOG=/home/dario/msc/Nastran/20234/msc20234/res/SCAServiceCatalog.xml
+SCA_RESOURCE_DIR=/home/dario/msc/Nastran/20234/msc20234/res
+Cmd Line:    /home/dario/msc/Nastran/20234/msc20234/linux64i8/nastran panelFLT.bdf scr=yes old=no mode=i8
+Current Dir: /home/dario/RACE/Extern/NastranGen/applications/VAT
+Time Cmd:    time 
+Executable:  /home/dario/msc/Nastran/20234/msc20234/linux64i8/analysis
+Arch= Kywd:  [Not specified]
+MSC_MSG:     stderr
+-----------------------------------------------------------------
+Current resource limits:
+ CPU time:                       unlimited
+ Virtual address space:          unlimited
+ Working set size:               unlimited
+ Data segment size:              unlimited
+ Stack size:                          8192 KB
+ Number of open files:             1048576 (hard limit: 1048576)
+ File size:                      unlimited
+ Core dump file size:                    0 MB
+-----------------------------------------------------------------
+System configuration:
+ Hostname:         ws-aeropa
+ Architecture:     linux64i8
+ Platform:         Intel Linux 6.8.0-57-generic
+ Model:            1560.000000 MHz
+ CPU:              GenuineIntel 
+ Clock freq.:      1560 MHz
+ Number of CPUs:   56
+ Executable:       standard
+ Raw model ID:     8664
+ Config number:    186640
+ Physical memory:  192413 MB
+ Virtual memory:   8191 MB
+ Numeric format:   64-bit little-endian IEEE.
+ Bytes per word:   8
+ Disk block size:  512 bytes (64 words)
+ Remote shell cmd: /home/dario/msc/Nastran/20234/msc20234/linux64i8/MSCRmtCmd (Windows, UNIX)
+                   /usr/bin/ssh (UNIX)
+-----------------------------------------------------------------
+-----------------------------------------------------------------
+MSC Nastran started Mon Jun  9 15:18:13 UTC 2025
+ 15:18:13  Beginning Analysis
+MM_CORE:initialize umpire 100879302696(PMEM in OC, nolimit)
+MM_CORE:constructing an OCWrapper 0x35645ab0
+SCA Kernel 29.0.931179 successfully initialized
+BLAS/LAPACK shared object "/home/dario/msc/Nastran/20234/msc20234/linux64i8/libmkl_core.so" has been loaded.
+BLAS/LAPACK shared object "/home/dario/msc/Nastran/20234/msc20234/linux64i8/libmkl_intel_thread.so" has been loaded.
+BLAS/LAPACK shared object "/home/dario/msc/Nastran/20234/msc20234/linux64i8/libmkl_intel_ilp64.so" has been loaded.
+BLAS/LAPACK shared object "/home/dario/msc/Nastran/20234/msc20234/linux64i8/libMSCblas.so" has been loaded.
+ ================================================== 
+ MKL Information: 
+ Major version:           2022
+ Minor version:           0
+ Update version:          1
+ Processor optimization:  Intel(R) Advanced Vector Extensions 512 (Intel(R) AVX-512) with Intel(R) DL Boost, bfloat16 support, Intel(R) AMX with bfloat16 and 8-bit integer support, and FP16 instructions
+ ================================================== 
+
+ 15:18:13  MSC Authorization Information - System Attributes (1004, 0)
+ 15:18:13  -----------------------------------------------------------
+  Date:          Mon Jun  9 15:18:13 2025
+  MSC Id:        d0f405370154 (ethernet) (Linux)
+  Hostname:      ws-aeropa (user dario, display /dev/tty)
+  License files: 27500@147.163.18.87
+  CEID:          B872A203-A16218F3
+  User:          dario
+  Display:       /dev/tty
+  LAPI Version:  LAPI 11.0.1 (CL 920189) (FLEXlm 11.16.3.0)
+
+  * * * * * * * * * * * * * * * * * * * *
+  * * * * * * * * * * * * * * * * * * * *
+  * *                                 * *
+  * *   MSC Customer Entitlement ID   * *
+  * *        B872A203-A16218F3        * *
+  * *                                 * *
+  * * * * * * * * * * * * * * * * * * * *
+  * * * * * * * * * * * * * * * * * * * *
+
+ 15:18:13  MSC Authorization Information - Checkout Successful (1016, 0)
+ 15:18:13  -------------------------------------------------------------
+ 15:18:13  Acquired 13 licenses for Group MSCONE (MSC Nastran) from license server on host 147.163.18.87
+
+
+ 15:18:13  MSC Authorization Information - Checkout Successful (1016, 0)
+ 15:18:13  -------------------------------------------------------------
+ 15:18:13  Acquired 3 licenses for Group MSCONE (MSC Nastran Aero - Basic) from license server on host 147.163.18.87
+
+
+Beginning bulk data processing using the IFPStar component.
+For more information on IFPStar, please see KB article KB8019200
+on our support pages, at http://simcompanion.hexagon.com.
+
+ 15:18:13  12693 records read from JID file "./panelFLT.bdf"
+
+Processing of bulk data entries is complete.
+
+ 15:18:16  Finite element model generation started.
+ 15:18:16  Finite element model generated 6630 degrees of freedom.
+ 15:18:16  Finite element model generation successfully completed.
+ 15:18:16  Application of Loads and Boundary Conditions to the finite element model started.
+ 15:18:16  Application of Loads and Boundary Conditions to the finite element model successfully completed.
+ 15:18:16  Solution of the system equations for normal modes started.
+ 15:18:16  Solution of the system equations for normal modes successfully completed.
+ ================================================== 
+ Warning/Fatal Message Summary           Occurrence
+     SYSTEM WARNING MESSAGE     1148.0          1 
+ ================================================== 
+ 15:18:31  16 records read from JID file "./panelFLT.bdf"
+ 15:18:31  NSEXIT: EXIT(0)
+ 15:18:31  Analysis complete  0
+TBA free any memory allocation, rhs or nmap or so forth.
+MumpsSolver::Cleanup
+17.62user 0.30system 0:17.95elapsed 99%CPU (0avgtext+0avgdata 993840maxresident)k
+0inputs+18520outputs (0major+235009minor)pagefaults 0swaps
+ ==================================================
+ OS:              Ubuntu 24.04.2 LTS
+ Model:           Intel(R) Xeon(R) w7-3465X
+ Nsocket:         1
+ Ncore:           56
+ HyperThreading:  On
+ Cache:           76800 KB
+ Special:         avx512 
+ GPU:             YES, use /usr/bin/nvidia-smi to determine type
+ Ram:             192413 Mb	Free: 167243 Mb
+ load average ( 15 minute ):  1.246094
+ ==================================================
+ Time Summary                 CPU       Wall   ( Time in Seconds )
+ Consider using SOLVE=AUTO if you have not.
+ =====================================================
+ Detailed performance information can be found in the 
+ "MSC Nastran High Performance Computing User's Guide"
+ =====================================================
+-----------------------------------------------------------------
+MSC Nastran finished Mon Jun  9 15:18:31 UTC 2025

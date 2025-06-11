@@ -1,0 +1,1216 @@
+1
+ MACHINE                          MODEL                 OPERATING SYSTEM       MSC Nastran       BUILD DATE         RUN DATE
+     x86-64 Based Sys             Intel 2212.541992 MH  Linux 6.8.0-57-generic LNX i8 V2023.4    DEC 12, 2023       JUN  9, 2025
+
+ 
+                               ===    M S C   N a s t r a n           E X E C U T I O N   S U M M A R Y    ===
+
+ Day_Time  Elapsed     I/O_Mb      Del_Mb     CPU_Sec    Del_CPU    Subroutine
+ 
+ 15:18:13     0:00        0.0         0.0        -0.0       -0.0    SEMTRN   BGN
+ 15:18:13     0:00        0.0         0.0        -0.0        0.0    SEMTRN   END
+ 15:18:13     0:00        0.0         0.0        -0.0        0.0    DBINIT   BGN
+      ** CURRENT PROJECT ID = ' "BLANK" '  ** CURRENT VERSION ID =          1
+
+     S U M M A R Y   O F   F I L E   A S S I G N M E N T   F O R   T H E   P R I M A R Y   D A T A B A S E     ( DBSNO   1, V2023.4 )
+
+    ASSIGNED PHYSICAL FILE NAME (/ORIGINAL)      LOGICAL NAME     DBSET        STATUS    BUFFSIZE     CLUSTER SIZE      TIME STAMP
+    ---------------------------------------      ------------     -----        ------    --------     ------------     ------------
+    /.../scratch/panelFLT.T1568305_13.MASTER     MASTER           MASTER       NEW          65537           1          250609151813
+    /.../scratch/panelFLT.T1568305_13.DBALL      DBALL            DBALL        NEW          65537           1          250609151814
+    /.../scratch/panelFLT.T1568305_13.OBJSCR     OBJSCR           OBJSCR       NEW           8193           1          250609151815
+               **** MEM FILE ****                * N/A *          SCRATCH 
+    /home/.../panelFLT.T1568305_13.SCRATCH       SCRATCH          SCRATCH      NEW          65537           1          250609151816
+    /.../scratch/panelFLT.T1568305_13.SCR300     SCR300           SCRATCH      NEW          65537           1          250609151817
+ 15:18:13     0:00        9.0         9.0         0.0        0.0    DBINIT   END
+ 15:18:13     0:00        9.0         0.0         0.0        0.0    XCSA     BGN
+
+     S U M M A R Y   O F   F I L E   A S S I G N M E N T   F O R   T H E   D E L I V E R Y   D A T A B A S E   ( DBSNO   2, V2023.4 )
+
+    ASSIGNED PHYSICAL FILE NAME (/ORIGINAL)      LOGICAL NAME     DBSET        STATUS    BUFFSIZE     CLUSTER SIZE      TIME STAMP
+    ---------------------------------------      ------------     -----        ------    --------     ------------     ------------
+    /home/.../msc20234/linux64i8/SSS.MASTERA     MASTERA          MASTER       OLD           8193           1          231212012933
+   /./SSS.MASTERA                           
+    /home/.../msc20234/linux64i8/SSS.MSCOBJ      MSCOBJ           MSCOBJ       OLD           8193           1          231212012938
+   /./SSS.MSCOBJ                            
+    /home/.../msc20234/linux64i8/SSS.MSCSOU      MSCSOU           MSCSOU       OLD           8193           1          231212012939
+   /./SSS.MSCSOU                            
+ 15:18:13     0:00       61.0        52.0         0.1        0.1    XCSA     END
+ 15:18:13     0:00       61.0         0.0         0.1        0.0    CGPI     BGN
+ 15:18:13     0:00       61.0         0.0         0.1        0.0    CGPI     END
+ 15:18:13     0:00       61.0         0.0         0.1        0.0    LINKER   BGN
+ 15:18:13     0:00      315.0       254.0         0.1        0.0    LINKER   END
+ 
+     S U M M A R Y   O F   F I L E   A S S I G N M E N T   F O R   T H E   I F P   D A T A B A S E S
+ 
+    ASSIGNED PHYSICAL FILE NAME                                   LOGICAL   DBSNO  STATUS   ACCESS   RECL     FORM    MODE        
+    ------------------------------------------------------------  --------  -----  -------  ------  -------  ------  -----       
+    /home/dario/scratch/panelFLT.T1568305_13.IFPDAT               IFPDAT        1   NEW      DIRECT    4096   UNFMTD   R/W            
+    /home/dario/msc/Nastran/20234/msc20234/linux64i8/SSS.IFPSDL   IFPSDL      N/A   OLD      DIRECT    1024   UNFMTD   R/O            
+    /home/dario/msc/Nastran/20234/msc20234/linux64i8/SSS.IFPDML   IFPDML      N/A   OLD      SEQ        N/A   FMTD     R/O            
+
+                    S U M M A R Y   O F   P H Y S I C A L   F I L E   I N F O R M A T I O N
+
+    ASSIGNED PHYSICAL FILE NAME                                   RECL (BYTES)  MODE  FLAGS  WSIZE  (WNUM)
+    ------------------------------------------------------------  ------------  ----  -----  -------------
+    /home/dario/scratch/panelFLT.T1568305_13.SCRATCH                    524288   R/W    L      N/A        
+    /home/dario/scratch/panelFLT.T1568305_13.OBJSCR                      65536   R/W    L      N/A        
+    /home/dario/scratch/panelFLT.T1568305_13.MASTER                     524288   R/W    L      N/A        
+    /home/dario/scratch/panelFLT.T1568305_13.DBALL                      524288   R/W    L      N/A        
+    /home/dario/scratch/panelFLT.T1568305_13.SCR300                     524288   R/W    L      N/A        
+    /home/dario/msc/Nastran/20234/msc20234/linux64i8/SSS.MASTERA         65536   R/O           N/A        
+    /home/dario/msc/Nastran/20234/msc20234/linux64i8/SSS.MSCOBJ          65536   R/O           N/A        
+
+    FLAG VALUES ARE --
+      A   ASYNCHRONOUS I/O USED TO PROCESS FILE
+      B   BUFFERED I/O USED TO PROCESS FILE
+      L   FILE HAS BEEN LOCKED
+ 
+    ASSIGNED PHYSICAL FILE NAME                                   LOGICAL   UNIT  STATUS   ACCESS   RECL  FORM    FLAGS
+    ------------------------------------------------------------  --------  ----  -------  ------  -----  ------  -----
+    ./panelFLT.f04                                                LOGFL        4  NEW      SEQ      N/A   FMTD         
+    ./panelFLT.f06                                                PRINT        6  NEW      SEQ      N/A   FMTD         
+    /home/dario/msc/Nastran/20234/msc20234/nast/news.txt          INCLD1       9  OLD      SEQ      N/A   FMTD      R N
+    ./panelFLT.plt                                                PLOT        14  NEW      SEQ      N/A   UNFMTD   Z   
+    ./panelFLT.op2                                                OP2         12  NEW      SEQ      N/A   LTLEND   Z   
+    ./panelFLT                                                    OPCASE      22  UNKNOWN  SEQ      N/A   FMTD        N
+    ./panelFLT                                                    OUTPUT2F    19           SEQ      N/A   LTLEND      P
+    ./panelFLT.des                                                TOPDES      21  UNKNOWN  SEQ      N/A   FMTD        N
+    ./panelFLT.mnf                                                MNF             NEW      SEQ      N/A   UNFMTD       
+    ./panelFLT.pch                                                PUNCH        7  NEW      SEQ      N/A   FMTD     Z   
+    ./panelFLT.xdb                                                DBC         40  NEW      DIRECT   1024  LTLEND       
+    ./panelFLT.asm                                                ASM         16  NEW      SEQ      N/A   FMTD     Z   
+    ./panelFLT.becho                                              BULKECHO    18  NEW      SEQ      N/A   FMTD     Z   
+    ./panelFLT.aeso                                               AESO        23  NEW      SEQ      N/A   FMTD     Z   
+
+    FLAG VALUES ARE --
+      A   FILE HAS BEEN DEFINED BY AN 'ASSIGN' STATEMENT
+      D   FILE IS TO BE DELETED BEFORE RUN, IF IT EXISTS
+      N   'DEFER' SPECIFIED ON 'ASSIGN' STATEMENT OR FORCED FOR 'CHILD' PROCESSES
+      P   PREFIX FILE NAME FOR OUTPUT2F FILE(S)
+      R   FILE IS READ-ONLY
+      T   FILE IS TEMPORARY AND WILL BE DELETED AT END OF RUN
+      Z   FILE WILL BE DELETED AT END OF RUN IF ZERO-LENGTH
+
+    ** THE NATIVE MODE FOR SEQUENTIAL UNFORMATTED FILES ON THIS PLATFORM IS LITTLE-ENDIAN (64-BIT) (LTLE64)
+ 
+0    ** MASTER DIRECTORIES ARE LOADED IN MEMORY.
+        USER OPENCORE (HICORE)         =       72092  MB
+        EXECUTIVE SYSTEM WORK AREA     =           8  MB
+        MASTER(RAM)                    =           1  MB
+        SCRATCH(MEM) AREA              =          50  MB (     100 BUFFERS)
+        BUFFER POOL AREA (BPOOL4)      =       24051  MB (   48102 BUFFERS)
+        PERSISTENT MEMORY WORK AREA    =           0  MB
+
+        TOTAL MSC NASTRAN MEMORY LIMIT =       96206  MB
+
+
+ Day_Time  Elapsed     I/O_Mb      Del_Mb     CPU_Sec    Del_CPU    SubDMAP Line (S)SubDMAP/Module
+ 
+ 15:18:13     0:00      316.0         1.0         0.1        0.0    XSEMDR   BGN
+ 15:18:13     0:00      316.0         0.0         0.1        0.0    SEFLUTTR34   (S)SUPER1  BEGN    
+ 15:18:13     0:00      316.0         0.0         0.1        0.0    PROCESS INPUT DATA STARTED  
+ 15:18:13     0:00      316.0         0.0         0.1        0.0    SUPER1  33   (S)IFPL    BEGN    
+ 15:18:13     0:00      316.0         0.0         0.1        0.0    IFPL    7    (S)IFPLIMPLBEGN    
+ 15:18:13     0:00      316.0         0.0         0.1        0.0    IFPLIMPL119     IFP1    BEGN    
+ 15:18:13     0:00      316.0         0.0         0.1        0.0    IFPLIMPL276  (S)IFPSTAR BEGN    
+ 15:18:13     0:00      316.0         0.0         0.1        0.0    IFPSTAR 42      DBDELETEBEGN    
+ 15:18:13     0:00      316.0         0.0         0.1        0.0    IFPSTAR 43      NEWIFP  BEGN    
+ *** USER INFORMATION MESSAGE 200 (SCA.MDSolver.System.MemoryManager:MemoryManager::addPartition)
+A memory pool is provided by the application.
+Information: the application provided memory pool NastranMainPool will be used by the MDSolver service partition MDS00000.
+ *** SYSTEM INFORMATION MESSAGE 108 (SCA.MDSolver.Io.AccessAccess:AccessAccess)
+     The service SCA.MDSolver.Io.AccessAccess:AccessAccess has a partition name MDS00000 of size 1,200,000 bytes
+ *** USER INFORMATION MESSAGE 217 (SCA.MDSolver.Io.AccessAccess:AccessAccess::initPagingPool)
+     Static  working area for sdl : 100,000 INTEGER words, 800,000 bytes.
+ Dynamic working area for dbio: 548,696 INTEGER words, 4,389,568 bytes.
+ *** USER INFORMATION MESSAGE 218 (SCA.MDSolver.Io.AccessAccess:AccessAccess::initPagingPool)
+     AccessAccess service dbio paging pool initialized with maxbuf=4096 and maxddl=126204663
+ *** USER INFORMATION MESSAGE 207 (SCA.MDSolver.Io.AccessAccess:AccessAccess::StreamToBinary)
+     The stream input file: ./panelFLT.bdf 
+with include files path:  
+was converted to its binary form in: /home/dario/scratch/panelFLT.T1568305_13.IFPDAT 
+using the schema contained in: /home/dario/msc/Nastran/20234/msc20234/linux64i8/SSS.IFPSDL for product: NASTRAN, version: 2023.4
+ *** USER INFORMATION MESSAGE 200 (SCA.MDSolver.System.MemoryManager:MemoryManager::addPartition)
+A memory pool is provided by the application.
+Information: the application provided memory pool NastranMainPool will be used by the MDSolver service partition MDS00001.
+ *** SYSTEM INFORMATION MESSAGE 205 (SCA.MDSolver.Util.QueryAccess:QueryAccess)
+The service SCA.MDSolver.Util.QueryAccess:QueryAccess has a partition name MDS00001 of size 65,536 bytes
+ *       COUNT:ENTRY          COUNT:ENTRY          COUNT:ENTRY          COUNT:ENTRY          COUNT:ENTRY          COUNT:ENTRY   *
+ *           1:AELIST             1:AERO               1:AEROS              1:CAERO1          1024:CQUAD4             1:EIGRL   
+ *           3:FLFACT             1:FLUTTER         1105:GRID               1:MAT8              20:MKAERO2            1:PAERO1  
+ *           3:PARAM           1024:PCOMP              1:SET1              17:SPC                1:SPCADD             1:SPLINE4 
+ *
+ 15:18:13     0:00      316.0         0.0         0.1        0.1    IFPSTAR 59      IFPDR   BEGN    
+ 15:18:13     0:00      316.0         0.0         0.1        0.0    IFPSTAR 74      IFPEXTRABEGN    
+ 15:18:13     0:00      316.0         0.0         0.1        0.0    IFPSTAR 100     XSORT   BEGN    
+ 15:18:13     0:00      316.0         0.0         0.1        0.0    IFPSTAR 110     IFP     BEGN    
+ 15:18:13     0:00      316.0         0.0         0.1        0.0    IFP     
+ *       COUNT:ENTRY          COUNT:ENTRY          COUNT:ENTRY          COUNT:ENTRY          COUNT:ENTRY          COUNT:ENTRY     *
+ *           3:PARAM   
+ *    PARAM:  AUNITS    POST      PRTMAXIM                                                                                        *
+ 15:18:13     0:00      316.0         0.0         0.1        0.0    IFPSTAR 111     APPEND  BEGN    
+ 15:18:13     0:00      316.0         0.0         0.1        0.0    IFPSTAR 112     APPEND  BEGN    
+ 15:18:13     0:00      316.0         0.0         0.1        0.0    IFPSTAR 113     APPEND  BEGN    
+ 15:18:13     0:00      316.0         0.0         0.1        0.0    IFPSTAR 114     APPEND  BEGN    
+ 15:18:13     0:00      316.0         0.0         0.1        0.0    IFPSTAR 116     COPY    BEGN    
+ 15:18:13     0:00      316.0         0.0         0.1        0.0    IFPSTAR 117     COPY    BEGN    
+ 15:18:13     0:00      316.0         0.0         0.1        0.0    IFPSTAR 118     COPY    BEGN    
+ 15:18:13     0:00      316.0         0.0         0.1        0.0    IFPSTAR 119     COPY    BEGN    
+ 15:18:13     0:00      316.0         0.0         0.1        0.0    IFPSTAR 120     SORTBULKBEGN    
+ 15:18:13     0:00      316.0         0.0         0.1        0.0    IFPSTAR 121     SORTBULKBEGN    
+ 15:18:13     0:00      316.0         0.0         0.1        0.0    IFPSTAR 122     SORTBULKBEGN    
+ 15:18:13     0:00      316.0         0.0         0.1        0.0    IFPSTAR 123     SORTBULKBEGN    
+ 15:18:13     0:00      316.0         0.0         0.1        0.0    IFPSTAR 162     MATGEN  BEGN    
+ 15:18:13     0:00      316.0         0.0         0.1        0.0    IFPSTAR 178     NLSFLOW BEGN    
+ 15:18:13     0:00      316.0         0.0         0.1        0.0    IFPSTAR 186     IFPEXTRABEGN    
+ 15:18:13     0:00      316.0         0.0         0.1        0.0    IFPSTAR 199     DBEQUIV BEGN    
+ 15:18:13     0:00      316.0         0.0         0.1        0.0    IFPSTAR 230     SEPR1   BEGN    
+ 15:18:13     0:00      316.0         0.0         0.1        0.0    IFPLIMPL277     DBEQUIV BEGN    
+ 15:18:13     0:00      316.0         0.0         0.2        0.0    IFPLIMPL387  (S)IFPMODGMBEGN    
+ 15:18:13     0:00      316.0         0.0         0.2        0.0    IFPMODGM275  (S)IFPS    BEGN    
+ 15:18:13     0:00      316.0         0.0         0.2        0.0    IFPS    119  (S)TESTBIT BEGN    
+ 15:18:13     0:00      316.0         0.0         0.2        0.0    IFPS    177  (S)ODSCASE BEGN    
+ 15:18:13     0:00      316.0         0.0         0.2        0.0    ODSCASE 7       COPY    BEGN    
+ 15:18:13     0:00      316.0         0.0         0.2        0.0    IFPS    212     IFPLC   BEGN    
+ 15:18:13     0:00      316.0         0.0         0.2        0.0    IFPS    214     PVT     BEGN    
+ 15:18:13     0:00      316.0         0.0         0.2        0.0    IFPS    376     GP1     BEGN    
+ 15:18:13     0:00      316.0         0.0         0.2        0.0    IFPS    381     GP2     BEGN    
+ 15:18:13     0:00      316.0         0.0         0.2        0.0    IFPS    408     TA0SP   BEGN    
+ 15:18:13     0:00      316.0         0.0         0.2        0.0    IFPS    471     IFP6    BEGN    
+ 15:18:13     0:00      316.0         0.0         0.2        0.0    IFP6IN  
+ 15:18:13     0:00      316.0         0.0         0.2        0.0    IFP6OUT 
+ 15:18:13     0:00      316.0         0.0         0.2        0.0    IFPS    472     CBTOMORTBEGN    
+ 15:18:13     0:00      316.0         0.0         0.2        0.0    IFPS    869     SLDSKIN BEGN    
+ 15:18:13     0:00      316.0         0.0         0.2        0.0    IFPS    884     EIGNEFF BEGN    
+ 15:18:13     0:00      316.0         0.0         0.2        0.0    IFPS    906     MODGM2  BEGN    
+ 15:18:13     0:00      316.0         0.0         0.2        0.0    IFPS    1075    M3DCONT1BEGN    
+ 15:18:13     0:00      316.0         0.0         0.2        0.0    IFPS    1182    DSGRDM  BEGN    
+ 15:18:13     0:00      316.0         0.0         0.2        0.0    IFPS    1197 (S)TESTBIT BEGN    
+ 15:18:13     0:00      316.0         0.0         0.2        0.0    IFPS    1198 (S)TESTBIT BEGN    
+ 15:18:13     0:00      316.0         0.0         0.2        0.0    IFPS    1209    GP1     BEGN    
+ 15:18:13     0:00      316.0         0.0         0.2        0.0    IFPS    1308 (S)TESTBIT BEGN    
+ 15:18:13     0:00      316.0         0.0         0.2        0.0    IFPS    1440    DBEQUIV BEGN    
+ 15:18:13     0:00      316.0         0.0         0.2        0.0    IFPMODGM286     SEPR1   BEGN    
+ 15:18:13     0:00      316.0         0.0         0.2        0.0    IFPMODGM326     PROJVER BEGN    
+ 15:18:13     0:00      316.0         0.0         0.2        0.0    IFPMODGM331     PVT     BEGN    
+ 15:18:13     0:00      316.0         0.0         0.2        0.0    IFPMODGM372     PVT     BEGN    
+ 15:18:13     0:00      316.0         0.0         0.2        0.0    IFPMODGM383  (S)IFPS1   BEGN    
+ 15:18:13     0:00      316.0         0.0         0.2        0.0    IFPS1   13      SOLVIT  BEGN    
+ 15:18:13     0:00      316.0         0.0         0.2        0.0    IFPS1   36      DSGRDM  BEGN    
+ 15:18:13     0:00      316.0         0.0         0.2        0.0    IFPMODGM386  (S)TESTBIT BEGN    
+ 15:18:13     0:00      316.0         0.0         0.2        0.0    IFPMODGM492     DTIIN   BEGN    
+ 15:18:13     0:00      316.0         0.0         0.2        0.0    IFPMODGM591  (S)TESTBIT BEGN    
+ 15:18:13     0:00      316.0         0.0         0.2        0.0    IFPMODGM686     SERECHK BEGN    
+ 15:18:13     0:00      316.0         0.0         0.2        0.0    IFPMODGM781     MATGEN  BEGN    
+ 15:18:13     0:00      316.0         0.0         0.2        0.0    IFPLIMPL404  (S)TESTBIT BEGN    
+ 15:18:13     0:00      316.0         0.0         0.2        0.0    IFPLIMPL405  (S)TESTBIT BEGN    
+ 15:18:13     0:00      316.0         0.0         0.2        0.0    IFPLIMPL416     MATMOD  BEGN    
+ 15:18:13     0:00      316.0         0.0         0.2        0.0    PROPORTION PROGRESS BAR TIMES   
+ 15:18:13     0:00      316.0         0.0         0.2        0.0    PREPARING MODEL TOPOLOGY DATA   
+ 15:18:13     0:00      316.0         0.0         0.2        0.0    SUPER1  47   (S)CMBLCHEKBEGN    
+ 15:18:13     0:00      316.0         0.0         0.2        0.0    SUPER1  61      DTIIN   BEGN    
+ 15:18:13     0:00      316.0         0.0         0.2        0.0    SUPER1  152  (S)PHASE0  BEGN    
+ 15:18:13     0:00      316.0         0.0         0.2        0.0    PHASE0  148  (S)TESTBIT BEGN    
+ 15:18:13     0:00      316.0         0.0         0.2        0.0    PHASE0  151  (S)TESTBIT BEGN    
+ 15:18:13     0:00      316.0         0.0         0.2        0.0    PHASE0  152  (S)TESTBIT BEGN    
+ 15:18:13     0:00      316.0         0.0         0.2        0.0    PHASE0  206  (S)TESTBIT BEGN    
+ 15:18:13     0:00      316.0         0.0         0.2        0.0    PHASE0  211     PVT     BEGN    
+ 15:18:13     0:00      316.0         0.0         0.2        0.0    PHASE0  213     PROJVER BEGN    
+ 15:18:13     0:00      316.0         0.0         0.2        0.0    PHASE0  215     PROJVER BEGN    
+ 15:18:13     0:00      316.0         0.0         0.2        0.0    PHASE0  242     DTIIN   BEGN    
+ 15:18:13     0:00      316.0         0.0         0.2        0.0    PHASE0  244  (S)INITPOSTBEGN    
+ 15:18:13     0:00      316.0         0.0         0.2        0.0    INITPOST22      OUTPUT2 BEGN    
+ 15:18:13     0:00      316.0         0.0         0.2        0.0    PHASE0  252  (S)TESTBIT BEGN    
+ 15:18:13     0:00      316.0         0.0         0.2        0.0    PHASE0  253  (S)TESTBIT BEGN    
+ 15:18:13     0:00      316.0         0.0         0.2        0.0    PHASE0  254  (S)TESTBIT BEGN    
+ 15:18:13     0:00      316.0         0.0         0.2        0.0    PHASE0  255  (S)TESTBIT BEGN    
+ 15:18:13     0:00      316.0         0.0         0.2        0.0    PHASE0  256  (S)TESTBIT BEGN    
+ 15:18:13     0:00      316.0         0.0         0.2        0.0    PHASE0  292     SEPR1   BEGN    
+ 15:18:13     0:00      316.0         0.0         0.2        0.0    PHASE0  480     FMI3DR  BEGN    
+ 15:18:13     0:00      316.0         0.0         0.2        0.0    PHASE0  541     COPY    BEGN    
+ 15:18:13     0:00      316.0         0.0         0.2        0.0    PHASE0  542  (S)PBULK   BEGN    
+ 15:18:13     0:00      316.0         0.0         0.2        0.0    PHASE0  544     SEP1X   BEGN    
+ 15:18:13     0:00      316.0         0.0         0.2        0.0    PHASE0  614     GP1     BEGN    
+ 15:18:13     0:00      316.0         0.0         0.2        0.0    PHASE0  619     GP2     BEGN    
+ 15:18:13     0:00      316.0         0.0         0.2        0.0    PHASE0  716     TA1     BEGN    
+ 15:18:13     0:00      316.0         0.0         0.2        0.0    PHASE0  717     TASNP2  BEGN    
+ 15:18:13     0:00      316.0         0.0         0.2        0.0    PHASE0  722     SEP1    BEGN    
+ 15:18:13     0:00      316.0         0.0         0.2        0.0    PHASE0  858     TABPRT  BEGN    
+ 15:18:13     0:00      316.0         0.0         0.2        0.0    PHASE0  859     SEP3    BEGN    
+ 15:18:13     0:00      316.0         0.0         0.2        0.0    PHASE0  1072    PVT     BEGN    
+ 15:18:13     0:00      316.0         0.0         0.2        0.0    PHASE0  1151    PVT     BEGN    
+ 15:18:13     0:00      316.0         0.0         0.2        0.0    PHASE0  1153    PVT     BEGN    
+ 15:18:13     0:00      316.0         0.0         0.2        0.0    PHASE0  1201    MATGEN  BEGN    
+ 15:18:13     0:00      316.0         0.0         0.2        0.0    PHASE0  1202    MATGEN  BEGN    
+ 15:18:13     0:00      316.0         0.0         0.2        0.0    PHASE0  1801 (S)DMPGROUPBEGN    
+ 15:18:13     0:00      316.0         0.0         0.2        0.0    DMPGROUP36   (S)TESTBIT BEGN    
+ 15:18:13     0:00      316.0         0.0         0.2        0.0    PHASE0  2033 (S)SETQ    BEGN    
+ 15:18:13     0:00      316.0         0.0         0.2        0.0    PHASE0  2041 (S)PHASE0R BEGN    
+ 15:18:13     0:00      316.0         0.0         0.2        0.0    PHASE0R 180     MRGCSTM BEGN    
+ 15:18:13     0:00      316.0         0.0         0.2        0.0    PHASE0R 212     GP2     BEGN    
+ 15:18:13     0:00      316.0         0.0         0.2        0.0    PHASE0R 375     GP3     BEGN    
+ 15:18:13     0:00      316.0         0.0         0.2        0.0    PHASE0R 380     LCGEN   BEGN    
+ 15:18:13     0:00      316.0         0.0         0.2        0.0    PHASE0  2063 (S)TESTBIT BEGN    
+ 15:18:13     0:00      316.0         0.0         0.2        0.0    PHASE0  2087    VECPLOT BEGN    
+ 15:18:13     0:00      316.0         0.0         0.2        0.0    PHASE0  2223    BCDR    BEGN    
+ 15:18:13     0:00      316.0         0.0         0.2        0.0    PHASE0  2228    CASE    BEGN    
+ 15:18:13     0:00      316.0         0.0         0.2        0.0    PHASE0  2230    PVT     BEGN    
+ 15:18:13     0:00      316.0         0.0         0.2        0.0    PHASE0  2425    GP4     BEGN    
+ 15:18:13     0:00      316.0         0.0         0.2        0.0    PHASE0  2611    COPY    BEGN    
+ 15:18:13     0:00      316.0         0.0         0.2        0.0    PHASE0  2657 (S)CHKNOLINBEGN    
+ 15:18:13     0:00      316.0         0.0         0.2        0.0    PHASE0  2679    BCDR    BEGN    
+ 15:18:13     0:00      316.0         0.0         0.2        0.0    PHASE0  2705    TA1     BEGN    
+ 15:18:13     0:00      316.0         0.0         0.2        0.0    PHASE0  2741 (S)SELA1   BEGN    
+ 15:18:13     0:00      316.0         0.0         0.2        0.0    PHASE0  2743    UPARTN  BEGN    
+ 15:18:13     0:00      316.0         0.0         0.2        0.0    PHASE0  2865 (S)OUT2GEOMBEGN    
+ 15:18:13     0:00      316.0         0.0         0.2        0.0    OUT2GEOM85      OUTPUT2 BEGN    
+ 15:18:13     0:00      316.0         0.0         0.2        0.0    OUT2GEOM89      OUTPUT2 BEGN    
+ 15:18:13     0:00      316.0         0.0         0.2        0.0    OUT2GEOM91      OUTPUT2 BEGN    
+ 15:18:13     0:00      316.0         0.0         0.2        0.0    OUT2GEOM93      OUTPUT2 BEGN    
+ 15:18:13     0:00      316.0         0.0         0.2        0.0    PHASE0  2926    AEMODEL BEGN    
+ 15:18:13     0:00      316.0         0.0         0.2        0.0    PHASE0  3050    DBDELETEBEGN    
+ 15:18:13     0:00      316.0         0.0         0.2        0.0    PHASE0  3132    GP1     BEGN    
+ 15:18:13     0:00      316.0         0.0         0.2        0.0    PHASE0  3152 (S)AERO0   BEGN    
+ 15:18:13     0:00      316.0         0.0         0.2        0.0    AERO0   38      AEMODEL BEGN    
+ 15:18:13     0:00      316.0         0.0         0.2        0.0    AERO0   45      AEMODEL BEGN    
+ 15:18:13     0:00      316.0         0.0         0.2        0.0    AERO0   47      APD     BEGN    
+ 15:18:13     0:00      316.0         0.0         0.2        0.0    AERO0   64      GI      BEGN    
+ *** USER INFORMATION MESSAGE 4157 (DFMSYM)
+     PARAMETERS FOR SPARSE DECOMPOSITION OF DATA BLOCK  SCRATCH ( TYPE=RSP ) FOLLOW
+                      MATRIX SIZE =       363 ROWS             NUMBER OF NONZEROES =      4506 TERMS
+           NUMBER OF ZERO COLUMNS =         0        NUMBER OF ZERO DIAGONAL TERMS =         0
+           ELIMINATION TREE DEPTH =       138
+                CPU TIME ESTIMATE =         0 SEC                I/O TIME ESTIMATE =         0 SEC
+       MINIMUM MEMORY REQUIREMENT =         0 MB                  MEMORY AVAILABLE =     72092 MB
+     MEMORY REQR'D TO AVOID SPILL =         2 MB              MEMORY USED BY BEND  =         0 MB
+    EST. INTEGER MEMORY IN FACTOR =         0 MB                EST. NONZERO TERMS =        15 K TERMS
+     ESTIMATED MAXIMUM FRONT SIZE =        69 TERMS                 RANK OF UPDATE =        64
+ *** USER INFORMATION MESSAGE 6439 (DFMSA)
+     ACTUAL MEMORY AND DISK SPACE REQUIREMENTS FOR SPARSE SYM. DECOMPOSITION
+        SPARSE DECOMP MEMORY USED =         2 MB                MAXIMUM FRONT SIZE =        69 TERMS  
+         INTEGER MEMORY IN FACTOR =         0 MB           NONZERO TERMS IN FACTOR =        15 K TERMS
+   SPARSE DECOMP SUGGESTED MEMORY =         2 MB
+ *** SYSTEM INFORMATION MESSAGE 4199 (PREFAC1)
+    THE ENTIRE SPARSE FACTOR HAS BEEN CACHED IN MEMORY FOR THE FBS.
+    ALL 12 FRONTAL MATRICES ARE STORED IN MEMORY.
+    MEMORY AVAILABLE: 72092 MB
+    MEMORY USED TO STORE THE ENTIRE FACTOR: 0 MB
+ 15:18:14     0:01      316.0         0.0         0.3        0.1    FBSI BGN
+ 15:18:14     0:01      316.0         0.0         0.5        0.3    AERO0   64      GI      END     
+ 15:18:14     0:01      316.0         0.0         0.5        0.0    AERO0   94      MKCSTMA BEGN    
+ 15:18:14     0:01      316.0         0.0         0.5        0.0    AERO0   98      GETMKL  BEGN    
+ 15:18:14     0:01      316.0         0.0         0.5        0.0    AERO0   102     MKCSTMA BEGN    
+ 15:18:14     0:01      316.0         0.0         0.5        0.0    AERO0   105     AEMODEL BEGN    
+ 15:18:14     0:01      316.0         0.0         0.5        0.0    AERO0   109     AEMODEL BEGN    
+ 15:18:14     0:01      316.0         0.0         0.5        0.0    AERO0   113     DMIIN   BEGN    
+ 15:18:14     0:01      316.0         0.0         0.5        0.0    AERO0   114     MKCNTRL BEGN    
+ 15:18:14     0:01      316.0         0.0         0.5        0.0    AERO0   115     MKCSTMA BEGN    
+ 15:18:14     0:01      316.0         0.0         0.5        0.0    AERO0   118     MAKAEMONBEGN    
+ 15:18:14     0:01      316.0         0.0         0.5        0.0    AERO0   119     MAKCOMP BEGN    
+ 15:18:14     0:01      316.0         0.0         0.5        0.0    AERO0   120     MAKCOMP BEGN    
+ 15:18:14     0:01      316.0         0.0         0.5        0.0    AERO0   124     MAKMON  BEGN    
+ 15:18:14     0:01      316.0         0.0         0.5        0.0    AERO0   125     MRGMON  BEGN    
+ 15:18:14     0:01      316.0         0.0         0.5        0.0    AERO0   126     MONVEC  BEGN    
+ 15:18:14     0:01      316.0         0.0         0.5        0.0    AERO0   127     MKSTRP  BEGN    
+ 15:18:14     0:01      316.0         0.0         0.5        0.0    AERO0   128     MONVEC  BEGN    
+ 15:18:14     0:01      316.0         0.0         0.5        0.0    AERO0   129     MPYAD   BEGN    
+ 15:18:14     0:01      316.0         0.0         0.5        0.0    AERO0   130     MRGMON  BEGN    
+ 15:18:14     0:01      316.0         0.0         0.5        0.0    AERO0   131     MONVEC  BEGN    
+ 15:18:14     0:01      316.0         0.0         0.5        0.0    AERO0   160     UPARTN  BEGN    
+ 15:18:14     0:01      316.0         0.0         0.5        0.0    AERO0   183     UPARTN  BEGN    
+ 15:18:14     0:01      316.0         0.0         0.5        0.0    AERO0   190     MAKMON  BEGN    
+ 15:18:14     0:01      316.0         0.0         0.5        0.0    AERO0   191     MRGMON  BEGN    
+ 15:18:14     0:01      316.0         0.0         0.5        0.0    AERO0   194     MONVEC  BEGN    
+ 15:18:14     0:01      316.0         0.0         0.5        0.0    AERO0   195     MONVEC  BEGN    
+ 15:18:14     0:01      316.0         0.0         0.5        0.0    AERO0   242     MKSPLINEBEGN    
+ 15:18:14     0:01      316.0         0.0         0.5        0.0    AERO0   249     GI      BEGN    
+ 15:18:16     0:03      316.0         0.0         2.4        1.9    AERO0   249     GI      END     
+ 15:18:16     0:03      316.0         0.0         2.4        0.0    AERO0   252  (S)SPLINOUTBEGN    
+ 15:18:16     0:03      316.0         0.0         2.4        0.0    PHASE0  3153    MRGMON  BEGN    
+ 15:18:16     0:03      316.0         0.0         2.4        0.0    PHASE0  3155    MRGMON  BEGN    
+ 15:18:16     0:03      316.0         0.0         2.4        0.0    PHASE0  3165    BCDR    BEGN    
+ 15:18:16     0:03      316.0         0.0         2.4        0.0    PHASE0  3249 (S)TESTBIT BEGN    
+ 15:18:16     0:03      316.0         0.0         2.4        0.0    PHASE0  3279    OUTPUT2 BEGN    
+ 15:18:16     0:03      316.0         0.0         2.4        0.0    PHASE0  3297    OUTPUT2 BEGN    
+ 15:18:16     0:03      316.0         0.0         2.4        0.0    PHASE0  3301 (S)MODLOOP BEGN    
+ 15:18:16     0:03      316.0         0.0         2.4        0.0    PHASE0  3302    OUTPUT2 BEGN    
+ 15:18:16     0:03      316.0         0.0         2.4        0.0    PHASE0  3344    MATMOD  BEGN    
+ 15:18:16     0:03      316.0         0.0         2.4        0.0    PHASE0  3345    MATMOD  BEGN    
+ 15:18:16     0:03      316.0         0.0         2.4        0.0    SUPER1  166  (S)SETQ    BEGN    
+ 15:18:16     0:03      316.0         0.0         2.4        0.0    SUPER1  184  (S)PHASE1DRBEGN    
+ 15:18:16     0:03      316.0         0.0         2.4        0.0    PHASE1DR233     PVT     BEGN    
+ 15:18:16     0:03      316.0         0.0         2.4        0.0    PHASE1DR242     PVT     BEGN    
+ 15:18:16     0:03      316.0         0.0         2.4        0.0    PHASE1DR344  (S)SETQ    BEGN    
+ 15:18:16     0:03      316.0         0.0         2.4        0.0    PHASE1DR379  (S)DBSETOFFBEGN    
+ 15:18:16     0:03      316.0         0.0         2.4        0.0    PHASE1DR382  (S)PHASE1A BEGN    
+ 15:18:16     0:03      316.0         0.0         2.4        0.0    PHASE1A 101     SEPR1   BEGN    
+ 15:18:16     0:03      316.0         0.0         2.4        0.0    PHASE1A 132  (S)XMTRXIN BEGN    
+ 15:18:16     0:03      316.0         0.0         2.4        0.0    PHASE1A 327     TA1     BEGN    
+ 15:18:16     0:03      316.0         0.0         2.4        0.0    PHASE1A 328     FEMCHECKBEGN    
+ 15:18:16     0:03      316.0         0.0         2.4        0.0    PHASE1A 423     MSGHAN  BEGN    
+ 15:18:16     0:03      316.0         0.0         2.4        0.0    PHASE1A 426  (S)SEMG    BEGN    
+ 15:18:16     0:03      316.0         0.0         2.4        0.0    SEMG    125     ELTPRT  BEGN    
+ 15:18:16     0:03      316.0         0.0         2.4        0.0    SEMG    133     MDENZO  BEGN    
+ 15:18:16     0:03      316.0         0.0         2.4        0.0    SEMG    135     MDENZO  BEGN    
+ 15:18:16     0:03      316.0         0.0         2.4        0.0    GENERATING MODEL MATRICES   
+ 15:18:16     0:03      316.0         0.0         2.4        0.0    SEMG    154     EMG     BEGN    
+ 15:18:16     0:03      316.0         0.0         2.5        0.0    ASSEMBLING SYSTEM MATRICES  
+ 15:18:16     0:03      316.0         0.0         2.5        0.0    SEMG    432     EMA     BEGN    
+ 15:18:16     0:03      316.0         0.0         2.5        0.0    ASSEMBLING SYSTEM MATRICES  
+ 15:18:16     0:03      316.0         0.0         2.5        0.0    SEMG    474     EMA     BEGN    
+ 15:18:16     0:03      316.0         0.0         2.5        0.0    SEMG    540     MDENZO  BEGN    
+ 15:18:16     0:03      316.0         0.0         2.5        0.0    SEMG    542  (S)XMTRXIN BEGN    
+ 15:18:16     0:03      316.0         0.0         2.5        0.0    SEMG    708     MGEN    BEGN    
+ 15:18:16     0:03      316.0         0.0         2.5        0.0    SEMG    739  (S)SEMG1   BEGN    
+ 15:18:16     0:03      316.0         0.0         2.5        0.0    SEMG1   49   (S)SEDAMP  BEGN    
+ 15:18:16     0:03      316.0         0.0         2.5        0.0    SEMG    793     PROJVER BEGN    
+ 15:18:16     0:03      316.0         0.0         2.5        0.0    PHASE1A 446     MSGHAN  BEGN    
+ 15:18:16     0:03      316.0         0.0         2.5        0.0    PHASE1A 447     MSGHAN  BEGN    
+ 15:18:16     0:03      316.0         0.0         2.5        0.0    PHASE1A 448  (S)SESUM   BEGN    
+ 15:18:16     0:03      316.0         0.0         2.5        0.0    PROCESSING EXTERNAL LOADINGS
+ 15:18:16     0:03      316.0         0.0         2.5        0.0    PHASE1A 602     VECPLOT BEGN    
+ 15:18:16     0:03      316.0         0.0         2.5        0.0    PHASE1A 664  (S)SELA1   BEGN    
+ 15:18:16     0:03      316.0         0.0         2.5        0.0    PHASE1A 737  (S)SELA1   BEGN    
+ 15:18:16     0:03      316.0         0.0         2.5        0.0    PHASE1A 810     MSGHAN  BEGN    
+ 15:18:16     0:03      316.0         0.0         2.5        0.0    PHASE1A 827  (S)SELG    BEGN    
+ 15:18:16     0:03      316.0         0.0         2.5        0.0    SELG    44      SSG1    BEGN    
+ 15:18:16     0:03      316.0         0.0         2.5        0.0    SELG    161     VECPLOT BEGN    
+ 15:18:16     0:03      316.0         0.0         2.5        0.0    PHASE1A 851     MSGHAN  BEGN    
+ 15:18:16     0:03      316.0         0.0         2.5        0.0    PHASE1A 852  (S)SESUM   BEGN    
+ 15:18:16     0:03      316.0         0.0         2.5        0.0    PHASE1A 876  (S)SELA1   BEGN    
+ 15:18:16     0:03      316.0         0.0         2.5        0.0    PHASE1A 887  (S)SELA1   BEGN    
+ 15:18:16     0:03      316.0         0.0         2.5        0.0    PHASE1A 922     AEMODEL BEGN    
+ 15:18:16     0:03      316.0         0.0         2.5        0.0    PHASE1A 950     AEMODEL BEGN    
+ 15:18:16     0:03      316.0         0.0         2.5        0.0    PHASE1A 969     SEPR1   BEGN    
+ 15:18:16     0:03      316.0         0.0         2.5        0.0    PHASE1A 970     MKCSTMA BEGN    
+ 15:18:16     0:03      316.0         0.0         2.5        0.0    PHASE1DR681     BCDR    BEGN    
+ 15:18:16     0:03      316.0         0.0         2.5        0.0    PHASE1DR710     PVT     BEGN    
+ 15:18:16     0:03      316.0         0.0         2.5        0.0    PHASE1DR720  (S)PMLUSET BEGN    
+ 15:18:16     0:03      316.0         0.0         2.5        0.0    PHASE1DR851  (S)PHASE1B BEGN    
+ 15:18:16     0:03      316.0         0.0         2.5        0.0    PHASE1B 76      COPY    BEGN    
+ 15:18:16     0:03      316.0         0.0         2.5        0.0    APPLYING RB CONSTRAINTS 
+ 15:18:16     0:03      316.0         0.0         2.5        0.0    PHASE1B 90   (S)SEKR0   BEGN    
+ 15:18:16     0:03      316.0         0.0         2.5        0.0    SEKR0   24      COPY    BEGN    
+ 15:18:16     0:03      316.0         0.0         2.5        0.0    SEKR0   170     VECPLOT BEGN    
+ 15:18:16     0:03      316.0         0.0         2.5        0.0    SEKR0   183     GPSP    BEGN    
+ 15:18:16     0:03      316.0         0.0         2.5        0.0    PHASE1B 181  (S)SEKMR   BEGN    
+ 15:18:16     0:03      316.0         0.0         2.5        0.0    SEKMR   27      COPY    BEGN    
+ 15:18:16     0:03      316.0         0.0         2.5        0.0    SEKMR   30   (S)PMLUSET BEGN    
+ 15:18:16     0:03      316.0         0.0         2.5        0.0    SEKMR   40      MATMOD  BEGN    
+ 15:18:16     0:03      316.0         0.0         2.5        0.0    SEKMR   46   (S)SEKR    BEGN    
+ 15:18:16     0:03      316.0         0.0         2.5        0.0    SEKR    23   (S)PMLUSET BEGN    
+ 15:18:16     0:03      316.0         0.0         2.5        0.0    APPLYING BOUNDARY CONSTRAINTS   
+ 15:18:16     0:03      316.0         0.0         2.5        0.0    SEKR    27      UPARTN  BEGN    
+ 15:18:16     0:03      316.0         0.0         2.5        0.0    SEKR    41      VECPLOT BEGN    
+ 15:18:16     0:03      316.0         0.0         2.5        0.0    SEKR    205  (S)SESUM   BEGN    
+ 15:18:16     0:03      316.0         0.0         2.5        0.0    SEKMR   47   (S)SESUM   BEGN    
+ 15:18:16     0:03      316.0         0.0         2.5        0.0    SEKMR   182  (S)SELA1   BEGN    
+ 15:18:16     0:03      316.0         0.0         2.5        0.0    SEKMR   183  (S)SELA1   BEGN    
+ 15:18:16     0:03      316.0         0.0         2.5        0.0    SEKMR   184  (S)SELA1   BEGN    
+ 15:18:16     0:03      316.0         0.0         2.5        0.0    SEKMR   189  (S)SEMRM   BEGN    
+ 15:18:16     0:03      316.0         0.0         2.5        0.0    SEMRM   54   (S)SEMR2   BEGN    
+ 15:18:16     0:03      316.0         0.0         2.5        0.0    SEMR2   41      VECPLOT BEGN    
+ 15:18:16     0:03      316.0         0.0         2.5        0.0    SEMR2   42      OFP     BEGN    
+ 15:18:16     0:03      316.0         0.0         2.5        0.0    SEMR2   43      VECPLOT BEGN    
+ 15:18:16     0:03      316.0         0.0         2.5        0.0    SEMR2   44      OFP     BEGN    
+ 15:18:16     0:03      316.0         0.0         2.5        0.0    SEMR2   65      UPARTN  BEGN    
+ 15:18:16     0:03      316.0         0.0         2.5        0.0    SEMR2   75      VECPLOT BEGN    
+ 15:18:16     0:03      316.0         0.0         2.5        0.0    SEMR2   76      OFP     BEGN    
+ 15:18:16     0:03      316.0         0.0         2.5        0.0    SEKMR   307  (S)XADD5   BEGN    
+ 15:18:16     0:03      316.0         0.0         2.5        0.0    PHASE1B 217  (S)PMLUSET BEGN    
+ 15:18:16     0:03      316.0         0.0         2.5        0.0    PHASE1B 222     UPARTN  BEGN    
+ 15:18:16     0:03      316.0         0.0         2.5        0.0    PHASE1B 228  (S)SEGOA   BEGN    
+ 15:18:16     0:03      316.0         0.0         2.5        0.0    PHASE1B 253  (S)SEMRB   BEGN    
+ 15:18:16     0:03      316.0         0.0         2.5        0.0    SEMRB   146  (S)XADD5   BEGN    
+ 15:18:16     0:03      316.0         0.0         2.5        0.0    PHASE1B 281  (S)SEMRB   BEGN    
+ 15:18:16     0:03      316.0         0.0         2.5        0.0    SEMRB   146  (S)XADD5   BEGN    
+ 15:18:16     0:03      316.0         0.0         2.5        0.0    PHASE1B 294  (S)SESUM   BEGN    
+ 15:18:16     0:03      316.0         0.0         2.5        0.0    PHASE1B 706  (S)SEGOA   BEGN    
+ 15:18:16     0:03      316.0         0.0         2.5        0.0    PHASE1B 711     ROTRUTL BEGN    
+ 15:18:16     0:03      316.0         0.0         2.5        0.0    PHASE1B 743  (S)SELR    BEGN    
+ 15:18:16     0:03      316.0         0.0         2.5        0.0    PHASE1B 745  (S)SESUM   BEGN    
+ 15:18:16     0:03      316.0         0.0         2.5        0.0    PHASE1B 1135    SSG2    BEGN    
+ 15:18:16     0:03      316.0         0.0         2.5        0.0    PHASE1B 1136    SSG2    BEGN    
+ 15:18:16     0:03      316.0         0.0         2.5        0.0    PHASE1B 1137    SSG2    BEGN    
+ 15:18:16     0:03      316.0         0.0         2.5        0.0    PHASE1B 1154    AEMODEL BEGN    
+ 15:18:16     0:03      316.0         0.0         2.5        0.0    PHASE1B 1192    SSG2    BEGN    
+ 15:18:16     0:03      316.0         0.0         2.5        0.1    PHASE1B 1193    SSG2    BEGN    
+ 15:18:16     0:03      316.0         0.0         2.6        0.1    PHASE1B 1194    UPARTN  BEGN    
+ 15:18:16     0:03      316.0         0.0         2.6        0.0    PHASE1B 1215    SEPR1   BEGN    
+ 15:18:16     0:03      316.0         0.0         2.6        0.0    PHASE1B 1264 (S)SEGOA   BEGN    
+ 15:18:16     0:03      316.0         0.0         2.6        0.0    PHASE1B 1268    MATREDU BEGN    
+ 15:18:16     0:03      316.0         0.0         2.6        0.0    PHASE1B 1282    TRNSP   BEGN    
+ 15:18:16     0:03      316.0         0.0         2.6        0.0    PHASE1B 1283    ADD5    BEGN    
+ 15:18:16     0:03      316.0         0.0         2.6        0.0    PHASE1B 1284    UPARTN  BEGN    
+ 15:18:16     0:03      316.0         0.0         2.6        0.0    PHASE1B 1381 (S)SEGOA   BEGN    
+ 15:18:16     0:03      316.0         0.0         2.6        0.0    PHASE1B 1382    SSG2    BEGN    
+ 15:18:16     0:03      316.0         0.0         2.6        0.0    PHASE1DR1174 (S)PMLUSET BEGN    
+ 15:18:16     0:03      316.0         0.0         2.6        0.0    PHASE1DR1179 (S)PHASE1C BEGN    
+ 15:18:16     0:03      316.0         0.0         2.6        0.0    PHASE1C 26      MATMOD  BEGN    
+ 15:18:16     0:03      316.0         0.0         2.6        0.0    PHASE1C 72   (S)SESUM   BEGN    
+ 15:18:16     0:03      316.0         0.0         2.6        0.0    PHASE1C 81   (S)SESUM   BEGN    
+ 15:18:16     0:03      316.0         0.0         2.6        0.0    PHASE1C 109     AEMODEL BEGN    
+ 15:18:16     0:03      316.0         0.0         2.6        0.0    PHASE1C 113     AEMODEL BEGN    
+ 15:18:16     0:03      316.0         0.0         2.6        0.0    PHASE1C 138     SEPR1   BEGN    
+ 15:18:16     0:03      316.0         0.0         2.6        0.0    PHASE1C 151     TRNSP   BEGN    
+ 15:18:16     0:03      316.0         0.0         2.7        0.1    PHASE1DR1205    BCDR    BEGN    
+ 15:18:16     0:03      316.0         0.0         2.7        0.0    SEFLUTTR51      CASE    BEGN    
+ 15:18:16     0:03      316.0         0.0         2.7        0.0    SEFLUTTR59      AEMODEL BEGN    
+ 15:18:16     0:03      316.0         0.0         2.7        0.0    SEFLUTTR60      BCDR    BEGN    
+ 15:18:16     0:03      316.0         0.0         2.7        0.0    SEFLUTTR61   (S)PMLUSET BEGN    
+ 15:18:16     0:03      316.0         0.0         2.7        0.0    SEFLUTTR69   (S)DPD1    BEGN    
+ 15:18:16     0:03      316.0         0.0         2.7        0.0    DPD1    20   (S)PMLUSET BEGN    
+ 15:18:16     0:03      316.0         0.0         2.7        0.0    DPD1    67      DPD     BEGN    
+ 15:18:16     0:03      316.0         0.0         2.7        0.0    DPD1    147  (S)READAC  BEGN    
+ 15:18:16     0:03      316.0         0.0         2.7        0.0    SEFLUTTR131  (S)MODEFSRSBEGN    
+ 15:18:16     0:03      316.0         0.0         2.7        0.0    MODEFSRS100  (S)TESTBIT BEGN    
+ 15:18:16     0:03      316.0         0.0         2.7        0.0    MODEFSRS103  (S)SEGOA   BEGN    
+ 15:18:16     0:03      316.0         0.0         2.7        0.0    MODEFSRS320  (S)MODERS  BEGN    
+ 15:18:16     0:03      316.0         0.0         2.7        0.0    MODERS  57   (S)AUTOOMITBEGN    
+ 15:18:16     0:03      316.0         0.0         2.7        0.0    AUTOOMIT11      MATMOD  BEGN    
+ 15:18:16     0:03      316.0         0.0         2.7        0.0    AUTOOMIT27      MATMOD  BEGN    
+ 15:18:16     0:03      316.0         0.0         2.7        0.0    NORMAL MODES STARTED
+ 15:18:16     0:03      316.0         0.0         2.7        0.0    MODERS  68      MSGHAN  BEGN    
+ 15:18:16     0:03      316.0         0.0         2.7        0.0    MODERS  118  (S)XREAD   BEGN    
+ 15:18:16     0:03      316.0         0.0         2.7        0.0    XREAD   35   (S)TESTBIT BEGN    
+ 15:18:16     0:03      316.0         0.0         2.7        0.0    XREAD   127     READ    BEGN    
+ *** USER INFORMATION MESSAGE 4157 (DFMSYM)
+     PARAMETERS FOR SPARSE DECOMPOSITION OF DATA BLOCK  SCRATCH ( TYPE=RSP ) FOLLOW
+                      MATRIX SIZE =      6528 ROWS             NUMBER OF NONZEROES =     70167 TERMS
+           NUMBER OF ZERO COLUMNS =         0        NUMBER OF ZERO DIAGONAL TERMS =         0
+           ELIMINATION TREE DEPTH =       828
+                CPU TIME ESTIMATE =         0 SEC                I/O TIME ESTIMATE =         0 SEC
+       MINIMUM MEMORY REQUIREMENT =         1 MB                  MEMORY AVAILABLE =     72092 MB
+     MEMORY REQR'D TO AVOID SPILL =         3 MB              MEMORY USED BY BEND  =         1 MB
+    EST. INTEGER MEMORY IN FACTOR =         1 MB                EST. NONZERO TERMS =       407 K TERMS
+     ESTIMATED MAXIMUM FRONT SIZE =       123 TERMS                 RANK OF UPDATE =        64
+ *** USER INFORMATION MESSAGE 6439 (DFMSA)
+     ACTUAL MEMORY AND DISK SPACE REQUIREMENTS FOR SPARSE SYM. DECOMPOSITION
+        SPARSE DECOMP MEMORY USED =         3 MB                MAXIMUM FRONT SIZE =       123 TERMS  
+         INTEGER MEMORY IN FACTOR =         0 MB           NONZERO TERMS IN FACTOR =       407 K TERMS
+   SPARSE DECOMP SUGGESTED MEMORY =         2 MB
+ *** SYSTEM INFORMATION MESSAGE 4199 (PREFACT)
+    THE ENTIRE SPARSE FACTOR HAS BEEN CACHED IN MEMORY FOR THE FBS.
+    ALL 261 FRONTAL MATRICES ARE STORED IN MEMORY.
+    MEMORY AVAILABLE: 3 MB
+    MEMORY USED TO STORE THE ENTIRE FACTOR: 6 MB
+ 15:18:16     0:03      316.0         0.0         2.7        0.0    FBSI BGN
+ 15:18:16     0:03      316.0         0.0         2.7        0.0    FBSI BGN
+ 15:18:16     0:03      316.0         0.0         2.7        0.0    FBSI BGN
+ 15:18:16     0:03      316.0         0.0         2.7        0.0    FBSI BGN
+ 15:18:16     0:03      316.0         0.0         2.7        0.0    FBSI BGN
+ 15:18:16     0:03      316.0         0.0         2.7        0.0    FBSI BGN
+ 15:18:16     0:03      316.0         0.0         2.7        0.0    FBSI BGN
+ 15:18:16     0:03      316.0         0.0         2.7        0.0    FBSI BGN
+ *** USER INFORMATION MESSAGE 6439 (DFMSA)
+     ACTUAL MEMORY AND DISK SPACE REQUIREMENTS FOR SPARSE SYM. DECOMPOSITION
+        SPARSE DECOMP MEMORY USED =         3 MB                MAXIMUM FRONT SIZE =       123 TERMS  
+         INTEGER MEMORY IN FACTOR =         0 MB           NONZERO TERMS IN FACTOR =       407 K TERMS
+   SPARSE DECOMP SUGGESTED MEMORY =         2 MB
+ *** SYSTEM INFORMATION MESSAGE 4199 (PREFACT)
+    THE ENTIRE SPARSE FACTOR HAS BEEN CACHED IN MEMORY FOR THE FBS.
+    ALL 261 FRONTAL MATRICES ARE STORED IN MEMORY.
+    MEMORY AVAILABLE: 3 MB
+    MEMORY USED TO STORE THE ENTIRE FACTOR: 6 MB
+*** USER INFORMATION MESSAGE 5403 (LNNRIGL)
+    BREAKDOWN OF CPU TIME (SEC) DURING LANCZOS ITERATIONS:
+    OPERATION               REPETITIONS   AVERAGE      TOTAL
+    FBS (BLOCK SIZE=  7)             8      0.00       0.01
+    MATRIX-VECTOR MULTIPLY          18      0.00       0.00
+    SHIFT AND FACTOR                 2      0.01       0.01
+    LANCZOS RUN                      1      0.01       0.01
+ 15:18:16     0:03      316.0         0.0         2.7        0.0    MODERS  122     MSGHAN  BEGN    
+ 15:18:16     0:03      316.0         0.0         2.7        0.0    MODERS  178     LAMX    BEGN    
+ 15:18:16     0:03      316.0         0.0         2.7        0.0    MODERS  181     OFP     BEGN    
+ 15:18:16     0:03      316.0         0.0         2.7        0.0    MODERS  229  (S)SESUM   BEGN    
+ 15:18:16     0:03      316.0         0.0         2.7        0.0    COMPUTING RESIDUAL VECTORS  
+ 15:18:16     0:03      316.0         0.0         2.7        0.0    MODEFSRS370  (S)GENRLDA BEGN    
+ 15:18:16     0:03      316.0         0.0         2.7        0.0    GENRLDA 195     TRNSP   BEGN    
+ 15:18:16     0:03      316.0         0.0         2.7        0.0    GENRLDA 197     MPYAD   BEGN    
+ 15:18:16     0:03      316.0         0.0         2.7        0.0    GENRLDA 204     APPEND  BEGN    
+ 15:18:16     0:03      316.0         0.0         2.7        0.0    GENRLDA 210     NORM    BEGN    
+ 15:18:16     0:03      316.0         0.0         2.7        0.0    GENRLDA 215     SSG2    BEGN    
+ 15:18:16     0:03      316.0         0.0         2.7        0.0    GENRLDA 216  (S)FILTER  BEGN    
+ 15:18:16     0:03      316.0         0.0         2.7        0.0    FILTER  6       MATMOD  BEGN    
+ 15:18:16     0:03      316.0         0.0         2.7        0.0    FILTER  7       MATMOD  BEGN    
+ 15:18:16     0:03      316.0         0.0         2.7        0.0    GENRLDA 217     SSG2    BEGN    
+ 15:18:16     0:03      316.0         0.0         2.7        0.0    GENRLDA 218  (S)FILTER  BEGN    
+ 15:18:16     0:03      316.0         0.0         2.7        0.0    FILTER  6       MATMOD  BEGN    
+ 15:18:16     0:03      316.0         0.0         2.7        0.0    FILTER  7       MATMOD  BEGN    
+ 15:18:16     0:03      316.0         0.0         2.7        0.0    MODEFSRS393     PROJVER BEGN    
+ 15:18:16     0:03      316.0         0.0         2.7        0.0    MODEFSRS446  (S)AUTOSPRTBEGN    
+ 15:18:16     0:03      316.0         0.0         2.7        0.0    AUTOSPRT16      MATMOD  BEGN    
+ 15:18:16     0:03      316.0         0.0         2.7        0.0    AUTOSPRT28      LAMX    BEGN    
+ 15:18:16     0:03      316.0         0.0         2.7        0.0    AUTOSPRT29      MATMOD  BEGN    
+ 15:18:16     0:03      316.0         0.0         2.7        0.0    AUTOSPRT30      MATMOD  BEGN    
+ 15:18:16     0:03      316.0         0.0         2.7        0.0    AUTOSPRT120     DCMP    BEGN    
+ *** USER INFORMATION MESSAGE 4157 (DFMSYM)
+     PARAMETERS FOR SPARSE DECOMPOSITION OF DATA BLOCK  KYY     ( TYPE=RSP ) FOLLOW
+                      MATRIX SIZE =      6528 ROWS             NUMBER OF NONZEROES =     70167 TERMS
+           NUMBER OF ZERO COLUMNS =         0        NUMBER OF ZERO DIAGONAL TERMS =         0
+           ELIMINATION TREE DEPTH =       828
+                CPU TIME ESTIMATE =         0 SEC                I/O TIME ESTIMATE =         0 SEC
+       MINIMUM MEMORY REQUIREMENT =         1 MB                  MEMORY AVAILABLE =     72092 MB
+     MEMORY REQR'D TO AVOID SPILL =         3 MB              MEMORY USED BY BEND  =         1 MB
+    EST. INTEGER MEMORY IN FACTOR =         1 MB                EST. NONZERO TERMS =       407 K TERMS
+     ESTIMATED MAXIMUM FRONT SIZE =       123 TERMS                 RANK OF UPDATE =        64
+ *** USER INFORMATION MESSAGE 6439 (DFMSA)
+     ACTUAL MEMORY AND DISK SPACE REQUIREMENTS FOR SPARSE SYM. DECOMPOSITION
+        SPARSE DECOMP MEMORY USED =         3 MB                MAXIMUM FRONT SIZE =       123 TERMS  
+         INTEGER MEMORY IN FACTOR =         0 MB           NONZERO TERMS IN FACTOR =       407 K TERMS
+   SPARSE DECOMP SUGGESTED MEMORY =         2 MB
+ 15:18:16     0:03      316.0         0.0         2.8        0.0    MODEFSRS448  (S)RESVECA BEGN    
+ 15:18:16     0:03      316.0         0.0         2.8        0.0    RESVECA 7       DIAGONALBEGN    
+ 15:18:16     0:03      316.0         0.0         2.8        0.0    RESVECA 8       DIAGONALBEGN    
+ 15:18:16     0:03      316.0         0.0         2.8        0.0    RESVECA 9       SMPYAD  BEGN    
+ 15:18:16     0:03      316.0         0.0         2.8        0.0    RESVECA 12   (S)RESLOAD BEGN    
+ 15:18:16     0:03      316.0         0.0         2.8        0.0    RESLOAD 59      MATMOD  BEGN    
+ 15:18:16     0:03      316.0         0.0         2.8        0.0    RESLOAD 67   (S)LDSWEEP BEGN    
+ 15:18:16     0:03      316.0         0.0         2.8        0.0    LDSWEEP 12      NORM    BEGN    
+ 15:18:16     0:03      316.0         0.0         2.8        0.0    LDSWEEP 16      DIAGONALBEGN    
+ 15:18:16     0:03      316.0         0.0         2.8        0.0    LDSWEEP 17      SMPYAD  BEGN    
+ 15:18:16     0:03      316.0         0.0         2.8        0.0    LDSWEEP 18   (S)FILTER  BEGN    
+ 15:18:16     0:03      316.0         0.0         2.8        0.0    FILTER  6       MATMOD  BEGN    
+ 15:18:16     0:03      316.0         0.0         2.8        0.0    FILTER  7       MATMOD  BEGN    
+ 15:18:16     0:03      316.0         0.0         2.8        0.0    RESLOAD 86      FBS     BEGN    
+ *** USER INFORMATION MESSAGE 4153 (DFNSB)
+     FBS METHOD S2 TIME ESTIMATE TO FORM RSVY     - CPU=     0, I/O=     0, TOTAL=     0, PASSES=   1
+ 15:18:16     0:03      316.0         0.0         2.8        0.0    RESLOAD 131  (S)LININD  BEGN    
+ 15:18:16     0:03      316.0         0.0         2.8        0.0    LININD  27      SMPYAD  BEGN    
+ 15:18:16     0:03      316.0         0.0         2.8        0.0    LININD  32      DIAGONALBEGN    
+ 15:18:16     0:03      316.0         0.0         2.8        0.0    LININD  33      DIAGONALBEGN    
+ 15:18:16     0:03      316.0         0.0         2.8        0.0    LININD  34      SMPYAD  BEGN    
+ 15:18:16     0:03      316.0         0.0         2.8        0.0    LININD  38      MATGEN  BEGN    
+ 15:18:16     0:03      316.0         0.0         2.8        0.0    LININD  40      READ    BEGN    
+ *** USER INFORMATION MESSAGE 2141 (REIG)
+     HOUSEHOLDER TIME ESTIMATE  IS        1 SECONDS.
+     PROBLEM SIZE IS        6 .
+ 15:18:16     0:03      316.0         0.0         2.8        0.0    FBS BEGN
+ 15:18:16     0:03      316.0         0.0         2.8        0.0    FBS BEGN
+ 15:18:16     0:03      316.0         0.0         2.8        0.0    FBS BEGN
+ 15:18:16     0:03      316.0         0.0         2.8        0.0    FBS BEGN
+ 15:18:16     0:03      316.0         0.0         2.8        0.0    LININD  42      SMPYAD  BEGN    
+ 15:18:16     0:03      316.0         0.0         2.8        0.0    LININD  46      DIAGONALBEGN    
+ 15:18:16     0:03      316.0         0.0         2.8        0.0    LININD  47      MATMOD  BEGN    
+ 15:18:16     0:03      316.0         0.0         2.8        0.0    LININD  48      DIAGONALBEGN    
+ 15:18:16     0:03      316.0         0.0         2.8        0.0    RESLOAD 135  (S)USWEEP  BEGN    
+ 15:18:16     0:03      316.0         0.0         2.8        0.0    USWEEP  12      NORM    BEGN    
+ 15:18:16     0:03      316.0         0.0         2.8        0.0    USWEEP  16      DIAGONALBEGN    
+ 15:18:16     0:03      316.0         0.0         2.8        0.0    USWEEP  17      SMPYAD  BEGN    
+ 15:18:16     0:03      316.0         0.0         2.8        0.0    USWEEP  18   (S)FILTER  BEGN    
+ 15:18:16     0:03      316.0         0.0         2.8        0.0    FILTER  6       MATMOD  BEGN    
+ 15:18:16     0:03      316.0         0.0         2.8        0.0    FILTER  7       MATMOD  BEGN    
+ 15:18:16     0:03      316.0         0.0         2.8        0.0    RESLOAD 146  (S)ATBC    BEGN    
+ 15:18:16     0:03      316.0         0.0         2.8        0.0    ATBC    15      MATMOD  BEGN    
+ 15:18:16     0:03      316.0         0.0         2.8        0.0    ATBC    21      MATMOD  BEGN    
+ 15:18:16     0:03      316.0         0.0         2.8        0.0    ATBC    48      PARTN   BEGN    
+ 15:18:16     0:03      316.0         0.0         2.8        0.0    ATBC    49      PARTN   BEGN    
+ 15:18:16     0:03      316.0         0.0         2.8        0.0    ATBC    54      MPYAD   BEGN    
+ 15:18:16     0:03      316.0         0.0         2.8        0.0    ATBC    56      MPYAD   BEGN    
+ 15:18:16     0:03      316.0         0.0         2.8        0.0    ATBC    67      MODTRL  BEGN    
+ 15:18:16     0:03      316.0         0.0         2.8        0.0    RESLOAD 147  (S)ATBC    BEGN    
+ 15:18:16     0:03      316.0         0.0         2.8        0.0    ATBC    15      MATMOD  BEGN    
+ 15:18:16     0:03      316.0         0.0         2.8        0.0    ATBC    21      MATMOD  BEGN    
+ 15:18:16     0:03      316.0         0.0         2.8        0.0    ATBC    61      MPYAD   BEGN    
+ 15:18:16     0:03      316.0         0.0         2.8        0.0    ATBC    63      MPYAD   BEGN    
+ 15:18:16     0:03      316.0         0.0         2.8        0.0    ATBC    67      MODTRL  BEGN    
+ 15:18:16     0:03      316.0         0.0         2.8        0.0    RESLOAD 149  (S)RESMODESBEGN    
+ 15:18:16     0:03      316.0         0.0         2.8        0.0    RESMODES23   (S)MPART   BEGN    
+ 15:18:16     0:03      316.0         0.0         2.8        0.0    MPART   22      DIAGONALBEGN    
+ 15:18:16     0:03      316.0         0.0         2.8        0.0    MPART   24      READ    BEGN    
+ *** USER INFORMATION MESSAGE 2141 (REIG)
+     HOUSEHOLDER TIME ESTIMATE  IS        1 SECONDS.
+     PROBLEM SIZE IS        6 .
+ 15:18:16     0:03      316.0         0.0         2.8        0.0    FBS BEGN
+ 15:18:16     0:03      316.0         0.0         2.8        0.0    FBS BEGN
+ 15:18:16     0:03      316.0         0.0         2.8        0.0    FBS BEGN
+ 15:18:16     0:03      316.0         0.0         2.8        0.0    FBS BEGN
+ 15:18:16     0:03      316.0         0.0         2.8        0.0    MPART   25      DIAGONALBEGN    
+ 15:18:16     0:03      316.0         0.0         2.8        0.0    MPART   29      MATMOD  BEGN    
+ 15:18:16     0:03      316.0         0.0         2.8        0.0    MPART   49      MPYAD   BEGN    
+ 15:18:16     0:03      316.0         0.0         2.8        0.0    MPART   50      SMPYAD  BEGN    
+ 15:18:16     0:03      316.0         0.0         2.8        0.0    MPART   51      SMPYAD  BEGN    
+ 15:18:16     0:03      316.0         0.0         2.8        0.0    RESMODES31      READ    BEGN    
+ *** USER INFORMATION MESSAGE 2141 (REIG)
+     HOUSEHOLDER TIME ESTIMATE  IS        1 SECONDS.
+     PROBLEM SIZE IS        6 .
+ 15:18:16     0:03      316.0         0.0         2.8        0.0    FBS BEGN
+ 15:18:16     0:03      316.0         0.0         2.8        0.0    FBS BEGN
+ 15:18:16     0:03      316.0         0.0         2.8        0.0    FBS BEGN
+ 15:18:16     0:03      316.0         0.0         2.8        0.0    FBS BEGN
+ 15:18:16     0:03      316.0         0.0         2.8        0.0    RESMODES44      MPYAD   BEGN    
+ 15:18:16     0:03      316.0         0.0         2.8        0.0    RESLOAD 159     MATGEN  BEGN    
+ 15:18:16     0:03      316.0         0.0         2.8        0.0    RESLOAD 160     APPEND  BEGN    
+ 15:18:16     0:03      316.0         0.0         2.8        0.0    RESLOAD 161     MERGE   BEGN    
+ 15:18:16     0:03      316.0         0.0         2.8        0.0    RESLOAD 162     MERGE   BEGN    
+ 15:18:16     0:03      316.0         0.0         2.8        0.0    RESLOAD 202     LAMX    BEGN    
+ 15:18:16     0:03      316.0         0.0         2.8        0.0    RESLOAD 207     OFP     BEGN    
+ 15:18:16     0:03      316.0         0.0         2.8        0.0    RESLOAD 246     LAMX    BEGN    
+ 15:18:16     0:03      316.0         0.0         2.8        0.0    RESLOAD 251     MODTRL  BEGN    
+ 15:18:16     0:03      316.0         0.0         2.8        0.0    MODEFSRS1095    DBEQUIV BEGN    
+ 15:18:16     0:03      316.0         0.0         2.8        0.0    SEFLUTTR143     VDR     BEGN    
+ 15:18:16     0:03      316.0         0.0         2.8        0.0    SEFLUTTR167     PVT     BEGN    
+ 15:18:16     0:03      316.0         0.0         2.8        0.0    SEFLUTTR168  (S)SETQ    BEGN    
+ 15:18:16     0:03      316.0         0.0         2.8        0.0    SEFLUTTR169  (S)PFAERO  BEGN    
+ 15:18:16     0:03      316.0         0.0         2.8        0.0    PFAERO  44      DMIIN   BEGN    
+ 15:18:16     0:03      316.0         0.0         2.8        0.0    PFAERO  57      AEMODEL BEGN    
+ 15:18:16     0:03      316.0         0.0         2.8        0.0    PFAERO  61      AEMODEL BEGN    
+ 15:18:16     0:03      316.0         0.0         2.8        0.0    PFAERO  68      MTRXIN  BEGN    
+ 15:18:16     0:03      316.0         0.0         2.8        0.0    PFAERO  70      DMIIN   BEGN    
+ 15:18:16     0:03      316.0         0.0         2.8        0.0    PFAERO  93      DMIIN   BEGN    
+ 15:18:16     0:03      316.0         0.0         2.8        0.0    PFAERO  123     MTRXIN  BEGN    
+ 15:18:16     0:03      316.0         0.0         2.8        0.0    PFAERO  125     DMIIN   BEGN    
+ 15:18:16     0:03      316.0         0.0         2.8        0.0    PFAERO  129     ADG     BEGN    
+ 15:18:16     0:03      316.0         0.0         2.8        0.0    PFAERO  423     AEMODEL BEGN    
+ 15:18:16     0:03      316.0         0.0         2.8        0.0    PFAERO  427     AEMODEL BEGN    
+ 15:18:16     0:03      316.0         0.0         2.8        0.0    PFAERO  476     AMG     BEGN    
+ 15:18:17     0:04      316.0         0.0         3.4        0.6    PFAERO  478     ADD     BEGN    
+ 15:18:17     0:04      316.0         0.0         3.4        0.0    PFAERO  480     DECOMP  BEGN    
+ *** USER INFORMATION MESSAGE 4216 (UDSFA)
+     PARAMETERS FOR SPARSE UNSYM. DECOMP OF DATA BLOCK  AJJT    ( TYPE=CSP ) FOLLOW
+                     MATRIX SIZE =    1024 ROWS             NUMBER OF NONZEROES = 1047552 TERMS
+          NUMBER OF ZERO COLUMNS =       0        NUMBER OF ZERO DIAGONAL TERMS =       0
+               CPU TIME ESTIMATE =       1 SEC                I/O TIME ESTIMATE =       0 SEC
+    ESTIMATED MEMORY REQUIREMENT =      27 MB                  MEMORY AVAILABLE =   72092 MB
+   EST. INTEGER MEMORY IN FACTOR =      10 MB                EST. NONZERO TERMS =     525 K TERMS
+    ESTIMATED MAXIMUM FRONT SIZE =    1024 TERMS                 RANK OF UPDATE =      64
+ *** USER INFORMATION MESSAGE 6439 (UDSFA)
+     ACTUAL MEMORY AND DISK SPACE REQUIREMENTS FOR SPARSE UNSYM. DECOMPOSITION
+     SPARSE DECOMP MEMORY REQUIRED =      52 MB                MAXIMUM FRONT SIZE =    1024 TERMS  
+          INTEGER MEMORY IN FACTOR =       0 MB           NONZERO TERMS IN FACTOR =     525 K TERMS
+    SPARSE DECOMP SUGGESTED MEMORY =      78 MB
+ 15:18:17     0:04      316.0         0.0         3.5        0.1    PFAERO  480     DECOMP  END     
+ 15:18:17     0:04      316.0         0.0         3.5        0.0    PFAERO  476     AMG     BEGN    
+ 15:18:17     0:04      316.0         0.0         4.1        0.5    PFAERO  478     ADD     BEGN    
+ 15:18:17     0:04      316.0         0.0         4.1        0.0    PFAERO  480     DECOMP  BEGN    
+ *** USER INFORMATION MESSAGE 4216 (UDSFA)
+     PARAMETERS FOR SPARSE UNSYM. DECOMP OF DATA BLOCK  AJJT    ( TYPE=CSP ) FOLLOW
+                     MATRIX SIZE =    1024 ROWS             NUMBER OF NONZEROES = 1047552 TERMS
+          NUMBER OF ZERO COLUMNS =       0        NUMBER OF ZERO DIAGONAL TERMS =       0
+               CPU TIME ESTIMATE =       1 SEC                I/O TIME ESTIMATE =       0 SEC
+    ESTIMATED MEMORY REQUIREMENT =      27 MB                  MEMORY AVAILABLE =   72092 MB
+   EST. INTEGER MEMORY IN FACTOR =      10 MB                EST. NONZERO TERMS =     525 K TERMS
+    ESTIMATED MAXIMUM FRONT SIZE =    1024 TERMS                 RANK OF UPDATE =      64
+ *** USER INFORMATION MESSAGE 6439 (UDSFA)
+     ACTUAL MEMORY AND DISK SPACE REQUIREMENTS FOR SPARSE UNSYM. DECOMPOSITION
+     SPARSE DECOMP MEMORY REQUIRED =      52 MB                MAXIMUM FRONT SIZE =    1024 TERMS  
+          INTEGER MEMORY IN FACTOR =       0 MB           NONZERO TERMS IN FACTOR =     525 K TERMS
+    SPARSE DECOMP SUGGESTED MEMORY =      78 MB
+ 15:18:18     0:05      316.0         0.0         4.2        0.2    PFAERO  476     AMG     BEGN    
+ 15:18:18     0:05      316.0         0.0         4.8        0.5    PFAERO  476     AMG     END     
+ 15:18:18     0:05      316.0         0.0         4.8        0.0    PFAERO  478     ADD     BEGN    
+ 15:18:18     0:05      316.0         0.0         4.8        0.0    PFAERO  480     DECOMP  BEGN    
+ *** USER INFORMATION MESSAGE 4216 (UDSFA)
+     PARAMETERS FOR SPARSE UNSYM. DECOMP OF DATA BLOCK  AJJT    ( TYPE=CSP ) FOLLOW
+                     MATRIX SIZE =    1024 ROWS             NUMBER OF NONZEROES = 1047552 TERMS
+          NUMBER OF ZERO COLUMNS =       0        NUMBER OF ZERO DIAGONAL TERMS =       0
+               CPU TIME ESTIMATE =       1 SEC                I/O TIME ESTIMATE =       0 SEC
+    ESTIMATED MEMORY REQUIREMENT =      27 MB                  MEMORY AVAILABLE =   72092 MB
+   EST. INTEGER MEMORY IN FACTOR =      10 MB                EST. NONZERO TERMS =     525 K TERMS
+    ESTIMATED MAXIMUM FRONT SIZE =    1024 TERMS                 RANK OF UPDATE =      64
+ *** USER INFORMATION MESSAGE 6439 (UDSFA)
+     ACTUAL MEMORY AND DISK SPACE REQUIREMENTS FOR SPARSE UNSYM. DECOMPOSITION
+     SPARSE DECOMP MEMORY REQUIRED =      52 MB                MAXIMUM FRONT SIZE =    1024 TERMS  
+          INTEGER MEMORY IN FACTOR =       0 MB           NONZERO TERMS IN FACTOR =     525 K TERMS
+    SPARSE DECOMP SUGGESTED MEMORY =      78 MB
+ 15:18:18     0:05      316.0         0.0         5.0        0.1    PFAERO  476     AMG     BEGN    
+ 15:18:19     0:06      316.0         0.0         5.5        0.5    PFAERO  476     AMG     END     
+ 15:18:19     0:06      316.0         0.0         5.5        0.0    PFAERO  478     ADD     BEGN    
+ 15:18:19     0:06      316.0         0.0         5.5        0.0    PFAERO  480     DECOMP  BEGN    
+ *** USER INFORMATION MESSAGE 4216 (UDSFA)
+     PARAMETERS FOR SPARSE UNSYM. DECOMP OF DATA BLOCK  AJJT    ( TYPE=CSP ) FOLLOW
+                     MATRIX SIZE =    1024 ROWS             NUMBER OF NONZEROES = 1047552 TERMS
+          NUMBER OF ZERO COLUMNS =       0        NUMBER OF ZERO DIAGONAL TERMS =       0
+               CPU TIME ESTIMATE =       1 SEC                I/O TIME ESTIMATE =       0 SEC
+    ESTIMATED MEMORY REQUIREMENT =      27 MB                  MEMORY AVAILABLE =   72092 MB
+   EST. INTEGER MEMORY IN FACTOR =      10 MB                EST. NONZERO TERMS =     525 K TERMS
+    ESTIMATED MAXIMUM FRONT SIZE =    1024 TERMS                 RANK OF UPDATE =      64
+ *** USER INFORMATION MESSAGE 6439 (UDSFA)
+     ACTUAL MEMORY AND DISK SPACE REQUIREMENTS FOR SPARSE UNSYM. DECOMPOSITION
+     SPARSE DECOMP MEMORY REQUIRED =      52 MB                MAXIMUM FRONT SIZE =    1024 TERMS  
+          INTEGER MEMORY IN FACTOR =       0 MB           NONZERO TERMS IN FACTOR =     525 K TERMS
+    SPARSE DECOMP SUGGESTED MEMORY =      78 MB
+ 15:18:19     0:06      316.0         0.0         5.7        0.2    PFAERO  476     AMG     BEGN    
+ 15:18:20     0:07      316.0         0.0         6.3        0.6    PFAERO  478     ADD     BEGN    
+ 15:18:20     0:07      316.0         0.0         6.3        0.0    PFAERO  480     DECOMP  BEGN    
+ *** USER INFORMATION MESSAGE 4216 (UDSFA)
+     PARAMETERS FOR SPARSE UNSYM. DECOMP OF DATA BLOCK  AJJT    ( TYPE=CSP ) FOLLOW
+                     MATRIX SIZE =    1024 ROWS             NUMBER OF NONZEROES = 1047552 TERMS
+          NUMBER OF ZERO COLUMNS =       0        NUMBER OF ZERO DIAGONAL TERMS =       0
+               CPU TIME ESTIMATE =       1 SEC                I/O TIME ESTIMATE =       0 SEC
+    ESTIMATED MEMORY REQUIREMENT =      27 MB                  MEMORY AVAILABLE =   72092 MB
+   EST. INTEGER MEMORY IN FACTOR =      10 MB                EST. NONZERO TERMS =     525 K TERMS
+    ESTIMATED MAXIMUM FRONT SIZE =    1024 TERMS                 RANK OF UPDATE =      64
+ *** USER INFORMATION MESSAGE 6439 (UDSFA)
+     ACTUAL MEMORY AND DISK SPACE REQUIREMENTS FOR SPARSE UNSYM. DECOMPOSITION
+     SPARSE DECOMP MEMORY REQUIRED =      52 MB                MAXIMUM FRONT SIZE =    1024 TERMS  
+          INTEGER MEMORY IN FACTOR =       0 MB           NONZERO TERMS IN FACTOR =     525 K TERMS
+    SPARSE DECOMP SUGGESTED MEMORY =      78 MB
+ 15:18:20     0:07      316.0         0.0         6.4        0.2    PFAERO  480     DECOMP  END     
+ 15:18:20     0:07      316.0         0.0         6.4        0.0    PFAERO  476     AMG     BEGN    
+ 15:18:20     0:07      316.0         0.0         7.0        0.5    PFAERO  478     ADD     BEGN    
+ 15:18:20     0:07      316.0         0.0         7.0        0.0    PFAERO  480     DECOMP  BEGN    
+ *** USER INFORMATION MESSAGE 4216 (UDSFA)
+     PARAMETERS FOR SPARSE UNSYM. DECOMP OF DATA BLOCK  AJJT    ( TYPE=CSP ) FOLLOW
+                     MATRIX SIZE =    1024 ROWS             NUMBER OF NONZEROES = 1047552 TERMS
+          NUMBER OF ZERO COLUMNS =       0        NUMBER OF ZERO DIAGONAL TERMS =       0
+               CPU TIME ESTIMATE =       1 SEC                I/O TIME ESTIMATE =       0 SEC
+    ESTIMATED MEMORY REQUIREMENT =      27 MB                  MEMORY AVAILABLE =   72092 MB
+   EST. INTEGER MEMORY IN FACTOR =      10 MB                EST. NONZERO TERMS =     525 K TERMS
+    ESTIMATED MAXIMUM FRONT SIZE =    1024 TERMS                 RANK OF UPDATE =      64
+ *** USER INFORMATION MESSAGE 6439 (UDSFA)
+     ACTUAL MEMORY AND DISK SPACE REQUIREMENTS FOR SPARSE UNSYM. DECOMPOSITION
+     SPARSE DECOMP MEMORY REQUIRED =      52 MB                MAXIMUM FRONT SIZE =    1024 TERMS  
+          INTEGER MEMORY IN FACTOR =       0 MB           NONZERO TERMS IN FACTOR =     525 K TERMS
+    SPARSE DECOMP SUGGESTED MEMORY =      78 MB
+ 15:18:20     0:07      316.0         0.0         7.1        0.1    PFAERO  476     AMG     BEGN    
+ 15:18:21     0:08      316.0         0.0         7.7        0.6    PFAERO  476     AMG     END     
+ 15:18:21     0:08      316.0         0.0         7.7        0.0    PFAERO  478     ADD     BEGN    
+ 15:18:21     0:08      316.0         0.0         7.7        0.0    PFAERO  480     DECOMP  BEGN    
+ *** USER INFORMATION MESSAGE 4216 (UDSFA)
+     PARAMETERS FOR SPARSE UNSYM. DECOMP OF DATA BLOCK  AJJT    ( TYPE=CSP ) FOLLOW
+                     MATRIX SIZE =    1024 ROWS             NUMBER OF NONZEROES = 1047552 TERMS
+          NUMBER OF ZERO COLUMNS =       0        NUMBER OF ZERO DIAGONAL TERMS =       0
+               CPU TIME ESTIMATE =       1 SEC                I/O TIME ESTIMATE =       0 SEC
+    ESTIMATED MEMORY REQUIREMENT =      27 MB                  MEMORY AVAILABLE =   72092 MB
+   EST. INTEGER MEMORY IN FACTOR =      10 MB                EST. NONZERO TERMS =     525 K TERMS
+    ESTIMATED MAXIMUM FRONT SIZE =    1024 TERMS                 RANK OF UPDATE =      64
+ *** USER INFORMATION MESSAGE 6439 (UDSFA)
+     ACTUAL MEMORY AND DISK SPACE REQUIREMENTS FOR SPARSE UNSYM. DECOMPOSITION
+     SPARSE DECOMP MEMORY REQUIRED =      52 MB                MAXIMUM FRONT SIZE =    1024 TERMS  
+          INTEGER MEMORY IN FACTOR =       0 MB           NONZERO TERMS IN FACTOR =     525 K TERMS
+    SPARSE DECOMP SUGGESTED MEMORY =      78 MB
+ 15:18:21     0:08      316.0         0.0         7.8        0.1    PFAERO  476     AMG     BEGN    
+ 15:18:22     0:09      316.0         0.0         8.4        0.6    PFAERO  478     ADD     BEGN    
+ 15:18:22     0:09      316.0         0.0         8.4        0.0    PFAERO  480     DECOMP  BEGN    
+ *** USER INFORMATION MESSAGE 4216 (UDSFA)
+     PARAMETERS FOR SPARSE UNSYM. DECOMP OF DATA BLOCK  AJJT    ( TYPE=CSP ) FOLLOW
+                     MATRIX SIZE =    1024 ROWS             NUMBER OF NONZEROES = 1047552 TERMS
+          NUMBER OF ZERO COLUMNS =       0        NUMBER OF ZERO DIAGONAL TERMS =       0
+               CPU TIME ESTIMATE =       1 SEC                I/O TIME ESTIMATE =       0 SEC
+    ESTIMATED MEMORY REQUIREMENT =      27 MB                  MEMORY AVAILABLE =   72092 MB
+   EST. INTEGER MEMORY IN FACTOR =      10 MB                EST. NONZERO TERMS =     525 K TERMS
+    ESTIMATED MAXIMUM FRONT SIZE =    1024 TERMS                 RANK OF UPDATE =      64
+ *** USER INFORMATION MESSAGE 6439 (UDSFA)
+     ACTUAL MEMORY AND DISK SPACE REQUIREMENTS FOR SPARSE UNSYM. DECOMPOSITION
+     SPARSE DECOMP MEMORY REQUIRED =      52 MB                MAXIMUM FRONT SIZE =    1024 TERMS  
+          INTEGER MEMORY IN FACTOR =       0 MB           NONZERO TERMS IN FACTOR =     525 K TERMS
+    SPARSE DECOMP SUGGESTED MEMORY =      78 MB
+ 15:18:22     0:09      316.0         0.0         8.5        0.1    PFAERO  480     DECOMP  END     
+ 15:18:22     0:09      316.0         0.0         8.6        0.0    PFAERO  476     AMG     BEGN    
+ 15:18:22     0:09      316.0         0.0         9.1        0.6    PFAERO  478     ADD     BEGN    
+ 15:18:22     0:09      316.0         0.0         9.2        0.0    PFAERO  480     DECOMP  BEGN    
+ *** USER INFORMATION MESSAGE 4216 (UDSFA)
+     PARAMETERS FOR SPARSE UNSYM. DECOMP OF DATA BLOCK  AJJT    ( TYPE=CSP ) FOLLOW
+                     MATRIX SIZE =    1024 ROWS             NUMBER OF NONZEROES = 1047552 TERMS
+          NUMBER OF ZERO COLUMNS =       0        NUMBER OF ZERO DIAGONAL TERMS =       0
+               CPU TIME ESTIMATE =       1 SEC                I/O TIME ESTIMATE =       0 SEC
+    ESTIMATED MEMORY REQUIREMENT =      27 MB                  MEMORY AVAILABLE =   72092 MB
+   EST. INTEGER MEMORY IN FACTOR =      10 MB                EST. NONZERO TERMS =     525 K TERMS
+    ESTIMATED MAXIMUM FRONT SIZE =    1024 TERMS                 RANK OF UPDATE =      64
+ *** USER INFORMATION MESSAGE 6439 (UDSFA)
+     ACTUAL MEMORY AND DISK SPACE REQUIREMENTS FOR SPARSE UNSYM. DECOMPOSITION
+     SPARSE DECOMP MEMORY REQUIRED =      52 MB                MAXIMUM FRONT SIZE =    1024 TERMS  
+          INTEGER MEMORY IN FACTOR =       0 MB           NONZERO TERMS IN FACTOR =     525 K TERMS
+    SPARSE DECOMP SUGGESTED MEMORY =      78 MB
+ 15:18:23     0:10      316.0         0.0         9.3        0.2    PFAERO  476     AMG     BEGN    
+ 15:18:23     0:10      316.0         0.0         9.9        0.5    PFAERO  476     AMG     END     
+ 15:18:23     0:10      316.0         0.0         9.9        0.0    PFAERO  478     ADD     BEGN    
+ 15:18:23     0:10      316.0         0.0         9.9        0.0    PFAERO  480     DECOMP  BEGN    
+ *** USER INFORMATION MESSAGE 4216 (UDSFA)
+     PARAMETERS FOR SPARSE UNSYM. DECOMP OF DATA BLOCK  AJJT    ( TYPE=CSP ) FOLLOW
+                     MATRIX SIZE =    1024 ROWS             NUMBER OF NONZEROES = 1047552 TERMS
+          NUMBER OF ZERO COLUMNS =       0        NUMBER OF ZERO DIAGONAL TERMS =       0
+               CPU TIME ESTIMATE =       1 SEC                I/O TIME ESTIMATE =       0 SEC
+    ESTIMATED MEMORY REQUIREMENT =      27 MB                  MEMORY AVAILABLE =   72092 MB
+   EST. INTEGER MEMORY IN FACTOR =      10 MB                EST. NONZERO TERMS =     525 K TERMS
+    ESTIMATED MAXIMUM FRONT SIZE =    1024 TERMS                 RANK OF UPDATE =      64
+ *** USER INFORMATION MESSAGE 6439 (UDSFA)
+     ACTUAL MEMORY AND DISK SPACE REQUIREMENTS FOR SPARSE UNSYM. DECOMPOSITION
+     SPARSE DECOMP MEMORY REQUIRED =      52 MB                MAXIMUM FRONT SIZE =    1024 TERMS  
+          INTEGER MEMORY IN FACTOR =       0 MB           NONZERO TERMS IN FACTOR =     525 K TERMS
+    SPARSE DECOMP SUGGESTED MEMORY =      78 MB
+ 15:18:23     0:10      316.0         0.0        10.0        0.1    PFAERO  476     AMG     BEGN    
+ 15:18:24     0:11      316.0         0.0        10.6        0.6    PFAERO  476     AMG     END     
+ 15:18:24     0:11      316.0         0.0        10.6        0.0    PFAERO  478     ADD     BEGN    
+ 15:18:24     0:11      316.0         0.0        10.6        0.0    PFAERO  480     DECOMP  BEGN    
+ *** USER INFORMATION MESSAGE 4216 (UDSFA)
+     PARAMETERS FOR SPARSE UNSYM. DECOMP OF DATA BLOCK  AJJT    ( TYPE=CSP ) FOLLOW
+                     MATRIX SIZE =    1024 ROWS             NUMBER OF NONZEROES = 1047552 TERMS
+          NUMBER OF ZERO COLUMNS =       0        NUMBER OF ZERO DIAGONAL TERMS =       0
+               CPU TIME ESTIMATE =       1 SEC                I/O TIME ESTIMATE =       0 SEC
+    ESTIMATED MEMORY REQUIREMENT =      27 MB                  MEMORY AVAILABLE =   72092 MB
+   EST. INTEGER MEMORY IN FACTOR =      10 MB                EST. NONZERO TERMS =     525 K TERMS
+    ESTIMATED MAXIMUM FRONT SIZE =    1024 TERMS                 RANK OF UPDATE =      64
+ *** USER INFORMATION MESSAGE 6439 (UDSFA)
+     ACTUAL MEMORY AND DISK SPACE REQUIREMENTS FOR SPARSE UNSYM. DECOMPOSITION
+     SPARSE DECOMP MEMORY REQUIRED =      52 MB                MAXIMUM FRONT SIZE =    1024 TERMS  
+          INTEGER MEMORY IN FACTOR =       0 MB           NONZERO TERMS IN FACTOR =     525 K TERMS
+    SPARSE DECOMP SUGGESTED MEMORY =      78 MB
+ 15:18:24     0:11      316.0         0.0        10.7        0.1    PFAERO  476     AMG     BEGN    
+ 15:18:25     0:12      316.0         0.0        11.3        0.5    PFAERO  478     ADD     BEGN    
+ 15:18:25     0:12      316.0         0.0        11.3        0.0    PFAERO  480     DECOMP  BEGN    
+ *** USER INFORMATION MESSAGE 4216 (UDSFA)
+     PARAMETERS FOR SPARSE UNSYM. DECOMP OF DATA BLOCK  AJJT    ( TYPE=CSP ) FOLLOW
+                     MATRIX SIZE =    1024 ROWS             NUMBER OF NONZEROES = 1047552 TERMS
+          NUMBER OF ZERO COLUMNS =       0        NUMBER OF ZERO DIAGONAL TERMS =       0
+               CPU TIME ESTIMATE =       1 SEC                I/O TIME ESTIMATE =       0 SEC
+    ESTIMATED MEMORY REQUIREMENT =      27 MB                  MEMORY AVAILABLE =   72092 MB
+   EST. INTEGER MEMORY IN FACTOR =      10 MB                EST. NONZERO TERMS =     525 K TERMS
+    ESTIMATED MAXIMUM FRONT SIZE =    1024 TERMS                 RANK OF UPDATE =      64
+ *** USER INFORMATION MESSAGE 6439 (UDSFA)
+     ACTUAL MEMORY AND DISK SPACE REQUIREMENTS FOR SPARSE UNSYM. DECOMPOSITION
+     SPARSE DECOMP MEMORY REQUIRED =      52 MB                MAXIMUM FRONT SIZE =    1024 TERMS  
+          INTEGER MEMORY IN FACTOR =       0 MB           NONZERO TERMS IN FACTOR =     525 K TERMS
+    SPARSE DECOMP SUGGESTED MEMORY =      78 MB
+ 15:18:25     0:12      316.0         0.0        11.4        0.1    PFAERO  476     AMG     BEGN    
+ 15:18:25     0:12      316.0         0.0        12.0        0.6    PFAERO  476     AMG     END     
+ 15:18:25     0:12      316.0         0.0        12.0        0.0    PFAERO  478     ADD     BEGN    
+ 15:18:25     0:12      316.0         0.0        12.0        0.0    PFAERO  480     DECOMP  BEGN    
+ *** USER INFORMATION MESSAGE 4216 (UDSFA)
+     PARAMETERS FOR SPARSE UNSYM. DECOMP OF DATA BLOCK  AJJT    ( TYPE=CSP ) FOLLOW
+                     MATRIX SIZE =    1024 ROWS             NUMBER OF NONZEROES = 1047552 TERMS
+          NUMBER OF ZERO COLUMNS =       0        NUMBER OF ZERO DIAGONAL TERMS =       0
+               CPU TIME ESTIMATE =       1 SEC                I/O TIME ESTIMATE =       0 SEC
+    ESTIMATED MEMORY REQUIREMENT =      27 MB                  MEMORY AVAILABLE =   72092 MB
+   EST. INTEGER MEMORY IN FACTOR =      10 MB                EST. NONZERO TERMS =     525 K TERMS
+    ESTIMATED MAXIMUM FRONT SIZE =    1024 TERMS                 RANK OF UPDATE =      64
+ *** USER INFORMATION MESSAGE 6439 (UDSFA)
+     ACTUAL MEMORY AND DISK SPACE REQUIREMENTS FOR SPARSE UNSYM. DECOMPOSITION
+     SPARSE DECOMP MEMORY REQUIRED =      52 MB                MAXIMUM FRONT SIZE =    1024 TERMS  
+          INTEGER MEMORY IN FACTOR =       0 MB           NONZERO TERMS IN FACTOR =     525 K TERMS
+    SPARSE DECOMP SUGGESTED MEMORY =      78 MB
+ 15:18:25     0:12      316.0         0.0        12.1        0.2    PFAERO  476     AMG     BEGN    
+ 15:18:26     0:13      316.0         0.0        12.7        0.5    PFAERO  476     AMG     END     
+ 15:18:26     0:13      316.0         0.0        12.7        0.0    PFAERO  478     ADD     BEGN    
+ 15:18:26     0:13      316.0         0.0        12.7        0.0    PFAERO  480     DECOMP  BEGN    
+ *** USER INFORMATION MESSAGE 4216 (UDSFA)
+     PARAMETERS FOR SPARSE UNSYM. DECOMP OF DATA BLOCK  AJJT    ( TYPE=CSP ) FOLLOW
+                     MATRIX SIZE =    1024 ROWS             NUMBER OF NONZEROES = 1047552 TERMS
+          NUMBER OF ZERO COLUMNS =       0        NUMBER OF ZERO DIAGONAL TERMS =       0
+               CPU TIME ESTIMATE =       1 SEC                I/O TIME ESTIMATE =       0 SEC
+    ESTIMATED MEMORY REQUIREMENT =      27 MB                  MEMORY AVAILABLE =   72092 MB
+   EST. INTEGER MEMORY IN FACTOR =      10 MB                EST. NONZERO TERMS =     525 K TERMS
+    ESTIMATED MAXIMUM FRONT SIZE =    1024 TERMS                 RANK OF UPDATE =      64
+ *** USER INFORMATION MESSAGE 6439 (UDSFA)
+     ACTUAL MEMORY AND DISK SPACE REQUIREMENTS FOR SPARSE UNSYM. DECOMPOSITION
+     SPARSE DECOMP MEMORY REQUIRED =      52 MB                MAXIMUM FRONT SIZE =    1024 TERMS  
+          INTEGER MEMORY IN FACTOR =       0 MB           NONZERO TERMS IN FACTOR =     525 K TERMS
+    SPARSE DECOMP SUGGESTED MEMORY =      78 MB
+ 15:18:26     0:13      316.0         0.0        12.9        0.1    PFAERO  476     AMG     BEGN    
+ 15:18:27     0:14      316.0         0.0        13.4        0.6    PFAERO  478     ADD     BEGN    
+ 15:18:27     0:14      316.0         0.0        13.4        0.0    PFAERO  480     DECOMP  BEGN    
+ *** USER INFORMATION MESSAGE 4216 (UDSFA)
+     PARAMETERS FOR SPARSE UNSYM. DECOMP OF DATA BLOCK  AJJT    ( TYPE=CSP ) FOLLOW
+                     MATRIX SIZE =    1024 ROWS             NUMBER OF NONZEROES = 1047552 TERMS
+          NUMBER OF ZERO COLUMNS =       0        NUMBER OF ZERO DIAGONAL TERMS =       0
+               CPU TIME ESTIMATE =       1 SEC                I/O TIME ESTIMATE =       0 SEC
+    ESTIMATED MEMORY REQUIREMENT =      27 MB                  MEMORY AVAILABLE =   72092 MB
+   EST. INTEGER MEMORY IN FACTOR =      10 MB                EST. NONZERO TERMS =     525 K TERMS
+    ESTIMATED MAXIMUM FRONT SIZE =    1024 TERMS                 RANK OF UPDATE =      64
+ *** USER INFORMATION MESSAGE 6439 (UDSFA)
+     ACTUAL MEMORY AND DISK SPACE REQUIREMENTS FOR SPARSE UNSYM. DECOMPOSITION
+     SPARSE DECOMP MEMORY REQUIRED =      52 MB                MAXIMUM FRONT SIZE =    1024 TERMS  
+          INTEGER MEMORY IN FACTOR =       0 MB           NONZERO TERMS IN FACTOR =     525 K TERMS
+    SPARSE DECOMP SUGGESTED MEMORY =      78 MB
+ 15:18:27     0:14      316.0         0.0        13.6        0.2    PFAERO  480     DECOMP  END     
+ 15:18:27     0:14      316.0         0.0        13.6        0.0    PFAERO  476     AMG     BEGN    
+ 15:18:27     0:14      316.0         0.0        14.1        0.5    PFAERO  478     ADD     BEGN    
+ 15:18:27     0:14      316.0         0.0        14.1        0.0    PFAERO  480     DECOMP  BEGN    
+ *** USER INFORMATION MESSAGE 4216 (UDSFA)
+     PARAMETERS FOR SPARSE UNSYM. DECOMP OF DATA BLOCK  AJJT    ( TYPE=CSP ) FOLLOW
+                     MATRIX SIZE =    1024 ROWS             NUMBER OF NONZEROES = 1047552 TERMS
+          NUMBER OF ZERO COLUMNS =       0        NUMBER OF ZERO DIAGONAL TERMS =       0
+               CPU TIME ESTIMATE =       1 SEC                I/O TIME ESTIMATE =       0 SEC
+    ESTIMATED MEMORY REQUIREMENT =      27 MB                  MEMORY AVAILABLE =   72092 MB
+   EST. INTEGER MEMORY IN FACTOR =      10 MB                EST. NONZERO TERMS =     525 K TERMS
+    ESTIMATED MAXIMUM FRONT SIZE =    1024 TERMS                 RANK OF UPDATE =      64
+ *** USER INFORMATION MESSAGE 6439 (UDSFA)
+     ACTUAL MEMORY AND DISK SPACE REQUIREMENTS FOR SPARSE UNSYM. DECOMPOSITION
+     SPARSE DECOMP MEMORY REQUIRED =      52 MB                MAXIMUM FRONT SIZE =    1024 TERMS  
+          INTEGER MEMORY IN FACTOR =       0 MB           NONZERO TERMS IN FACTOR =     525 K TERMS
+    SPARSE DECOMP SUGGESTED MEMORY =      78 MB
+ 15:18:28     0:15      316.0         0.0        14.3        0.1    PFAERO  476     AMG     BEGN    
+ 15:18:28     0:15      316.0         0.0        14.8        0.6    PFAERO  476     AMG     END     
+ 15:18:28     0:15      316.0         0.0        14.8        0.0    PFAERO  478     ADD     BEGN    
+ 15:18:28     0:15      316.0         0.0        14.8        0.0    PFAERO  480     DECOMP  BEGN    
+ *** USER INFORMATION MESSAGE 4216 (UDSFA)
+     PARAMETERS FOR SPARSE UNSYM. DECOMP OF DATA BLOCK  AJJT    ( TYPE=CSP ) FOLLOW
+                     MATRIX SIZE =    1024 ROWS             NUMBER OF NONZEROES = 1047552 TERMS
+          NUMBER OF ZERO COLUMNS =       0        NUMBER OF ZERO DIAGONAL TERMS =       0
+               CPU TIME ESTIMATE =       1 SEC                I/O TIME ESTIMATE =       0 SEC
+    ESTIMATED MEMORY REQUIREMENT =      27 MB                  MEMORY AVAILABLE =   72092 MB
+   EST. INTEGER MEMORY IN FACTOR =      10 MB                EST. NONZERO TERMS =     525 K TERMS
+    ESTIMATED MAXIMUM FRONT SIZE =    1024 TERMS                 RANK OF UPDATE =      64
+ *** USER INFORMATION MESSAGE 6439 (UDSFA)
+     ACTUAL MEMORY AND DISK SPACE REQUIREMENTS FOR SPARSE UNSYM. DECOMPOSITION
+     SPARSE DECOMP MEMORY REQUIRED =      52 MB                MAXIMUM FRONT SIZE =    1024 TERMS  
+          INTEGER MEMORY IN FACTOR =       0 MB           NONZERO TERMS IN FACTOR =     525 K TERMS
+    SPARSE DECOMP SUGGESTED MEMORY =      78 MB
+ 15:18:28     0:15      316.0         0.0        15.0        0.2    PFAERO  476     AMG     BEGN    
+ 15:18:29     0:16      316.0         0.0        15.6        0.6    PFAERO  476     AMG     END     
+ 15:18:29     0:16      316.0         0.0        15.6        0.0    PFAERO  478     ADD     BEGN    
+ 15:18:29     0:16      316.0         0.0        15.6        0.0    PFAERO  480     DECOMP  BEGN    
+ *** USER INFORMATION MESSAGE 4216 (UDSFA)
+     PARAMETERS FOR SPARSE UNSYM. DECOMP OF DATA BLOCK  AJJT    ( TYPE=CSP ) FOLLOW
+                     MATRIX SIZE =    1024 ROWS             NUMBER OF NONZEROES = 1047552 TERMS
+          NUMBER OF ZERO COLUMNS =       0        NUMBER OF ZERO DIAGONAL TERMS =       0
+               CPU TIME ESTIMATE =       1 SEC                I/O TIME ESTIMATE =       0 SEC
+    ESTIMATED MEMORY REQUIREMENT =      27 MB                  MEMORY AVAILABLE =   72092 MB
+   EST. INTEGER MEMORY IN FACTOR =      10 MB                EST. NONZERO TERMS =     525 K TERMS
+    ESTIMATED MAXIMUM FRONT SIZE =    1024 TERMS                 RANK OF UPDATE =      64
+ *** USER INFORMATION MESSAGE 6439 (UDSFA)
+     ACTUAL MEMORY AND DISK SPACE REQUIREMENTS FOR SPARSE UNSYM. DECOMPOSITION
+     SPARSE DECOMP MEMORY REQUIRED =      52 MB                MAXIMUM FRONT SIZE =    1024 TERMS  
+          INTEGER MEMORY IN FACTOR =       0 MB           NONZERO TERMS IN FACTOR =     525 K TERMS
+    SPARSE DECOMP SUGGESTED MEMORY =      78 MB
+ 15:18:29     0:16      316.0         0.0        15.7        0.2    PFAERO  476     AMG     BEGN    
+ 15:18:30     0:17      316.0         0.0        16.3        0.6    PFAERO  478     ADD     BEGN    
+ 15:18:30     0:17      316.0         0.0        16.3        0.0    PFAERO  480     DECOMP  BEGN    
+ *** USER INFORMATION MESSAGE 4216 (UDSFA)
+     PARAMETERS FOR SPARSE UNSYM. DECOMP OF DATA BLOCK  AJJT    ( TYPE=CSP ) FOLLOW
+                     MATRIX SIZE =    1024 ROWS             NUMBER OF NONZEROES = 1047552 TERMS
+          NUMBER OF ZERO COLUMNS =       0        NUMBER OF ZERO DIAGONAL TERMS =       0
+               CPU TIME ESTIMATE =       1 SEC                I/O TIME ESTIMATE =       0 SEC
+    ESTIMATED MEMORY REQUIREMENT =      27 MB                  MEMORY AVAILABLE =   72092 MB
+   EST. INTEGER MEMORY IN FACTOR =      10 MB                EST. NONZERO TERMS =     525 K TERMS
+    ESTIMATED MAXIMUM FRONT SIZE =    1024 TERMS                 RANK OF UPDATE =      64
+ *** USER INFORMATION MESSAGE 6439 (UDSFA)
+     ACTUAL MEMORY AND DISK SPACE REQUIREMENTS FOR SPARSE UNSYM. DECOMPOSITION
+     SPARSE DECOMP MEMORY REQUIRED =      52 MB                MAXIMUM FRONT SIZE =    1024 TERMS  
+          INTEGER MEMORY IN FACTOR =       0 MB           NONZERO TERMS IN FACTOR =     525 K TERMS
+    SPARSE DECOMP SUGGESTED MEMORY =      78 MB
+ 15:18:30     0:17      316.0         0.0        16.4        0.1    PFAERO  480     DECOMP  END     
+ 15:18:30     0:17      316.0         0.0        16.4        0.0    PFAERO  476     AMG     BEGN    
+ 15:18:30     0:17      316.0         0.0        17.0        0.6    PFAERO  478     ADD     BEGN    
+ 15:18:30     0:17      316.0         0.0        17.0        0.0    PFAERO  480     DECOMP  BEGN    
+ *** USER INFORMATION MESSAGE 4216 (UDSFA)
+     PARAMETERS FOR SPARSE UNSYM. DECOMP OF DATA BLOCK  AJJT    ( TYPE=CSP ) FOLLOW
+                     MATRIX SIZE =    1024 ROWS             NUMBER OF NONZEROES = 1047552 TERMS
+          NUMBER OF ZERO COLUMNS =       0        NUMBER OF ZERO DIAGONAL TERMS =       0
+               CPU TIME ESTIMATE =       1 SEC                I/O TIME ESTIMATE =       0 SEC
+    ESTIMATED MEMORY REQUIREMENT =      27 MB                  MEMORY AVAILABLE =   72092 MB
+   EST. INTEGER MEMORY IN FACTOR =      10 MB                EST. NONZERO TERMS =     525 K TERMS
+    ESTIMATED MAXIMUM FRONT SIZE =    1024 TERMS                 RANK OF UPDATE =      64
+ *** USER INFORMATION MESSAGE 6439 (UDSFA)
+     ACTUAL MEMORY AND DISK SPACE REQUIREMENTS FOR SPARSE UNSYM. DECOMPOSITION
+     SPARSE DECOMP MEMORY REQUIRED =      52 MB                MAXIMUM FRONT SIZE =    1024 TERMS  
+          INTEGER MEMORY IN FACTOR =       0 MB           NONZERO TERMS IN FACTOR =     525 K TERMS
+    SPARSE DECOMP SUGGESTED MEMORY =      78 MB
+ 15:18:30     0:17      316.0         0.0        17.2        0.2    SEFLUTTR174     CASE    BEGN    
+ 15:18:30     0:17      316.0         0.0        17.2        0.0    SEFLUTTR175     PVT     BEGN    
+ 15:18:30     0:17      316.0         0.0        17.2        0.0    SEFLUTTR177     AEMODEL BEGN    
+ 15:18:30     0:17      316.0         0.0        17.2        0.0    SEFLUTTR179  (S)SETQ    BEGN    
+ 15:18:30     0:17      316.0         0.0        17.2        0.0    SEFLUTTR228  (S)GMAX    BEGN    
+ 15:18:30     0:17      316.0         0.0        17.2        0.0    GMAX    31   (S)GET2PP  BEGN    
+ 15:18:30     0:17      316.0         0.0        17.2        0.0    GET2PP  30   (S)XMTRXIN BEGN    
+ 15:18:30     0:17      316.0         0.0        17.2        0.0    GMAX    80   (S)PARTGMA BEGN    
+ 15:18:30     0:17      316.0         0.0        17.2        0.0    GMAX    82   (S)GMAM    BEGN    
+ 15:18:30     0:17      316.0         0.0        17.2        0.0    GMAM    161     MATGEN  BEGN    
+ 15:18:30     0:17      316.0         0.0        17.2        0.0    GMAM    162     GKAM    BEGN    
+ 15:18:30     0:17      316.0         0.0        17.2        0.0    GMAM    171  (S)GETBSDMPBEGN    
+ 15:18:30     0:17      316.0         0.0        17.2        0.0    GMAM    323  (S)RSDAMP  BEGN    
+ 15:18:30     0:17      316.0         0.0        17.2        0.0    RSDAMP  117  (S)XADD5   BEGN    
+ 15:18:30     0:17      316.0         0.0        17.2        0.0    GMAM    516  (S)ASSEMGMABEGN    
+ 15:18:30     0:17      316.0         0.0        17.2        0.0    ASSEMGMA7    (S)XADD5   BEGN    
+ 15:18:30     0:17      316.0         0.0        17.2        0.0    ASSEMGMA141  (S)XADD5   BEGN    
+ 15:18:30     0:17      316.0         0.0        17.2        0.0    ASSEMGMA162  (S)XADD5   BEGN    
+ 15:18:30     0:17      316.0         0.0        17.2        0.0    ASSEMGMA163  (S)XADD5   BEGN    
+ 15:18:30     0:17      316.0         0.0        17.2        0.0    SEFLUTTR262  (S)FLUTTER BEGN    
+ 15:18:30     0:17      316.0         0.0        17.2        0.0    FLUTTER 32      MPYAD   BEGN    
+ 15:18:30     0:17      316.0         0.0        17.2        0.0    FLUTTER 33      MPYAD   BEGN    
+ 15:18:31     0:18      316.0         0.0        17.2        0.0    FLUTTER 56      AMP     BEGN    
+ *** USER INFORMATION MESSAGE 4234 (UDSFB)
+     UFBS METHOD S2 TIME ESTIMATE TO FORM SCRATCH  - CPU=     0, I/O=     0, TOTAL=     0, PASSES=   1
+ 15:18:31     0:18      316.0         0.0        17.3        0.0    FLUTTER 76      SDR1    BEGN    
+ 15:18:31     0:18      316.0         0.0        17.3        0.0    FLUTTER 77      SDR1    BEGN    
+ 15:18:31     0:18      316.0         0.0        17.3        0.0    FLUTTER 56      AMP     BEGN    
+ *** USER INFORMATION MESSAGE 4234 (UDSFB)
+     UFBS METHOD S2 TIME ESTIMATE TO FORM SCRATCH  - CPU=     0, I/O=     0, TOTAL=     0, PASSES=   1
+ 15:18:31     0:18      316.0         0.0        17.3        0.0    FLUTTER 76      SDR1    BEGN    
+ 15:18:31     0:18      316.0         0.0        17.3        0.0    FLUTTER 77      SDR1    BEGN    
+ 15:18:31     0:18      316.0         0.0        17.3        0.0    FLUTTER 56      AMP     BEGN    
+ *** USER INFORMATION MESSAGE 4234 (UDSFB)
+     UFBS METHOD S2 TIME ESTIMATE TO FORM SCRATCH  - CPU=     0, I/O=     0, TOTAL=     0, PASSES=   1
+ 15:18:31     0:18      316.0         0.0        17.3        0.0    FLUTTER 76      SDR1    BEGN    
+ 15:18:31     0:18      316.0         0.0        17.3        0.0    FLUTTER 77      SDR1    BEGN    
+ 15:18:31     0:18      316.0         0.0        17.3        0.0    FLUTTER 56      AMP     BEGN    
+ *** USER INFORMATION MESSAGE 4234 (UDSFB)
+     UFBS METHOD S2 TIME ESTIMATE TO FORM SCRATCH  - CPU=     0, I/O=     0, TOTAL=     0, PASSES=   1
+ 15:18:31     0:18      316.0         0.0        17.3        0.0    FLUTTER 76      SDR1    BEGN    
+ 15:18:31     0:18      316.0         0.0        17.3        0.0    FLUTTER 77      SDR1    BEGN    
+ 15:18:31     0:18      316.0         0.0        17.3        0.0    FLUTTER 56      AMP     BEGN    
+ *** USER INFORMATION MESSAGE 4234 (UDSFB)
+     UFBS METHOD S2 TIME ESTIMATE TO FORM SCRATCH  - CPU=     0, I/O=     0, TOTAL=     0, PASSES=   1
+ 15:18:31     0:18      316.0         0.0        17.3        0.0    FLUTTER 76      SDR1    BEGN    
+ 15:18:31     0:18      316.0         0.0        17.3        0.0    FLUTTER 77      SDR1    BEGN    
+ 15:18:31     0:18      316.0         0.0        17.3        0.0    FLUTTER 56      AMP     BEGN    
+ *** USER INFORMATION MESSAGE 4234 (UDSFB)
+     UFBS METHOD S2 TIME ESTIMATE TO FORM SCRATCH  - CPU=     0, I/O=     0, TOTAL=     0, PASSES=   1
+ 15:18:31     0:18      316.0         0.0        17.3        0.0    FLUTTER 76      SDR1    BEGN    
+ 15:18:31     0:18      316.0         0.0        17.3        0.0    FLUTTER 77      SDR1    BEGN    
+ 15:18:31     0:18      316.0         0.0        17.3        0.0    FLUTTER 56      AMP     BEGN    
+ *** USER INFORMATION MESSAGE 4234 (UDSFB)
+     UFBS METHOD S2 TIME ESTIMATE TO FORM SCRATCH  - CPU=     0, I/O=     0, TOTAL=     0, PASSES=   1
+ 15:18:31     0:18      316.0         0.0        17.4        0.0    FLUTTER 76      SDR1    BEGN    
+ 15:18:31     0:18      316.0         0.0        17.4        0.0    FLUTTER 77      SDR1    BEGN    
+ 15:18:31     0:18      316.0         0.0        17.4        0.0    FLUTTER 56      AMP     BEGN    
+ *** USER INFORMATION MESSAGE 4234 (UDSFB)
+     UFBS METHOD S2 TIME ESTIMATE TO FORM SCRATCH  - CPU=     0, I/O=     0, TOTAL=     0, PASSES=   1
+ 15:18:31     0:18      316.0         0.0        17.4        0.0    FLUTTER 76      SDR1    BEGN    
+ 15:18:31     0:18      316.0         0.0        17.4        0.0    FLUTTER 77      SDR1    BEGN    
+ 15:18:31     0:18      316.0         0.0        17.4        0.0    FLUTTER 56      AMP     BEGN    
+ *** USER INFORMATION MESSAGE 4234 (UDSFB)
+     UFBS METHOD S2 TIME ESTIMATE TO FORM SCRATCH  - CPU=     0, I/O=     0, TOTAL=     0, PASSES=   1
+ 15:18:31     0:18      316.0         0.0        17.4        0.0    FLUTTER 56      AMP     END     
+ 15:18:31     0:18      316.0         0.0        17.4        0.0    FLUTTER 76      SDR1    BEGN    
+ 15:18:31     0:18      316.0         0.0        17.4        0.0    FLUTTER 77      SDR1    BEGN    
+ 15:18:31     0:18      316.0         0.0        17.4        0.0    FLUTTER 56      AMP     BEGN    
+ *** USER INFORMATION MESSAGE 4234 (UDSFB)
+     UFBS METHOD S2 TIME ESTIMATE TO FORM SCRATCH  - CPU=     0, I/O=     0, TOTAL=     0, PASSES=   1
+ 15:18:31     0:18      316.0         0.0        17.4        0.0    FLUTTER 76      SDR1    BEGN    
+ 15:18:31     0:18      316.0         0.0        17.4        0.0    FLUTTER 77      SDR1    BEGN    
+ 15:18:31     0:18      316.0         0.0        17.4        0.0    FLUTTER 56      AMP     BEGN    
+ *** USER INFORMATION MESSAGE 4234 (UDSFB)
+     UFBS METHOD S2 TIME ESTIMATE TO FORM SCRATCH  - CPU=     0, I/O=     0, TOTAL=     0, PASSES=   1
+ 15:18:31     0:18      316.0         0.0        17.5        0.0    FLUTTER 76      SDR1    BEGN    
+ 15:18:31     0:18      316.0         0.0        17.5        0.0    FLUTTER 77      SDR1    BEGN    
+ 15:18:31     0:18      316.0         0.0        17.5        0.0    FLUTTER 56      AMP     BEGN    
+ *** USER INFORMATION MESSAGE 4234 (UDSFB)
+     UFBS METHOD S2 TIME ESTIMATE TO FORM SCRATCH  - CPU=     0, I/O=     0, TOTAL=     0, PASSES=   1
+ 15:18:31     0:18      316.0         0.0        17.5        0.0    FLUTTER 76      SDR1    BEGN    
+ 15:18:31     0:18      316.0         0.0        17.5        0.0    FLUTTER 77      SDR1    BEGN    
+ 15:18:31     0:18      316.0         0.0        17.5        0.0    FLUTTER 56      AMP     BEGN    
+ *** USER INFORMATION MESSAGE 4234 (UDSFB)
+     UFBS METHOD S2 TIME ESTIMATE TO FORM SCRATCH  - CPU=     0, I/O=     0, TOTAL=     0, PASSES=   1
+ 15:18:31     0:18      316.0         0.0        17.5        0.0    FLUTTER 76      SDR1    BEGN    
+ 15:18:31     0:18      316.0         0.0        17.5        0.0    FLUTTER 77      SDR1    BEGN    
+ 15:18:31     0:18      316.0         0.0        17.5        0.0    FLUTTER 56      AMP     BEGN    
+ *** USER INFORMATION MESSAGE 4234 (UDSFB)
+     UFBS METHOD S2 TIME ESTIMATE TO FORM SCRATCH  - CPU=     0, I/O=     0, TOTAL=     0, PASSES=   1
+ 15:18:31     0:18      316.0         0.0        17.5        0.0    FLUTTER 76      SDR1    BEGN    
+ 15:18:31     0:18      316.0         0.0        17.5        0.0    FLUTTER 77      SDR1    BEGN    
+ 15:18:31     0:18      316.0         0.0        17.5        0.0    FLUTTER 56      AMP     BEGN    
+ *** USER INFORMATION MESSAGE 4234 (UDSFB)
+     UFBS METHOD S2 TIME ESTIMATE TO FORM SCRATCH  - CPU=     0, I/O=     0, TOTAL=     0, PASSES=   1
+ 15:18:31     0:18      316.0         0.0        17.6        0.0    FLUTTER 76      SDR1    BEGN    
+ 15:18:31     0:18      316.0         0.0        17.6        0.0    FLUTTER 77      SDR1    BEGN    
+ 15:18:31     0:18      316.0         0.0        17.6        0.0    FLUTTER 56      AMP     BEGN    
+ *** USER INFORMATION MESSAGE 4234 (UDSFB)
+     UFBS METHOD S2 TIME ESTIMATE TO FORM SCRATCH  - CPU=     0, I/O=     0, TOTAL=     0, PASSES=   1
+ 15:18:31     0:18      316.0         0.0        17.6        0.0    FLUTTER 76      SDR1    BEGN    
+ 15:18:31     0:18      316.0         0.0        17.6        0.0    FLUTTER 77      SDR1    BEGN    
+ 15:18:31     0:18      316.0         0.0        17.6        0.0    FLUTTER 56      AMP     BEGN    
+ *** USER INFORMATION MESSAGE 4234 (UDSFB)
+     UFBS METHOD S2 TIME ESTIMATE TO FORM SCRATCH  - CPU=     0, I/O=     0, TOTAL=     0, PASSES=   1
+ 15:18:31     0:18      316.0         0.0        17.6        0.0    FLUTTER 76      SDR1    BEGN    
+ 15:18:31     0:18      316.0         0.0        17.6        0.0    FLUTTER 77      SDR1    BEGN    
+ 15:18:31     0:18      316.0         0.0        17.6        0.0    FLUTTER 56      AMP     BEGN    
+ *** USER INFORMATION MESSAGE 4234 (UDSFB)
+     UFBS METHOD S2 TIME ESTIMATE TO FORM SCRATCH  - CPU=     0, I/O=     0, TOTAL=     0, PASSES=   1
+ 15:18:31     0:18      316.0         0.0        17.6        0.0    FLUTTER 76      SDR1    BEGN    
+ 15:18:31     0:18      316.0         0.0        17.6        0.0    FLUTTER 77      SDR1    BEGN    
+ 15:18:31     0:18      316.0         0.0        17.6        0.0    FLUTTER 56      AMP     BEGN    
+ *** USER INFORMATION MESSAGE 4234 (UDSFB)
+     UFBS METHOD S2 TIME ESTIMATE TO FORM SCRATCH  - CPU=     0, I/O=     0, TOTAL=     0, PASSES=   1
+ 15:18:31     0:18      316.0         0.0        17.6        0.0    FLUTTER 76      SDR1    BEGN    
+ 15:18:31     0:18      316.0         0.0        17.6        0.0    FLUTTER 77      SDR1    BEGN    
+ 15:18:31     0:18      316.0         0.0        17.6        0.0    FLUTTER 56      AMP     BEGN    
+ *** USER INFORMATION MESSAGE 4234 (UDSFB)
+     UFBS METHOD S2 TIME ESTIMATE TO FORM SCRATCH  - CPU=     0, I/O=     0, TOTAL=     0, PASSES=   1
+ 15:18:31     0:18      316.0         0.0        17.6        0.0    FLUTTER 76      SDR1    BEGN    
+ 15:18:31     0:18      316.0         0.0        17.6        0.0    FLUTTER 77      SDR1    BEGN    
+ 15:18:31     0:18      316.0         0.0        17.6        0.0    FLUTTER 82      MATMOD  BEGN    
+ 15:18:31     0:18      316.0         0.0        17.6        0.0    FLUTTER 83      MATMOD  BEGN    
+ 15:18:31     0:18      316.0         0.0        17.6        0.0    FLUTTER 89      FA1     BEGN    
+ 15:18:31     0:18      316.0         0.0        17.7        0.1    FLUTTER 99      COPY    BEGN    
+ 15:18:31     0:18      316.0         0.0        17.7        0.0    FLUTTER 100     COPY    BEGN    
+ 15:18:31     0:18      316.0         0.0        17.7        0.0    FLUTTER 101     COPY    BEGN    
+ 15:18:31     0:18      316.0         0.0        17.7        0.0    FLUTTER 104     FA2     BEGN    
+ 15:18:31     0:18      316.0         0.0        17.7        0.0    FLUTTER 129     ADR     BEGN    
+ 15:18:31     0:18      316.0         0.0        17.7        0.0    SEFLUTTR266     APPEND  BEGN    
+ 15:18:31     0:18      316.0         0.0        17.7        0.0    SEFLUTTR267     MODTRL  BEGN    
+ 15:18:31     0:18      316.0         0.0        17.7        0.0    SEFLUTTR275  (S)SESUM   BEGN    
+ 15:18:31     0:18      316.0         0.0        17.7        0.0    SEFLUTTR283  (S)PRTSUM  BEGN    
+ 15:18:31     0:18      316.0         0.0        17.7        0.0    PRTSUM  31   (S)TESTBIT BEGN    
+ 15:18:31     0:18      316.0         0.0        17.7        0.0    PRTSUM  56   (S)TESTBIT BEGN    
+ 15:18:31     0:18      316.0         0.0        17.7        0.0    PRTSUM  57   (S)TESTBIT BEGN    
+ 15:18:31     0:18      316.0         0.0        17.7        0.0    PRTSUM  58   (S)TESTBIT BEGN    
+ 15:18:31     0:18      316.0         0.0        17.7        0.0    PRTSUM  71      OUTPUT2 BEGN    
+ *** SYSTEM WARNING MESSAGE 1148 (WRTTRL)
+     UNABLE TO WRITE TRAILER FOR FILE  301
+ 15:18:31     0:18      316.0         0.0        17.7        0.0    PRTSUM  73      PROJVER BEGN    
+ 15:18:31     0:18      316.0         0.0        17.7        0.0    PRTSUM  74      DBDICT  BEGN    
+ 15:18:31     0:18      316.0         0.0        17.7        0.0    PRTSUM  75      PRTPARM BEGN    
+ 15:18:31     0:18      316.0         0.0        17.7        0.0    SEFLUTTR284     EXIT    BEGN    
+
+*** SUMMARY OF COMPONENT SERVICES USAGE ACTIVITY ***
+
+           SERVICE                         LOAD  IMPLEMENTATION    GENERIC             COMPONENT  
+            NAME                           COUNT    LANGUAGE     LIBRARY NAME         LIBRARY NAME 
+
+SCA.Framework.ErrorPolicyManager             1       C++         SCAKernel            SCAKernel                                 
+SCA.Framework.Logger                         1       C++         SCAKernel            SCAKernel                                 
+SCA.Framework.MessageDispatcher              37      C++         SCA/...spatcher_29_0 /hom...ework/libMessageDispatcher_29_0.so 
+SCA.Framework.ResourceManager                1       C++         SCAKernel            SCAKernel                                 
+SCA.Framework.SecurityManager                1       C++         SCAKernel            SCAKernel                                 
+SCA.Framework.ServiceManager                 17      C++         SCAKernel            SCAKernel                                 
+SCA.Framework.SharedLibraryManager           16      C++         SCAKernel            SCAKernel                                 
+SCA.Framework.TextTranslation                3       C++         SCAKernel            SCAKernel                                 
+SCA.MDSolver.Io.AccessAccess                 11      C++         SCA/...ssAccess_29_0 /hom...DSolver/Io/libAccessAccess_29_0.so 
+SCA.MDSolver.Io.UtilAccess                   6       C++         SCA/...ilAccess_29_0 /hom.../MDSolver/Io/libUtilAccess_29_0.so 
+SCA.MDSolver.Obj.DataAccess                  16      C++         SCA/...taAccess_29_0 /hom...MDSolver/Obj/libDataAccess_29_0.so 
+SCA.MDSolver.Obj.FileAccess                  5       C++         SCA/...leAccess_29_0 /hom...MDSolver/Obj/libFileAccess_29_0.so 
+SCA.MDSolver.Obj.InputFile                   1       C++         SCA/...nputFile_29_0 /hom.../MDSolver/Obj/libInputFile_29_0.so 
+SCA.MDSolver.System.MemoryManager            2       C++         SCA/...yManager_29_0 /hom...er/System/libMemoryManager_29_0.so 
+SCA.MDSolver.System.PrintServer              14      C++         SCA/...ntServer_29_0 /hom...lver/System/libPrintServer_29_0.so 
+SCA.MDSolver.Util.AdsOpt                     2       C++         SCA/...r/Util/AdsOpt /hom...lib/SCA/MDSolver/Util/libAdsOpt.so 
+SCA.MDSolver.Util.DML                        1       C++         SCA/...Util/Dml_29_0 /hom...b/SCA/MDSolver/Util/libDml_29_0.so 
+SCA.MDSolver.Util.QueryAccess                3       C++         SCA/...ryAccess_29_0 /hom...Solver/Util/libQueryAccess_29_0.so 
+SCA.MXP.MXPDOMParser                         4       C++         SCA/MXP_29_0         /hom...4/linux64i8/lib/SCA/libMXP_29_0.so 
+SCA.Util.SystemUtils                         6       C++         SCA/...temUtils_29_0 /hom...ib/SCA/Util/libSystemUtils_29_0.so 
+
+ *** TOTAL MEMORY AND DISK USAGE STATISTICS ***
+
+ +---------- SPARSE SOLUTION MODULES -----------+         +------------- MAXIMUM DISK USAGE -------------+
+    HIWATER               SUB_DMAP        DMAP               HIWATER               SUB_DMAP        DMAP
+    (WORDS)       DAY_TIME     NAME      MODULE                 (MB)   DAY_TIME      NAME         MODULE
+     3167408375   15:18:17    PFAERO    480  DECOMP            4.250   15:18:13    PREFACE     0  PREFACE 
+
+
+ *** DATABASE USAGE STATISTICS ***
+ 
+ +---------------- LOGICAL DBSETS ----------------+   +------------------------------ DBSET FILES -----------------------------+
+  DBSET     ALLOCATED  BLOCKSIZE       USED   USED     FILE      ALLOCATED  ALLOCATED    HIWATER       HIWATER  I/O TRANSFERRED
+             (BLOCKS)    (WORDS)   (BLOCKS)      %                (BLOCKS)       (GB)   (BLOCKS)          (GB)             (GB)
+ 
+  MASTER        25000      65536         69   0.28     MASTER        25000      12.21         75         0.037            0.002
+  DBALL      20000000      65536         12   0.00     DBALL      20000000    9765.62         12         0.006            0.002
+  OBJSCR        25000       8192        526   2.10     OBJSCR        25000       1.53        526         0.032            0.000
+  SCRATCH    40000100      65536         46   0.00    (MEMFILE         100       0.05        100         0.049            0.000)
+                                                       SCRATCH    20000000    9765.62       1315         0.642            0.000
+                                                       SCR300     20000000    9765.62        121         0.059            0.000
+                                                                                                                 ==============
+                                                                                                          TOTAL:          0.006
+ 
+ *** BUFFER POOL AND SCRATCH 300 USAGE STATISTICS ***
+ 
+ +----------------- BUFFER POOL -----------------+      +-------------------------- SCRATCH 300 --------------------------+ 
+   OPTION        BLOCKS      BLOCKS      BLOCKS           OPTION    HIWATER               SUB_DMAP        DMAP     OPN/CLS
+  SELECTED     ALLOCATED     REUSED     RELEASED         SELECTED  (BLOCKS)   DAY_TIME      NAME         MODULE    COUNTER
+   BPOOL4         48102       55193           0              2         121    15:18:17    PFAERO    480  DECOMP       21
+
+
+ *** SUMMARY OF PHYSICAL FILE I/O ACTIVITY ***
+
+ ASSIGNED PHYSICAL FILE NAME                                   RECL (BYTES)  READ/WRITE COUNTS   WSIZE  (WNUM)   I/O COUNT 
+ ------------------------------------------------------------  -----------  -------------------  -------------  -----------
+ /home/dario/scratch/panelFLT.T1568305_13.SCRATCH                   524288          0/1            N/A            N/A          
+ /home/dario/scratch/panelFLT.T1568305_13.OBJSCR                     65536          2/4            N/A            N/A          
+ /home/dario/scratch/panelFLT.T1568305_13.MASTER                    524288          2/3            N/A            N/A          
+ /home/dario/scratch/panelFLT.T1568305_13.DBALL                     524288          2/3            N/A            N/A          
+ /home/dario/scratch/panelFLT.T1568305_13.SCR300                    524288          0/1            N/A            N/A          
+ /home/dario/msc/Nastran/20234/msc20234/linux64i8/SSS.MASTERA        65536         96/0            N/A            N/A          
+ /home/dario/msc/Nastran/20234/msc20234/linux64i8/SSS.MSCOBJ         65536        517/0            N/A            N/A          
+ 
