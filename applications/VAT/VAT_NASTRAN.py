@@ -1,23 +1,128 @@
 import numpy as np
-import usr
+import utilities
 import subprocess
 import os
+import sys
 
 import gmsh
+
+from pyNastran.converters.nastran.nastran_to_vtk import nastran_to_vtk
+
+
+
+# WHICH TEST
+if (len(sys.argv) < 3):
+    print("Please specify test data and analysis type")
+    quit()
+
+TEST = sys.argv[1]
+ANALYSIS = sys.argv[2]
+
+# TEST = "T1"
+# ANALYSIS = "DIV"
+
+# Solver -- chose one
+if ANALYSIS == "FVIB":
+    sol, filename = 103, "panelFVIB"          # FVIB
+elif ANALYSIS == "DIV":
+    sol, filename = 144, "panelDIV"           # DIV
+elif ANALYSIS == "FLT":
+    sol, filename = 145, "panelFLT"           # FLT
+else:
+    print("Analysis type not yet implemented. Choose between FVIB, DIV and FLT  ")
+    quit()
+
+# params = {}
+# # params["st_sq"] = np.array([[90, 90],[90,90],[0,0],[0,0],[90,90],[90,90]])
+# # params["st_sq"] = np.array([[0, 90],[90,0],[90,0],[0,90]])
+# params["st_sq"] = np.array([[90, 45],[90,-45],[45,90],[-45,90],[-45,90],[45,90],[90,-45],[90,45]])
+# params["var_type"] = '|y|'                        # x or  y -->  T0 @ -1 and T1 @ 1 --------- |x| or |y| T0 @ 0 and T1 @ 1
+# params["N_layers"] = params["st_sq"].shape[0]
+# t_ply = 0.134e-3
+# thickness = params["N_layers"] * t_ply
+# thickness = 0.804e-3  # Spessore totale 
+
+
+if TEST == "T1":
+    params = {}
+    params["st_sq"] = np.array([[90, -90]])
+    params["var_type"] = 'y'                        # x or  y -->  T0 @ -1 and T1 @ 1 --------- |x| or |y| T0 @ 0 and T1 @ 1
+    params["N_layers"] = params["st_sq"].shape[0]
+    t_ply = 0.134e-3
+    thickness = params["N_layers"] * t_ply
+    # Lato da vincolare: 'left', 'right', 'top', 'bottom'
+    side_to_fix = 'bottom'
+elif TEST == "T2":
+    params = {}
+    params["st_sq"] = np.array([[0, 90]])
+    params["var_type"] = 'y'                        # x or  y -->  T0 @ -1 and T1 @ 1 --------- |x| or |y| T0 @ 0 and T1 @ 1
+    params["N_layers"] = params["st_sq"].shape[0]
+    t_ply = 0.134e-3
+    thickness = params["N_layers"] * t_ply
+    # Lato da vincolare: 'left', 'right', 'top', 'bottom'
+    side_to_fix = 'bottom'
+elif TEST == "T3":
+    params = {}
+    params["st_sq"] = np.array([[45, -45]])
+    params["var_type"] = 'y'                        # x or  y -->  T0 @ -1 and T1 @ 1 --------- |x| or |y| T0 @ 0 and T1 @ 1
+    params["N_layers"] = params["st_sq"].shape[0]
+    t_ply = 0.134e-3
+    thickness = params["N_layers"] * t_ply
+    # Lato da vincolare: 'left', 'right', 'top', 'bottom'
+    side_to_fix = 'bottom'
+elif TEST == "T4":
+    params = {}
+    params["st_sq"] = np.array([[-60, 30]])
+    params["var_type"] = 'y'                        # x or  y -->  T0 @ -1 and T1 @ 1 --------- |x| or |y| T0 @ 0 and T1 @ 1
+    params["N_layers"] = params["st_sq"].shape[0]
+    t_ply = 0.134e-3
+    thickness = params["N_layers"] * t_ply
+    # Lato da vincolare: 'left', 'right', 'top', 'bottom'
+    side_to_fix = 'bottom'
+else:
+    print("Test non definito")
+    quit()
+
+# COMMON PROPS FOR T1-->T4
+# Material
+E1 = 98.0e9
+E2 = 7.9e9
+G12 = 5.6e9
+G23 = 5.6e9
+G32 = 5.6e9
+nu12 = 0.28
+rho = 1520
+
+props = [E1, E2, nu12, G12, G23, G32, rho]
+
+# === Geometry
+Lx = 0.0762
+Ly = 0.305
+Nx = 16  # ELEMENTI lungo x
+Ny = 64   #  ELEMENTI lungo y
+Nelems = Nx*Ny
+sweep = np.deg2rad(0)
+
+## AERO
+rho_f = 1.226
+
+# SAA
+alpha = 1
+V = 0.5
+q = 0.5*rho_f*V**2
+Nroots = 10
+
+# FLT
+V_range = np.linspace(1,100,10)
+V_plot = -10                    # TODO, add negative velocities if eigenvector are requested
+
 
 ## STRUCTURE
 gmsh.initialize()
 gmsh.model.add("mesh")
 
-# Parametri geometrici
-Lx = 1.0
-Ly = 4
-Nx = 2  # Nodi lungo x
-Ny = 2   # Nodi lungo y
-Nelems = Nx*Ny
-sweep = np.deg2rad(0)
 
-# === Geometria: rettangolo ===
+
 p1 = gmsh.model.geo.addPoint(0, 0, 0, 0)
 p2 = gmsh.model.geo.addPoint(Lx, 0, 0, 0)
 p3 = gmsh.model.geo.addPoint(Ly*np.tan(sweep)+Lx, Ly, 0, 0)
@@ -33,7 +138,7 @@ ps = gmsh.model.geo.addPlaneSurface([cl])
 
 gmsh.model.geo.synchronize()
 
-# === Mesh size ===
+# === Mesh
 gmsh.model.mesh.setTransfiniteSurface(ps)
 gmsh.model.mesh.setTransfiniteCurve(l1, Nx + 1)
 gmsh.model.mesh.setTransfiniteCurve(l3, Nx + 1)
@@ -42,52 +147,16 @@ gmsh.model.mesh.setTransfiniteCurve(l4, Ny + 1)
 gmsh.model.mesh.setRecombine(2, ps)  # mesh quadrangolare
 
 gmsh.model.mesh.generate(2)
+
 node_tags, node_coords, _ = gmsh.model.mesh.getNodes()
 nodes = {}
 elem_types, elem_tags, elem_node_tags = gmsh.model.mesh.getElements(dim=2)
-
-# Lato da vincolare: 'left', 'right', 'top', 'bottom'
-side_to_fix = 'bottom'
-
-# Material
-E1 = 98.0e9
-E2 = 7.9e9
-G12 = 5.6e9
-G23 = 5.6e9
-G32 = 5.6e9
-nu12 = 0.28
-rho = 1520
-
-props = [E1, E2, nu12, G12, G23, G32, rho]
+# renumbering of elements
+gmsh.model.mesh.renumberElements(elem_tags[0],[i+1 for i in range(0,len(elem_tags[0]))])
+elem_types, elem_tags, elem_node_tags = gmsh.model.mesh.getElements(dim=2)
 
 
-
-params = {}
-params["st_sq"] = np.array([[90, 90],[90,90],[0,0],[0,0],[90,90],[90,90]])
-# params["st_sq"] = np.array([[0, 90],[90,0],[90,0],[0,90]])
-# params["st_sq"] = np.array([[90, 45],[90,-45],[45,90],[-45,90],[-45,90],[45,90],[90,-45],[90,45]])
-params["var_type"] = 'y'                        # x or  y -->  T0 @ -1 and T1 @ 1 --------- |x| or |y| T0 @ 0 and T1 @ 1
-params["N_layers"] = params["st_sq"].shape[0]
-
-t_ply = 0.134e-3
-thickness = params["N_layers"] * t_ply
-# thickness = 0.804e-3  # Spessore totale 
-
-
-## AERO
-rho_f = 1.226
-
-# SAA
-alpha = 1
-V = 10
-q = 0.5*rho_f*V**2
-Nroots = 100
-
-# FLT
-V_range = np.linspace(1,100,10)
-V_plot = -10
-
-
+## FLT SETUP
 k_freq = np.linspace(0.001,5,20)
 Mach = np.zeros_like(k_freq)
 MK = np.empty(40)
@@ -97,41 +166,47 @@ MK = MK.reshape(5, 8)
 
 
 
-# Solver -- chose one
-# sol = 103           # FVIB
-# sol = 144         # SAA
-sol = 145         # FLT
-
 # OUTPUT
 cwd = os.getcwd()
-filename = "panelFLT"
 filepath = cwd+"/"+filename
-print(filename)
 
 
-run = False
+## OTHER SETTINGS
+run = True
 plot = True
+save_mesh = True
+save_vtk = True
 # result type
 hdf5 = False
 xdb = False
 op2 = True
 
+if save_mesh: gmsh.write(filename+".msh")
 
+print()
+print("#######################################")
+print("STARTING JOB: ",filename)
+print("NASTRAN STR DOF: ", (Nx+1)*(Ny+1)*6)
+print("NASTRAN AERO DOF: ", (Nx)*(Ny))
+print("NASTRAN DOF: ", (Nx)*(Ny)+(Nx+1)*(Ny+1)*6)
+print("#######################################")
+print()
 
 ## Compute theta for VAT laminate
 centers = gmsh.model.mesh.getBarycenters(3,1,0,0).reshape(Nelems, 3)
 x_centers, y_centers, z_centers = centers.T
-x_centers, y_centers= usr.generate_centers(Lx, Ly, Nx, Ny)
 X, Y = np.meshgrid(x_centers,y_centers)
 Z = np.zeros_like(X)
 
-params["xy"] = np.vstack((X.flatten(),Y.flatten(),Z.flatten()))
+params["xy"] = np.vstack((x_centers, y_centers, z_centers))
 params["Geometry"] = np.array([Lx,Ly])
 
-theta = np.rad2deg(usr.theta_vals(params))
+theta = np.rad2deg(utilities.theta_vals(params))
+
+bdf_filename = filename + '.bdf'
 
 
-with open(filename+".bdf", "w") as f:
+with open(bdf_filename, "w") as f:
     # === Intestazione ===
     f.write("$ MSC.Nastran input file generated by script\n")
     f.write("SOL {:d}\n".format(sol))
@@ -187,6 +262,7 @@ with open(filename+".bdf", "w") as f:
     elif xdb:
         f.write("PARAM    POST      0\n")
     elif op2:
+        op2_filename = filename + '.op2'
         f.write("PARAM    POST      1\n")
 
         
@@ -200,10 +276,10 @@ with open(filename+".bdf", "w") as f:
 
     # === PCOMP ===
     t_ply = thickness / len(params["st_sq"])
-    
-    for pcomp in range(Nelems):
-        f.write("PCOMP    {:d}\n".format(pcomp+1))
-        laminate_stack = theta[:,pcomp]
+    pcomp_id = [int(i) for i in elem_tags[0]]
+    for pcomp in pcomp_id:
+        f.write("PCOMP    {:d}\n".format(pcomp))
+        laminate_stack = theta[:,pcomp-1]
         for angle in laminate_stack:
             t_formatted = "{:.7e}".format(t_ply).replace("e-0", "-").replace("e+0", "+").replace("e-","-").replace("e+","+")
             f.write("*        1               {:<16}{:<14f}  YES\n".format(t_formatted, angle))
@@ -213,15 +289,16 @@ with open(filename+".bdf", "w") as f:
     # dx = Lx / Nx
     # dy = Ly / Ny
     # node_id = 1
-    # nodes = {}
+    # nodes_old = {}
     # for j in range(Ny+1):
     #     for i in range(Nx+1):
     #         x = i * dx
     #         y = j * dy
     #         z = 0.0
     #         f.write("GRID,{:d},,{:<8.5f},{:<8.5f},{:<8.5f}\n".format(node_id, x, y, z))
-    #         nodes[(i, j)] = node_id
+    #         nodes_old[(i, j)] = node_id
     #         node_id += 1
+    
     for i, tag in enumerate(node_tags):
         x = node_coords[3*i]
         y = node_coords[3*i + 1]
@@ -235,7 +312,7 @@ with open(filename+".bdf", "w") as f:
         if gmsh.model.mesh.getElementProperties(etype)[0] == "Quadrilateral 4":
             for eid, i in enumerate(range(0, len(enodes), 4)):
                 n1, n2, n3, n4 = enodes[i:i+4]
-                pid = etags[eid]  # usiamo l'element tag anche come property ID
+                pid = etags[eid]  
                 f.write("CQUAD4,{:d},{:d},{:d},{:d},{:d},{:d},0\n".format(
                     etags[eid], pid, n1, n2, n3, n4))
         else:
@@ -278,16 +355,32 @@ with open(filename+".bdf", "w") as f:
     f.write("SPCADD   2       1\n")
     # === Vincoli (SPC) ===
     spc_id = 1
-    if side_to_fix == 'left':
-        fixed_nodes = [nodes[(0, j)] for j in range(Ny+1)]
-    elif side_to_fix == 'right':
-        fixed_nodes = [nodes[(Nx, j)] for j in range(Ny+1)]
-    elif side_to_fix == 'bottom':
-        fixed_nodes = [nodes[(i, 0)] for i in range(Nx+1)]
-    elif side_to_fix == 'top':
-        fixed_nodes = [nodes[(i, Ny)] for i in range(Nx+1)]
+    tol=1e-6
+    if side_to_fix  == "left":
+        fixed_nodes = [nid for nid, (x, y, z) in nodes.items() if abs(x - 0.0) < tol]
+    elif side_to_fix  == "right":
+        fixed_nodes = [nid for nid, (x, y, z) in nodes.items() if abs(x - Lx) < tol]
+    elif side_to_fix  == "bottom":
+        fixed_nodes = [nid for nid, (x, y, z) in nodes.items() if abs(y - 0.0) < tol]
+    elif side_to_fix  == "top":
+        fixed_nodes = [nid for nid, (x, y, z) in nodes.items() if abs(y - Ly) < tol]
     else:
         fixed_nodes = []
+
+    for nid in fixed_nodes:
+        f.write("SPC     {:<8d} {:<8d} 123456\n".format(spc_id, nid))
+
+    # spc_id = 1
+    # if side_to_fix == 'left':
+    #     fixed_nodes = [nodes[(0, j)] for j in range(Ny+1)]
+    # elif side_to_fix == 'right':
+    #     fixed_nodes = [nodes[(Nx, j)] for j in range(Ny+1)]
+    # elif side_to_fix == 'bottom':
+    #     fixed_nodes = [nodes[(i, 0)] for i in range(Nx+1)]
+    # elif side_to_fix == 'top':
+    #     fixed_nodes = [nodes[(i, Ny)] for i in range(Nx+1)]
+    # else:
+    #     fixed_nodes = []
 
     for nid in fixed_nodes:
         f.write("SPC     {:<8d} {:<8d} 123456\n".format(spc_id, nid))
@@ -297,12 +390,21 @@ with open(filename+".bdf", "w") as f:
     if sol == 144 or sol == 145:
         f.write("PARAM   AUNITS  1.\n")
         
+
+        x1, y1, z1 = gmsh.model.getValue(0, p1, [])  # Punto 1
+        x4, y4, z4 = gmsh.model.getValue(0, p4, [])  # Punto 4
+        x2, y2, z2 = gmsh.model.getValue(0, p2, [])  # Punto 2
+        x3, y3, z3 = gmsh.model.getValue(0, p3, [])  # Punto 3
+        x12 = x2 - x1  # corda alla root
+        x43 = x3 - x4
+
         # aerodynamics
         f.write("AERO,0,1.,{:.4f},{:.4f}\n".format(Lx, rho_f))
         f.write("AEROS,0,0,{:.4f},{:.4f},{:.4f}\n".format(Lx,Ly*2,Lx*Ly))
         f.write("PAERO1  100001\n")
         f.write("CAERO1,100001,100001,0,{:d},{:d},,,1\n".format(Ny,Nx))
-        f.write(",0.,0.,0.,{:.4f},0.,{:.4f},0.,{:.4f}\n".format(Lx,Ly,Lx))          # TODO: adjust coordinates for sweep and TR
+        # f.write(",0.,0.,0.,{:.4f},0.,{:.4f},0.,{:.4f}\n".format(Lx,Ly,Lx))          # TODO: adjust coordinates for sweep and TR
+        f.write(",{:.4f},{:.4f},{:.4f},{:.4f},{:.4f},{:.4f},{:.4f},{:.4f}\n".format(x1, y1, z1, x12, x4, y4, z4, x43))
         f.write("SPLINE4,1,100001,1,,1,,IPS,BOTH\n")
         start_id = 100001
         element_ids = list(range(start_id, start_id + Nelems))
@@ -370,6 +472,7 @@ with open(filename+".bdf", "w") as f:
 
     f.write("ENDDATA\n")
 
+gmsh.finalize()
 print(f"File scritto: {filename}.bdf")
 
 ## RUN NASTRAN
@@ -387,18 +490,30 @@ if run:
     result = subprocess.run(command, capture_output=True, text=True, shell=True)
     print(result.stdout)
 
+## SAVE VTK
+if (save_vtk):
+    if op2:
+        vtk_filename = filename + '.vtu'
+        nastran_to_vtk(bdf_filename, op2_filename, vtk_filename)
+    else:
+        raise "You must activate op2 output"
+    
 ## PLOT RESULTS
 
 if (plot):
     if sol == 103:
-        res = usr.print_vib(filename)
+        res = utilities.print_vib(filename)
         print(f"{'Modo':>4} | {'lam':>12} | {'rad/s':>12} | {'Hz':>10}")
         print("-" * 47)
         for i, (lam, s, h) in enumerate(res, start=1):
             print(f"{i:4} | {lam:12.4e} | {s:12.4f} | {h:10.4f}")
     elif sol == 144:
-        q_dyna = usr.print_div(filename)
+        q_dyna = utilities.print_div(filename)
         v = np.sqrt(2*q_dyna/rho_f)
         print("Divergence velocities:\n",v)
+
+        uz_tip_LE, uz_tip_TE = utilities.print_disp_SAA(filename)
+        print("uz_tip_LE, uz_tip_TE: ", uz_tip_LE, uz_tip_TE)
+        print("twist: ", uz_tip_LE -uz_tip_TE)
     elif (sol == 145):
-        usr.plot_nast(filename)
+        utilities.plot_nast(filename)

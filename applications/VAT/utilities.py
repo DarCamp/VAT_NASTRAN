@@ -306,6 +306,40 @@ def print_div(filename):
 
     return numpy.array(dynamic_pressures)
 
+def print_disp_SAA(filename, idLE = 4, idTE = 3):
+    file_path = filename+".f06"
+
+    in_disp_section = False
+    uz_tip_LE = None
+    uz_tip_TE = None
+    with open(file_path, 'r') as file:
+        for line in file:
+            if "D I S P L A C E M E N T   V E C T O R" in line:
+                in_disp_section = True
+                continue
+
+            if in_disp_section and "POINT ID." in line and "T3" in line:
+                continue
+
+            if in_disp_section:
+                parts = line.strip().split()
+                if len(parts) >= 6 and parts[0].isdigit():
+                    try:
+                        point_id = int(parts[0])
+                        uz_val = float(parts[4])
+
+                        if point_id == idTE and uz_tip_TE is None:
+                            uz_tip_TE = uz_val
+                        elif point_id == idLE and uz_tip_LE is None:
+                            uz_tip_LE = uz_val
+                    except ValueError:
+                        continue
+
+                elif "1    SSA OF COMPOSITE PANEL" in line: # not work... but it is ok right now
+                    break
+
+    return uz_tip_LE, uz_tip_TE
+
 def print_vib(filename):
     file_path = filename+".f06"
     res = []

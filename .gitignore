@@ -1,0 +1,10 @@
+*.bdf
+*.op2
+*.f06
+*.f04
+*.log
+*.vtu
+*.msh
+Figures/
+__pycache__/
+REF/
