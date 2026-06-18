@@ -440,41 +440,63 @@ def export_vtk(filename, subcase=1, modes=None):
     # ------------------------------------------------------------------
     # 4. Attach nodal fields (displacements / eigenvectors)
     # ------------------------------------------------------------------
-    def _add_displacement_field(grid, disp_dict, node_index, n_nodes, label):
-        """Attach a 3-component (tx, ty, tz) nodal vector field to the grid."""
-        U = np.zeros((n_nodes, 3))
-        for nid, vals in disp_dict.items():
-            if nid in node_index:
-                U[node_index[nid], :] = vals[:3]
+    def _add_field(grid, node_ids_vtk, data_rows, node_ids_result, label):
+        """
+        Attach a 3-component (tx, ty, tz) nodal vector field to the VTK grid.
+
+        Parameters
+        ----------
+        node_ids_vtk    : np.ndarray  – node IDs in VTK grid order (from BDF)
+        data_rows       : np.ndarray, shape (n_result_nodes, >=3)
+                          displacement / eigenvector values from the .op2
+        node_ids_result : np.ndarray  – node IDs matching data_rows rows
+        label           : str         – field name shown in ParaView
+        """
+        # Build a fast lookup: result_node_id → row index in data_rows
+        id_to_row = {int(nid): i for i, nid in enumerate(node_ids_result)}
+
+        U = np.zeros((len(node_ids_vtk), 3))
+        for vtk_i, nid in enumerate(node_ids_vtk):
+            row = id_to_row.get(int(nid))
+            if row is not None:
+                U[vtk_i, :] = data_rows[row, :3]   # tx, ty, tz only
+
         arr = numpy_to_vtk(U, deep=True)
         arr.SetName(label)
         arr.SetNumberOfComponents(3)
         grid.GetPointData().AddArray(arr)
 
-    n_nodes = len(node_ids)
-
     # Static displacements (SOL 144)
     if hasattr(model, "displacements") and subcase in model.displacements:
-        disp      = model.displacements[subcase].node_gridtype
-        vals_data = model.displacements[subcase].data[0]
-        disp_map  = {nid: vals_data[i] for i, nid in enumerate(disp[:, 0])}
-        _add_displacement_field(grid, disp_map, node_index, n_nodes,
-                                f"Displacement_SC{subcase}")
+        disp_obj        = model.displacements[subcase]
+        result_node_ids = disp_obj.node_gridtype[:, 0]
+        # data shape: (n_load_steps, n_nodes, n_dof) — take step 0
+        _add_field(grid, node_ids, disp_obj.data[0],
+                   result_node_ids, f"Displacement_SC{subcase}")
 
     # Modal eigenvectors (SOL 103 / 145)
     if hasattr(model, "eigenvectors") and subcase in model.eigenvectors:
-        eig          = model.eigenvectors[subcase]
-        avail_modes  = list(range(eig.data.shape[0]))
-        export_modes = (
-            avail_modes if modes is None
-            else [m - 1 for m in modes if 0 <= m - 1 < len(avail_modes)]
-        )
-        for mi in export_modes:
-            vals_m   = eig.data[mi]
-            disp_map = {int(nid): vals_m[i]
-                        for i, nid in enumerate(eig.node_gridtype[:, 0])}
-            _add_displacement_field(grid, disp_map, node_index, n_nodes,
-                                    f"Mode_{mi + 1}")
+        eig             = model.eigenvectors[subcase]
+        result_node_ids = eig.node_gridtype[:, 0]
+        # eig.modes contains the actual Nastran mode numbers (1-based)
+        nastran_modes   = list(eig.modes)           # e.g. [1, 2, 3, ...]
+
+        if modes is None:
+            export_indices = list(range(len(nastran_modes)))
+        else:
+            # Map requested Nastran mode numbers to array indices
+            mode_to_idx = {int(m): i for i, m in enumerate(nastran_modes)}
+            export_indices = [mode_to_idx[m] for m in modes if m in mode_to_idx]
+            missing = [m for m in modes if m not in mode_to_idx]
+            if missing:
+                print(f"Warning: modes {missing} not found in .op2 "
+                      f"(available: {nastran_modes})")
+
+        for mi in export_indices:
+            mode_num = int(nastran_modes[mi])
+            # data shape: (n_modes, n_nodes, n_dof)
+            _add_field(grid, node_ids, eig.data[mi],
+                       result_node_ids, f"Mode_{mode_num}")
 
     # ------------------------------------------------------------------
     # 5. Attach element fields (von Mises stress, if available)

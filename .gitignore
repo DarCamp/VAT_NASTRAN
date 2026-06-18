@@ -5,6 +5,6 @@
 *.log
 *.vtu
 *.msh
-Figures/
+results/
 __pycache__/
-REF/
+

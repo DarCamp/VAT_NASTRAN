@@ -29,7 +29,9 @@ NASTRAN_EXE_LINUX   = "nast20234"   # command available on PATH, or full path
 # Choose one of: "FVIB" (free vibration, SOL 103)
 #                "DIV"  (static aeroelastic + divergence, SOL 144)
 #                "FLT"  (flutter, SOL 145)
-ANALYSIS = "FLT"
+#            or set the analysis type from the command line:
+#                python main.py FVIB
+ANALYSIS = "FVIB"
 
 # ---------------------------------------------------------------------------
 # GEOMETRY
@@ -102,7 +104,7 @@ k_freq  = np.linspace(0.001, 5, 20)  # reduced frequencies for MKAERO2
 run       = True    # execute Nastran after writing the BDF
 plot      = True    # generate post-processing plots after the run
 save_mesh = False   # save the gmsh .msh file
-save_vtk  = False   # export results to VTK (.vtu) — requires output_format = "op2"
+save_vtk  = True   # export results to VTK (.vtu) — requires output_format = "op2"
 
 # Nastran output format – choose exactly one
 output_format = "op2"   # "op2" | "xdb" | "hdf5"

@@ -1,15 +1,15 @@
 """
 main.py
 =======
-Entry point per la generazione del BDF ed esecuzione di MSC Nastran.
+Entry point for generating the BDF and running MSC Nastran.
 
-Uso:
+Usage:
     python main.py FVIB
     python main.py DIV
     python main.py FLT
 
-Tutti i parametri si trovano in config.py.
-I file di analisi (BDF, f06, op2, vtu, figure) vengono scritti in config.WORKDIR.
+All parameters are defined in config.py.
+The analysis files (BDF, f06, op2, vtu, figure) are written to config.WORKDIR.
 """
 
 import sys
@@ -42,11 +42,13 @@ SOLVERS = {
 
 def parse_analysis():
     if len(sys.argv) < 2:
-        print("Uso: python main.py [FVIB|DIV|FLT]")
+        if config.ANALYSIS in SOLVERS:
+            return config.ANALYSIS, *SOLVERS[config.ANALYSIS]
+        print("Usage: python main.py [FVIB|DIV|FLT]")
         sys.exit(1)
     key = sys.argv[1].upper()
     if key not in SOLVERS:
-        print(f"Analisi '{key}' non riconosciuta. Scegli tra: {', '.join(SOLVERS)}")
+        print(f"Analysis '{key}' not recognized. Choose from: {', '.join(SOLVERS)}")
         sys.exit(1)
     return key, *SOLVERS[key]
 
@@ -57,9 +59,9 @@ def parse_analysis():
 
 def prepare_workdir(workdir):
     """
-    Crea la working directory (e le eventuali parent) se non esiste.
-    Se esiste già, i file vengono sovrascritti silenziosamente.
-    Restituisce il percorso assoluto.
+    Create the working directory if it does not exist.
+    If it already exists, the files are silently overwritten.
+    Returns the absolute path.
     """
     wd = os.path.abspath(workdir)
     os.makedirs(wd, exist_ok=True)
@@ -68,7 +70,7 @@ def prepare_workdir(workdir):
 
 
 # ---------------------------------------------------------------------------
-# Mesh con gmsh
+# Mesh with gmsh
 # ---------------------------------------------------------------------------
 
 def build_mesh(Lx, Ly, Nx, Ny, sweep_deg):
@@ -143,7 +145,7 @@ def main():
     if config.save_mesh:
         gmsh.write(filepath + ".msh")
 
-    # --- Angoli VAT ---
+    # --- VAT angles ---
     centers = gmsh.model.mesh.getBarycenters(3, 1, 0, 0).reshape(Nelems, 3)
     x_c, y_c, z_c = centers.T
     xy = np.vstack((x_c, y_c, z_c))
@@ -156,14 +158,14 @@ def main():
     )
     theta_deg = np.rad2deg(theta)
 
-    # --- Proprietà materiale ---
+    # --- Material properties ---
     props = [config.E1, config.E2, config.nu12,
              config.G12, config.G23, config.G32, config.rho]
 
-    # --- Trim: pressione dinamica ---
+    # --- Trim: dynamic pressure ---
     q_trim = 0.5 * config.rho_fluid * config.V_trim**2
 
-    # --- Scrittura BDF ---
+    # --- BDF writing ---
     write_bdf(
         filename=filepath, sol=sol,
         node_tags=node_tags, node_coords=node_coords,
@@ -187,14 +189,14 @@ def main():
     )
 
     gmsh.finalize()
-    print(f"BDF scritto : {filepath}.bdf")
+    print(f"BDF written : {filepath}.bdf")
 
-    # --- Esecuzione NASTRAN ---
+    # --- Execution of NASTRAN ---
     if config.run:
-        print(f"Avvio NASTRAN SOL {sol} …")
-        # NASTRAN scrive i file di output nella directory da cui viene lanciato.
-        # Passiamo cwd=wd e il solo nome base del BDF: tutti i risultati
-        # (f06, op2, ecc.) atterrano direttamente nel WORKDIR.
+        print(f"Starting NASTRAN SOL {sol} …")
+        # NASTRAN writes the output files in the directory from which it is launched.
+        # We pass cwd=wd and the base name of the BDF: all results
+        # (f06, op2, etc.) land directly in the WORKDIR.
         bdf_name = basename + ".bdf"
         if os.name == "nt":
             nastran_exe = r"C:\MSC.Software\MSC_Nastran\20190\bin\nastran.exe"
@@ -208,10 +210,10 @@ def main():
         if result.returncode != 0:
             print("NASTRAN stderr:", result.stderr)
 
-    # --- Esportazione VTK ---
+    # --- VTK export ---
     if config.save_vtk:
         if config.output_format != "op2":
-            print("ATTENZIONE: save_vtk richiede output_format = 'op2' in config.py")
+            print("Warning: save_vtk requires output_format = 'op2' in config.py")
         else:
             export_vtk(filepath)
 
