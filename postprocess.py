@@ -5,11 +5,14 @@ MSC Nastran .f06 parser and post-processing utilities.
 
 Functions
 ---------
+read_static(filename)         Read full nodal displacements    (SOL 101)
+print_static_summary(disp)    Print max-displacement summary   (SOL 101)
 read_vibrations(filename)     Read real eigenvalues            (SOL 103)
 print_vibrations(results)     Print eigenvalue table           (SOL 103)
+write_vibrations_txt(...)     Write Modo/Omega/Freq text file  (SOL 103)
 read_divergence(filename)     Read divergence dynamic pres.    (SOL 144)
 read_displacements(filename)  Read tip LE/TE displacements     (SOL 144)
-plot_flutter(filename)        V-omega and V-sigma plots        (SOL 145)
+plot_flutter(filename)        V-omega/V-sigma plots + text file (SOL 145)
 export_vtk(filename)          Export .op2 results to .vtu      (all SOLs)
 """
 
@@ -17,6 +20,76 @@ import re
 import os
 import numpy as np
 import matplotlib.pyplot as plt
+
+
+# ---------------------------------------------------------------------------
+# SOL 101 – Linear statics
+# ---------------------------------------------------------------------------
+
+def read_static(filename):
+    """
+    Parse the full nodal displacement/rotation field from a Nastran .f06
+    file (SOL 101).
+
+    Parameters
+    ----------
+    filename : str
+        Full path without extension.
+
+    Returns
+    -------
+    dict
+        {node_id: (u1, u2, u3, r1, r2, r3)}  translations [m] and
+        rotations [rad] at every output grid point.
+    """
+    file_path  = filename + ".f06"
+    in_section = False
+    disp       = {}
+
+    with open(file_path, "r") as fh:
+        for line in fh:
+            if "D I S P L A C E M E N T   V E C T O R" in line:
+                in_section = True
+                continue
+            if in_section:
+                if "POINT ID." in line and "T3" in line:
+                    continue
+                parts = line.strip().split()
+                if len(parts) >= 8 and parts[0].isdigit():
+                    try:
+                        pid  = int(parts[0])
+                        vals = tuple(float(v) for v in parts[2:8])
+                        disp[pid] = vals
+                    except ValueError:
+                        continue
+                elif "MSC.NASTRAN" in line or line.strip() == "":
+                    break
+
+    return disp
+
+
+def print_static_summary(disp):
+    """
+    Print a short summary of a SOL 101 static analysis: the maximum
+    out-of-plane (T3) displacement and the node at which it occurs.
+
+    Parameters
+    ----------
+    disp : dict
+        Output of read_static(), {node_id: (u1, u2, u3, r1, r2, r3)}.
+    """
+    if not disp:
+        print("No displacement data found in the .f06 file.")
+        return
+
+    node_max = max(disp, key=lambda n: abs(disp[n][2]))
+    uz_max   = disp[node_max][2]
+
+    print(f"{'Node':>8} | {'U1 [m]':>12} | {'U2 [m]':>12} | {'U3 [m]':>12} | "
+          f"{'R1 [rad]':>12} | {'R2 [rad]':>12} | {'R3 [rad]':>12}")
+    print("-" * 100)
+    print(f"{node_max:8d} | " + " | ".join(f"{v:12.4e}" for v in disp[node_max]))
+    print(f"\nMax |Uz| = {uz_max:.6e} m at node {node_max}")
 
 
 # ---------------------------------------------------------------------------
@@ -61,6 +134,26 @@ def print_vibrations(results):
     print("-" * 50)
     for i, (lam, omega, freq) in enumerate(results, start=1):
         print(f"{i:4d} | {lam:12.4e} | {omega:14.4f} | {freq:10.4f}")
+
+
+def write_vibrations_txt(results, txt_path):
+    """
+    Write the free-vibration results to a structured text file with
+    columns: Modo, Omega [rad/s], Freq [Hz] (no velocity column, since
+    SOL 103 has no velocity sweep).
+
+    Parameters
+    ----------
+    results : list of tuples
+        Output of read_vibrations(): (lambda, omega, freq) per mode.
+    txt_path : str
+        Full path (including filename) of the text file to write.
+    """
+    with open(txt_path, "w") as f:
+        f.write(f"{'Modo':>6} {'Omega [rad/s]':>16} {'Freq [Hz]':>14}\n")
+        for i, (lam, omega, freq) in enumerate(results, start=1):
+            f.write(f"{i:>6} {omega:>16.6f} {freq:>14.6f}\n")
+    print(f"Vibration data written: {txt_path}")
 
 
 # ---------------------------------------------------------------------------
@@ -242,13 +335,45 @@ def _parse_flutter_f06(filename, max_modes=4, omega_col=6):
     return data_arrays
 
 
+def _write_flutter_txt(data_arrays, txt_path, omega_idx):
+    """
+    Write the flutter V-omega/V-sigma data (the same values that get
+    plotted) to a structured text file.
+
+    Columns: Modo, Velocità [m/s], Autovalore (written as sigma+omega*j).
+
+    Parameters
+    ----------
+    data_arrays : list of (mode_id, np.ndarray)
+        Output of _parse_flutter_f06(); each array has columns
+        [KFREQ, 1/KFREQ, VELOCITY, DAMPING, FREQUENCY, REAL, IMAG].
+    txt_path : str
+        Full path (including filename) of the text file to write.
+    omega_idx : int
+        Column index used for the imaginary (omega) part of the
+        eigenvalue: 6 = rad/s, 4 = Hz.
+    """
+    with open(txt_path, "w") as f:
+        f.write(f"{'Modo':>6} {'Velocità [m/s]':>16} {'Autovalore (sigma+omega*j)':>32}\n")
+        for mode, arr in data_arrays:
+            for row in arr:
+                v       = row[2]
+                sigma   = row[5]
+                omega   = row[omega_idx]
+                eig_str = f"{sigma:+.6e}{omega:+.6e}j"
+                f.write(f"{int(mode):>6} {v:>16.4f} {eig_str:>32}\n")
+    print(f"Flutter data written: {txt_path}")
+
+
 def plot_flutter(filename, omega_idx=6, max_modes=4,
                  damping_threshold=1e-2, figures_dir=None):
     """
     Generate V-omega and V-sigma plots from a Nastran flutter .f06 file.
 
-    Also prints a summary table of flutter onset velocities and
-    an interpolated flutter onset table.
+    Also prints a summary table of flutter onset velocities, an
+    interpolated flutter onset table, and writes a structured text file
+    (Modo, Velocità, Autovalore) with all the sigma/omega values used
+    for the plots.
 
     Parameters
     ----------
@@ -261,11 +386,15 @@ def plot_flutter(filename, omega_idx=6, max_modes=4,
     damping_threshold : float
         Damping value above which flutter is considered to onset.
     figures_dir : str or None
-        Directory where the plot PNG is saved.
+        Directory where the plot PNG and the text file are saved.
         Defaults to a ``Figures/`` subfolder next to ``filename``.
     """
     omega_unit  = {6: " [rad/s]", 4: " [Hz]"}.get(omega_idx, "")
     data_arrays = _parse_flutter_f06(filename, max_modes, omega_idx)
+
+    if figures_dir is None:
+        figures_dir = os.path.join(os.path.dirname(os.path.abspath(filename)), "Figures")
+    os.makedirs(figures_dir, exist_ok=True)
 
     fig, axes = plt.subplots(2, 1, figsize=(10, 12))
     summary_rows = []
@@ -323,10 +452,10 @@ def plot_flutter(filename, omega_idx=6, max_modes=4,
         for mode, v, w in interp_rows:
             print(f"{int(mode):<10} {v:<28.4f} {w:<16.8f}")
 
+    # Write the structured text file with all plotted sigma/omega values
+    _write_flutter_txt(data_arrays, os.path.join(figures_dir, "Flt.txt"), omega_idx)
+
     # Save figure
-    if figures_dir is None:
-        figures_dir = os.path.join(os.path.dirname(os.path.abspath(filename)), "Figures")
-    os.makedirs(figures_dir, exist_ok=True)
     fig.savefig(os.path.join(figures_dir, "Flt.png"), format="png", bbox_inches="tight")
     if os.name == "nt":
         plt.show()
@@ -336,17 +465,17 @@ def plot_flutter(filename, omega_idx=6, max_modes=4,
 # VTK export (all SOLs)
 # ---------------------------------------------------------------------------
 
-def export_vtk(filename, subcase=1, modes=None):
+def export_vtk(filename, subcase=1, modes=None, output_dir=None):
     """
     Convert a Nastran .op2 results file to VTK unstructured grid (.vtu).
 
-    Reads the mesh from the companion .bdf file and attaches the following
-    result fields to the VTK grid:
-    - Nodal displacements  (SOL 144 – ``Displacement_SC<n>``)
-    - Modal eigenvectors   (SOL 103/145 – ``Mode_<n>``)
-    - Element von Mises stress (when available – ``vonMises_SC<n>``)
-
-    The output file is readable by ParaView and VisIt.
+    Reads the mesh from the companion .bdf file and attaches results:
+    - Static nodal displacements (SOL 101/144) + von Mises stress, when
+      available, are written to a single file: ``<base>.vtu``.
+    - Modal eigenvectors (SOL 103/145) are written to one file per mode,
+      so each mode shape can be opened/animated independently in
+      ParaView: ``<base>_1.vtu``, ``<base>_2.vtu``, etc. (the suffix is
+      the actual Nastran mode number).
 
     Parameters
     ----------
@@ -356,12 +485,19 @@ def export_vtk(filename, subcase=1, modes=None):
     subcase : int
         Nastran subcase ID to export (default: 1).
     modes : list of int or None
-        Mode numbers to export as separate fields (1-based).
+        Mode numbers to export (1-based, actual Nastran mode numbers).
         If None, all available modes are exported.
+    output_dir : str or None
+        Directory where the .vtu file(s) are written. If None, they are
+        written next to ``filename`` (same directory as the .bdf/.op2).
+        If given, the directory is created if needed and the .vtu
+        file(s) use the same base name as ``filename`` (e.g.
+        ``<output_dir>/<basename>.vtu``).
 
     Output
     ------
-    Writes ``<filename>.vtu``.
+    Writes ``<base>.vtu`` (static) and/or ``<base>_<mode>.vtu`` (modal)
+    depending on which result types are present in the .op2.
     """
     try:
         from pyNastran.op2.op2 import OP2
@@ -376,12 +512,17 @@ def export_vtk(filename, subcase=1, modes=None):
 
     bdf_path = filename + ".bdf"
     op2_path = filename + ".op2"
-    vtu_path = filename + ".vtu"
 
     if not os.path.exists(op2_path):
         raise FileNotFoundError(f".op2 file not found: {op2_path}")
     if not os.path.exists(bdf_path):
         raise FileNotFoundError(f".bdf file not found: {bdf_path}")
+
+    if output_dir is None:
+        vtu_base = filename
+    else:
+        os.makedirs(output_dir, exist_ok=True)
+        vtu_base = os.path.join(output_dir, os.path.basename(filename))
 
     # ------------------------------------------------------------------
     # 1. Read .op2
@@ -413,13 +554,14 @@ def export_vtk(filename, subcase=1, modes=None):
     connectivity = np.array(connectivity, dtype=int)
 
     # ------------------------------------------------------------------
-    # 3. Build VTK grid
+    # 3. Build the base VTK grid (points + cell topology), reused for
+    #    every file written below via CopyStructure().
     # ------------------------------------------------------------------
     vtk_points = vtk.vtkPoints()
     vtk_points.SetData(numpy_to_vtk(coords, deep=True))
 
-    grid = vtk.vtkUnstructuredGrid()
-    grid.SetPoints(vtk_points)
+    base_grid = vtk.vtkUnstructuredGrid()
+    base_grid.SetPoints(vtk_points)
 
     # Map CQUAD4 → VTK_QUAD (cell type 9)
     cell_array = vtk.vtkCellArray()
@@ -431,14 +573,14 @@ def export_vtk(filename, subcase=1, modes=None):
 
     cell_types   = np.full(len(connectivity), vtk.VTK_QUAD, dtype=np.uint8)
     cell_offsets = np.arange(1, len(connectivity) + 1, dtype=int) * 4
-    grid.SetCells(
+    base_grid.SetCells(
         numpy_to_vtk(cell_types,   deep=True, array_type=vtk.VTK_UNSIGNED_CHAR),
         numpy_to_vtk(cell_offsets, deep=True, array_type=vtk.VTK_ID_TYPE),
         cell_array,
     )
 
     # ------------------------------------------------------------------
-    # 4. Attach nodal fields (displacements / eigenvectors)
+    # 4. Helpers
     # ------------------------------------------------------------------
     def _add_field(grid, node_ids_vtk, data_rows, node_ids_result, label):
         """
@@ -466,16 +608,45 @@ def export_vtk(filename, subcase=1, modes=None):
         arr.SetNumberOfComponents(3)
         grid.GetPointData().AddArray(arr)
 
-    # Static displacements (SOL 144)
-    if hasattr(model, "displacements") and subcase in model.displacements:
+    def _write_grid(grid, path):
+        writer = vtk.vtkXMLUnstructuredGridWriter()
+        writer.SetFileName(path)
+        writer.SetInputData(grid)
+        writer.Write()
+        print(f"VTK exported: {path}")
+
+    # ------------------------------------------------------------------
+    # 5. Static displacements + stress (SOL 101 / 144) → single file
+    # ------------------------------------------------------------------
+    has_static = hasattr(model, "displacements") and subcase in model.displacements
+    if has_static:
+        static_grid     = vtk.vtkUnstructuredGrid()
+        static_grid.CopyStructure(base_grid)
+
         disp_obj        = model.displacements[subcase]
         result_node_ids = disp_obj.node_gridtype[:, 0]
         # data shape: (n_load_steps, n_nodes, n_dof) — take step 0
-        _add_field(grid, node_ids, disp_obj.data[0],
+        _add_field(static_grid, node_ids, disp_obj.data[0],
                    result_node_ids, f"Displacement_SC{subcase}")
 
-    # Modal eigenvectors (SOL 103 / 145)
-    if hasattr(model, "eigenvectors") and subcase in model.eigenvectors:
+        if hasattr(model, "cquad4_stress") and subcase in model.cquad4_stress:
+            stress_obj = model.cquad4_stress[subcase]
+            vm         = np.zeros(len(elem_ids))
+            eid_index  = {eid: i for i, eid in enumerate(elem_ids)}
+            for i, eid in enumerate(stress_obj.element):
+                if int(eid) in eid_index:
+                    vm[eid_index[int(eid)]] = stress_obj.data[0, i, 7]  # von Mises index
+            arr = numpy_to_vtk(vm, deep=True)
+            arr.SetName(f"vonMises_SC{subcase}")
+            static_grid.GetCellData().AddArray(arr)
+
+        _write_grid(static_grid, vtu_base + ".vtu")
+
+    # ------------------------------------------------------------------
+    # 6. Modal eigenvectors (SOL 103 / 145) → one file per mode
+    # ------------------------------------------------------------------
+    has_modal = hasattr(model, "eigenvectors") and subcase in model.eigenvectors
+    if has_modal:
         eig             = model.eigenvectors[subcase]
         result_node_ids = eig.node_gridtype[:, 0]
         # eig.modes contains the actual Nastran mode numbers (1-based)
@@ -493,31 +664,16 @@ def export_vtk(filename, subcase=1, modes=None):
                       f"(available: {nastran_modes})")
 
         for mi in export_indices:
-            mode_num = int(nastran_modes[mi])
+            mode_num  = int(nastran_modes[mi])
+            mode_grid = vtk.vtkUnstructuredGrid()
+            mode_grid.CopyStructure(base_grid)
+
             # data shape: (n_modes, n_nodes, n_dof)
-            _add_field(grid, node_ids, eig.data[mi],
-                       result_node_ids, f"Mode_{mode_num}")
+            _add_field(mode_grid, node_ids, eig.data[mi],
+                       result_node_ids, "Mode_shape")
 
-    # ------------------------------------------------------------------
-    # 5. Attach element fields (von Mises stress, if available)
-    # ------------------------------------------------------------------
-    if hasattr(model, "cquad4_stress") and subcase in model.cquad4_stress:
-        stress_obj = model.cquad4_stress[subcase]
-        vm         = np.zeros(len(elem_ids))
-        eid_index  = {eid: i for i, eid in enumerate(elem_ids)}
-        for i, eid in enumerate(stress_obj.element):
-            if int(eid) in eid_index:
-                vm[eid_index[int(eid)]] = stress_obj.data[0, i, 7]  # von Mises index
-        arr = numpy_to_vtk(vm, deep=True)
-        arr.SetName(f"vonMises_SC{subcase}")
-        grid.GetCellData().AddArray(arr)
+            _write_grid(mode_grid, f"{vtu_base}_{mode_num}.vtu")
 
-    # ------------------------------------------------------------------
-    # 6. Write .vtu file
-    # ------------------------------------------------------------------
-    writer = vtk.vtkXMLUnstructuredGridWriter()
-    writer.SetFileName(vtu_path)
-    writer.SetInputData(grid)
-    writer.Write()
-
-    print(f"VTK exported: {vtu_path}")
+    if not has_static and not has_modal:
+        print("Warning: no displacement or eigenvector results found "
+              f"in {op2_path}; nothing exported.")

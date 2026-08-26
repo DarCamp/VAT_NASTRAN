@@ -7,6 +7,7 @@ Usage:
     python main.py FVIB
     python main.py DIV
     python main.py FLT
+    python main.py STAT
 
 All parameters are defined in config.py.
 The analysis files (BDF, f06, op2, vtu, figure) are written to config.WORKDIR.
@@ -22,7 +23,8 @@ import config
 from laminates import theta_vals
 from bdf_writer import write_bdf
 from postprocess import (
-    read_vibrations, print_vibrations,
+    read_static, print_static_summary,
+    read_vibrations, print_vibrations, write_vibrations_txt,
     read_divergence, read_displacements,
     plot_flutter,
     export_vtk,
@@ -34,6 +36,7 @@ from postprocess import (
 # ---------------------------------------------------------------------------
 
 SOLVERS = {
+    "STAT": (101, "panelSTAT"),
     "FVIB": (103, "panelFVIB"),
     "DIV":  (144, "panelDIV"),
     "FLT":  (145, "panelFLT"),
@@ -44,7 +47,7 @@ def parse_analysis():
     if len(sys.argv) < 2:
         if config.ANALYSIS in SOLVERS:
             return config.ANALYSIS, *SOLVERS[config.ANALYSIS]
-        print("Usage: python main.py [FVIB|DIV|FLT]")
+        print("Usage: python main.py [STAT|FVIB|DIV|FLT]")
         sys.exit(1)
     key = sys.argv[1].upper()
     if key not in SOLVERS:
@@ -57,15 +60,26 @@ def parse_analysis():
 # Working directory
 # ---------------------------------------------------------------------------
 
-def prepare_workdir(workdir):
+def prepare_workdir(workdir, analysis_key):
     """
-    Create the working directory if it does not exist.
-    If it already exists, the files are silently overwritten.
-    Returns the absolute path.
+    Create the working directory structure for one analysis:
+
+        <workdir>/<analysis_key>/            BDF, f06, op2, msh
+        <workdir>/<analysis_key>/Figures/    plots and text result files
+        <workdir>/<analysis_key>/data/       VTK (.vtu) exports
+
+    e.g. for WORKDIR = "results/case_01" and analysis "FVIB":
+        results/case_01/FVIB/panelFVIB.bdf
+        results/case_01/FVIB/Figures/Vib.txt
+        results/case_01/FVIB/data/panelFVIB_1.vtu
+
+    If the folders already exist, files inside are silently overwritten.
+    Returns the absolute path of ``<workdir>/<analysis_key>``.
     """
-    wd = os.path.abspath(workdir)
+    wd = os.path.abspath(os.path.join(workdir, analysis_key))
     os.makedirs(wd, exist_ok=True)
     os.makedirs(os.path.join(wd, "Figures"), exist_ok=True)
+    os.makedirs(os.path.join(wd, "data"), exist_ok=True)
     return wd
 
 
@@ -121,7 +135,7 @@ def main():
     Nelems = config.Nx * config.Ny
 
     # --- Working directory ---
-    wd = prepare_workdir(config.WORKDIR)
+    wd = prepare_workdir(config.WORKDIR, analysis)
     # Percorso completo del file di analisi (senza estensione)
     filepath = os.path.join(wd, basename)
 
@@ -163,7 +177,7 @@ def main():
              config.G12, config.G23, config.G32, config.rho]
 
     # --- Trim: dynamic pressure ---
-    q_trim = 0.5 * config.rho_fluid * config.V_trim**2
+    q_trim = 0.5 * config.rho_fluid * config.V**2
 
     # --- BDF writing ---
     write_bdf(
@@ -215,15 +229,21 @@ def main():
         if config.output_format != "op2":
             print("Warning: save_vtk requires output_format = 'op2' in config.py")
         else:
-            export_vtk(filepath)
+            export_vtk(filepath, output_dir=os.path.join(wd, "data"))
 
     # --- Post-processing ---
     if config.plot:
         figures_dir = os.path.join(wd, "Figures")
 
-        if sol == 103:
+        if sol == 101:
+            disp = read_static(filepath)
+            print_static_summary(disp)
+
+        elif sol == 103:
             res = read_vibrations(filepath)
             print_vibrations(res)
+            os.makedirs(figures_dir, exist_ok=True)
+            write_vibrations_txt(res, os.path.join(figures_dir, "Vib.txt"))
 
         elif sol == 144:
             q_div = read_divergence(filepath)

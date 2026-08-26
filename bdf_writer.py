@@ -4,6 +4,7 @@ bdf_writer.py
 MSC Nastran BDF file writer for VAT composite panel aeroelastic analyses.
 
 Supported solution sequences:
+  SOL 101 – Linear statics (prescribed edge displacements/rotations)
   SOL 103 – Normal modes (free vibration)
   SOL 144 – Static aeroelastic trim + divergence
   SOL 145 – Flutter (PK method)
@@ -20,24 +21,52 @@ import numpy as np
 # Internal helpers
 # ---------------------------------------------------------------------------
 
-def _spc_code(disp, rot):
+def _real_fmt(value):
     """
-    Build the Nastran SPC DOF string from displacement and rotation flags.
+    Format a float as a valid Nastran real-field value: always contains a
+    decimal point (or exponent), so integers like 0.0 are not mistaken
+    for an integer field (e.g. "0." instead of "0").
+    """
+    s = f"{value:.6g}"
+    if "." not in s and "e" not in s and "E" not in s:
+        s += "."
+    return s
+
+
+def _side_spc_entries(bc):
+    """
+    Convert a boundary-condition dict for one panel side into a list of
+    (dof_number, enforced_value) tuples, ready to be written as SPC cards.
+
+    Convention for each entry in ``disp`` / ``rot``:
+        None  -> DOF is free (no SPC card is written for it)
+        0     -> DOF is fixed (enforced value = 0.0)
+        value -> DOF is driven to an enforced displacement [m] (disp)
+                 or an enforced rotation [deg] (rot); rotations are
+                 converted to radians here since Nastran works in rad.
 
     Parameters
     ----------
-    disp : list of int  [u1, u2, u3]  – 1 = constrained
-    rot  : list of int  [r1, r2, r3]  – 1 = constrained
+    bc : dict
+        {"disp": [u1, u2, u3], "rot": [r1, r2, r3]}
+
+    Returns
+    -------
+    list of (int, float)
+        (dof_number 1-6, enforced value in Nastran units)
     """
-    dofs = (
-        ["1"] * bool(disp[0]) +
-        ["2"] * bool(disp[1]) +
-        ["3"] * bool(disp[2]) +
-        ["4"] * bool(rot[0])  +
-        ["5"] * bool(rot[1])  +
-        ["6"] * bool(rot[2])
-    )
-    return "".join(dofs)
+    disp = bc.get("disp", [None, None, None])
+    rot  = bc.get("rot",  [None, None, None])
+
+    entries = []
+    for i, val in enumerate(disp):          # DOFs 1,2,3 – translations [m]
+        if val is not None:
+            entries.append((i + 1, float(val)))
+    for i, val in enumerate(rot):            # DOFs 4,5,6 – rotations [deg]
+        if val is not None:
+            entries.append((i + 4, float(np.deg2rad(val))))
+
+    return entries
 
 
 def _mat8_line(props):
@@ -104,7 +133,17 @@ def _write_executive(f, sol):
 # ---------------------------------------------------------------------------
 
 def _write_case_control(f, sol):
-    if sol == 103:
+    if sol == 101:
+        f.write("TITLE = Static analysis of composite panel\n")
+        f.write("ECHO = NONE\n")
+        f.write("SUBCASE 1\n")
+        f.write("   SUBTITLE = Default\n")
+        f.write("   SPC = 2\n")
+        f.write("   DISPLACEMENT(SORT1,REAL)=ALL\n")
+        f.write("   SPCFORCES(SORT1,REAL)=ALL\n")
+        f.write("   STRESS(SORT1,REAL,VONMISES,BILIN)=ALL\n")
+
+    elif sol == 103:
         f.write("TITLE = Modal analysis of composite panel\n")
         f.write("ECHO = NONE\n")
         f.write("SUBCASE 1\n")
@@ -217,7 +256,13 @@ def _write_material(f, props):
 
 def _write_bcs(f, boundary_conditions, nodes, Lx, Ly, tol=1e-6):
     """
-    Write SPC cards for each constrained panel edge.
+    Write SPC cards for each panel edge.
+
+    Each DOF in ``boundary_conditions`` (see config.py) may be free
+    (None, no card written), fixed (0), or driven to an enforced
+    displacement/rotation (any other numeric value). Since different DOFs
+    on the same side may carry different enforced values, one SPC card is
+    written per (node, DOF) pair rather than a single combined card.
 
     Side nodes are selected geometrically using a coordinate tolerance.
     """
@@ -235,12 +280,13 @@ def _write_bcs(f, boundary_conditions, nodes, Lx, Ly, tol=1e-6):
         flt = side_filter.get(side)
         if flt is None:
             continue
-        spc_code = _spc_code(bc["disp"], bc["rot"])
-        if not spc_code:
+        spc_entries = _side_spc_entries(bc)
+        if not spc_entries:
             continue  # all DOFs free on this side → skip
         side_nodes = [nid for nid, coords in nodes.items() if flt(*coords)]
         for nid in side_nodes:
-            f.write(f"SPC     {spc_id:<8d} {nid:<8d} {spc_code:<8s}\n")
+            for dof, value in spc_entries:
+                f.write(f"SPC,{spc_id:d},{nid:d},{dof:d},{_real_fmt(value)}\n")
 
 
 def _write_aero_common(f, Lx, Ly, rho_fluid, Nx, Ny, Nelems, gmsh, p1, p2, p3, p4):
@@ -339,7 +385,7 @@ def write_bdf(
         Full path to the output file without extension.
         The file ``<filename>.bdf`` is created (or overwritten).
     sol : int
-        Nastran solution sequence (103, 144, or 145).
+        Nastran solution sequence (101, 103, 144, or 145).
     node_tags, node_coords : arrays
         Node IDs and coordinates from gmsh.
     elem_types, elem_tags, elem_node_tags : arrays
@@ -351,7 +397,9 @@ def write_bdf(
     props : list
         Material properties [E1, E2, nu12, G12, G23, G32, rho].
     boundary_conditions : dict
-        Per-side BC dictionary (see config.py).
+        Per-side BC dictionary (see config.py). Each disp/rot entry is
+        None (free), 0 (fixed), or a numeric enforced displacement [m] /
+        rotation [deg].
     Lx, Ly : float
         Panel dimensions [m].
     Nx, Ny : int
