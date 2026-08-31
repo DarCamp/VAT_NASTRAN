@@ -177,7 +177,7 @@ def main():
              config.G12, config.G23, config.G32, config.rho]
 
     # --- Trim: dynamic pressure ---
-    q_trim = 0.5 * config.rho_fluid * config.V**2
+    q_trim = 0.5 * config.rho_fluid * config.V_trim**2
 
     # --- BDF writing ---
     write_bdf(
@@ -229,9 +229,11 @@ def main():
         if config.output_format != "op2":
             print("Warning: save_vtk requires output_format = 'op2' in config.py")
         else:
-            export_vtk(filepath, output_dir=os.path.join(wd, "data"))
+            export_vtk(filepath, output_dir=os.path.join(wd, "data"),
+                       theta_deg=theta_deg)
 
     # --- Post-processing ---
+    flutter_summary = None
     if config.plot:
         figures_dir = os.path.join(wd, "Figures")
 
@@ -254,8 +256,10 @@ def main():
             print(f"uz LE = {uz_LE},  uz TE = {uz_TE},  twist = {uz_LE - uz_TE:.6f}")
 
         elif sol == 145:
-            plot_flutter(filepath, omega_idx=config.omega_idx,
-                         figures_dir=figures_dir)
+            flutter_summary = plot_flutter(filepath, figures_dir=figures_dir)
+
+    return {"analysis": analysis, "sol": sol, "workdir": wd,
+            "flutter_summary": flutter_summary}
 
 
 if __name__ == "__main__":

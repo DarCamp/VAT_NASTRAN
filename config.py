@@ -37,8 +37,8 @@ ANALYSIS = "FLT"
 # ---------------------------------------------------------------------------
 # GEOMETRY
 # ---------------------------------------------------------------------------
-Lx        = 1.0   # panel length along x  [m]
-Ly        = 2.0   # panel length along y  [m]
+Lx        = 1.0   # panel length along x  
+Ly        = 2.0   # panel length along y  
 sweep_deg = 0.0   # leading-edge sweep angle [deg]
 
 # ---------------------------------------------------------------------------
@@ -50,13 +50,22 @@ Ny = 64   # number of elements along y
 # ---------------------------------------------------------------------------
 # MATERIAL  (unidirectional composite – MAT8)
 # ---------------------------------------------------------------------------
-E1   = 98.0e9   # fibre Young's modulus      [Pa]
-E2   =   7.9e9   # matrix Young's modulus     [Pa]
-G12  =   5.6e9  # in-plane shear modulus     [Pa]
-G23  =   5.6e9  # out-of-plane shear modulus [Pa]
-G32  =   5.6e9  # out-of-plane shear modulus [Pa]
-nu12 =   0.28    # major Poisson's ratio      [-]
-rho  = 1520.0    # material density           [kg/m³]
+# M1
+# E1   = 173.0e9   # fibre Young's modulus      
+# E2   =   7.2e9   # matrix Young's modulus    
+# G12  =   3.76e9  # in-plane shear modulus     
+# G23  =   3.76e9  # out-of-plane shear modulus 
+# G32  =   3.76e9  # out-of-plane shear modulus 
+# nu12 =   0.29    # major Poisson's ratio     
+# rho  = 1540.0    # material density          
+# M2
+E1   = 98.0e9   # fibre Young's modulus      
+E2   =   7.9e9   # matrix Young's modulus    
+G12  =   5.6e9  # in-plane shear modulus     
+G23  =   5.6e9  # out-of-plane shear modulus 
+G32  =   5.6e9  # out-of-plane shear modulus 
+nu12 =   0.28    # major Poisson's ratio     
+rho  = 1520.0    # material density          
 
 # ---------------------------------------------------------------------------
 # VAT LAMINATE
@@ -67,9 +76,9 @@ rho  = 1520.0    # material density           [kg/m³]
 #   '|x|' → T0 at x =  0,     T1 at x =  Lx      (symmetric about x = 0)
 #   'y'   → T0 at y = -Ly/2,  T1 at y = +Ly/2
 #   '|y|' → T0 at y =  0,     T1 at y =  Ly
-stacking = np.array([[0, -45]])
+stacking = np.array([[90, -45]])
 var_type  = 'y'
-t_ply     = 0.01   # thickness of a single ply [m]
+t_ply     = 0.01   # thickness of a single ply
 
 # ---------------------------------------------------------------------------
 # BOUNDARY CONDITIONS
@@ -100,11 +109,11 @@ rho_fluid = 1.226   # fluid density [kg/m³]
 
 # Static aeroelastic / divergence (SOL 144)
 alpha_deg = 1.0    # trim angle of attack [deg]
-V    = 10.0   # velocity        [m/s]
+V_trim    = 10.0   # velocity        [m/s]
 N_roots   = 10     # number of divergence roots requested
 
 # Flutter sweep (SOL 145)
-V_range = np.linspace(1, 60, 21)     # velocity sweep range [m/s]
+V_range = np.linspace(1, 100, 10)     # velocity sweep range [m/s]
 V_plot  = -V_range[0]                # velocity for eigenvector output (negative)
 k_freq  = np.linspace(0.001, 5, 20)  # reduced frequencies for MKAERO2
 
@@ -118,7 +127,3 @@ save_vtk  = True   # export results to VTK (.vtu) — requires output_format = "
 
 # Nastran output format – choose exactly one
 output_format = "op2"   # "op2" | "xdb" | "hdf5"
-
-# Omega column index used in flutter plots
-# 6 → rad/s,   4 → Hz
-omega_idx = 4

@@ -338,7 +338,8 @@ def _parse_flutter_f06(filename, max_modes=4, omega_col=6):
 def _write_flutter_txt(data_arrays, txt_path, omega_idx):
     """
     Write the flutter V-omega/V-sigma data (the same values that get
-    plotted) to a structured text file.
+    plotted) to a structured text file, sorted by velocity across all
+    modes.
 
     Columns: Modo, Velocità [m/s], Autovalore (written as sigma+omega*j).
 
@@ -353,16 +354,126 @@ def _write_flutter_txt(data_arrays, txt_path, omega_idx):
         Column index used for the imaginary (omega) part of the
         eigenvalue: 6 = rad/s, 4 = Hz.
     """
+    rows = []
+    for mode, arr in data_arrays:
+        for row in arr:
+            rows.append((row[2], mode, row[5], row[6]))  # (V, mode, sigma, omega)
+    rows.sort(key=lambda r: r[0])
+
     with open(txt_path, "w") as f:
         f.write(f"{'Modo':>6} {'Velocità [m/s]':>16} {'Autovalore (sigma+omega*j)':>32}\n")
-        for mode, arr in data_arrays:
-            for row in arr:
-                v       = row[2]
-                sigma   = row[5]
-                omega   = row[omega_idx]
-                eig_str = f"{sigma:+.6e}{omega:+.6e}j"
-                f.write(f"{int(mode):>6} {v:>16.4f} {eig_str:>32}\n")
+        for v, mode, sigma, omega in rows:
+            eig_str = f"{sigma:+.6e}{omega:+.6e}j"
+            f.write(f"{int(mode):>6} {v:>16.4f} {eig_str:>32}\n")
     print(f"Flutter data written: {txt_path}")
+
+
+def _format_complex_array(values):
+    """Format a complex array as a Python literal, e.g. numpy.array([-1.2e+00+3.4e+00j, ...])."""
+    parts = [f"{v.real:+.6e}{v.imag:+.6e}j" for v in values]
+    return "numpy.array([" + ", ".join(parts) + "])"
+
+
+def _format_real_array(values):
+    """Format a real array as a Python literal, e.g. numpy.array([1.0, 2.5, ...])."""
+    return "numpy.array([" + ", ".join(f"{v:.6g}" for v in values) + "])"
+
+
+def _write_flutter_fem_block(data_arrays, txt_path, omega_idx):
+    """
+    Append a FEM-style Python dict literal to the flutter text file, so
+    the sigma/omega data can be copy-pasted directly into another script:
+
+        FEM = { "v": numpy.linspace(...) (or numpy.array([...])),
+                       1: numpy.array([sigma+omega*j, ...]),
+                       2: numpy.array([...]),
+                       ...}
+
+    Velocities are taken from the first mode's velocity sweep; each
+    mode's complex eigenvalues (sigma + omega*j) are re-ordered onto
+    that same velocity vector if needed.
+
+    Parameters
+    ----------
+    data_arrays : list of (mode_id, np.ndarray)
+        Output of _parse_flutter_f06(); columns
+        [KFREQ, 1/KFREQ, VELOCITY, DAMPING, FREQUENCY, REAL, IMAG].
+    txt_path : str
+        Text file to append the block to (created earlier by
+        _write_flutter_txt).
+    omega_idx : int
+        Column index used for the imaginary (omega) part of the
+        eigenvalue: 6 = rad/s, 4 = Hz.
+    """
+    if not data_arrays:
+        return
+
+    _, ref_arr = data_arrays[0]
+    v_ref = ref_arr[:, 2]
+
+    if len(v_ref) > 1 and np.allclose(np.diff(v_ref), v_ref[1] - v_ref[0]):
+        v_str = f"numpy.linspace({v_ref[0]:g}, {v_ref[-1]:g}, num={len(v_ref)})"
+    else:
+        v_str = _format_real_array(v_ref)
+
+    with open(txt_path, "a") as f:
+        f.write("\n\n")
+        f.write('FEM = { "v": ' + v_str + ',\n')
+        for mode, arr in data_arrays:
+            v_this = arr[:, 2]
+            eig    = arr[:, 5] + 1j * arr[:, 6]
+
+            if not np.array_equal(v_this, v_ref):
+                # Re-order/match this mode's eigenvalues onto v_ref
+                lookup = {round(v, 6): e for v, e in zip(v_this, eig)}
+                eig = np.array([lookup.get(round(v, 6), complex(np.nan, np.nan))
+                                for v in v_ref])
+
+            f.write(f"               {int(mode)}: {_format_complex_array(eig)},\n")
+        f.write("}\n")
+    print(f"FEM data block appended: {txt_path}")
+
+
+def _format_crossing_summary(mode_ids, interp_rows, omega_unit):
+    """
+    Build the final flutter-onset summary table in the format:
+
+        Mode       V_crossing [m/s]     Omega [rad/s]
+        ------------------------------------------------
+        1          48.0721              2.71565687
+        2          82.8353              24.15971780
+        3          — (always stable)
+        4          — (always stable)
+
+    Parameters
+    ----------
+    mode_ids : list of int
+        Mode numbers (in the order they should appear).
+    interp_rows : list of (mode_id, v_flutter, omega_flutter)
+        Interpolated flutter-onset points, one per mode that actually
+        crosses the damping threshold (see plot_flutter()).
+    omega_unit : str
+        Unit string appended to the Omega column header, e.g. " [rad/s]".
+
+    Returns
+    -------
+    str
+        The formatted table, ready to print or write to file.
+    """
+    interp_map = {mode: (v, w) for mode, v, w in interp_rows}
+
+    col1, col2, col3 = 10, 21, 16
+    header = f"{'Mode':<{col1}}{'V_crossing [m/s]':<{col2}}{'Omega' + omega_unit:<{col3}}"
+    lines = [header, "-" * len(header)]
+
+    for mode in mode_ids:
+        if mode in interp_map:
+            v, w = interp_map[mode]
+            lines.append(f"{mode:<{col1}}{v:<{col2}.4f}{w:<{col3}.8f}")
+        else:
+            lines.append(f"{mode:<{col1}}{'— (always stable)':<{col2}}")
+
+    return "\n".join(lines)
 
 
 def plot_flutter(filename, omega_idx=6, max_modes=4,
@@ -409,14 +520,14 @@ def plot_flutter(filename, omega_idx=6, max_modes=4,
         axes[1].plot(velocity, sigma, marker="o", linestyle="-", label=f"Mode {mode}")
 
         # Locate the first point where damping exceeds the threshold
-        pos_idx = np.where(arr[:, 3] > damping_threshold)[0]
+        pos_idx = np.where(arr[:, 5] > damping_threshold)[0]
         if pos_idx.size > 0:
             fi = pos_idx[0]
             summary_rows.append((mode, arr[fi, 2], arr[fi, 3], arr[fi, omega_idx]))
             if fi > 0:
                 v_fl = _interpolate_linear(
-                    arr[fi-1, 2], arr[fi-1, 3],
-                    arr[fi,   2], arr[fi,   3]
+                    arr[fi-1, 2], arr[fi-1, 5],
+                    arr[fi,   2], arr[fi,   5]
                 )
                 w_fl = _interpolate_y(
                     arr[fi-1, 2], arr[fi-1, omega_idx],
@@ -452,20 +563,36 @@ def plot_flutter(filename, omega_idx=6, max_modes=4,
         for mode, v, w in interp_rows:
             print(f"{int(mode):<10} {v:<28.4f} {w:<16.8f}")
 
+    # Final crossing summary (Mode / V_crossing / Omega, "always stable"
+    # for modes that never cross the damping threshold)
+    mode_ids = [mode for mode, _ in data_arrays]
+    crossing_summary = _format_crossing_summary(mode_ids, interp_rows, omega_unit)
+    print("\n" + crossing_summary)
+
     # Write the structured text file with all plotted sigma/omega values
-    _write_flutter_txt(data_arrays, os.path.join(figures_dir, "Flt.txt"), omega_idx)
+    txt_path = os.path.join(figures_dir, "Flt.txt")
+    _write_flutter_txt(data_arrays, txt_path, omega_idx)
+    _write_flutter_fem_block(data_arrays, txt_path, omega_idx)
+
+    # Append the final crossing summary at the end of the text file
+    with open(txt_path, "a") as f:
+        f.write("\n\n")
+        f.write(crossing_summary)
+        f.write("\n")
 
     # Save figure
     fig.savefig(os.path.join(figures_dir, "Flt.png"), format="png", bbox_inches="tight")
     if os.name == "nt":
         plt.show()
 
+    return crossing_summary
+
 
 # ---------------------------------------------------------------------------
 # VTK export (all SOLs)
 # ---------------------------------------------------------------------------
 
-def export_vtk(filename, subcase=1, modes=None, output_dir=None):
+def export_vtk(filename, subcase=1, modes=None, output_dir=None, theta_deg=None):
     """
     Convert a Nastran .op2 results file to VTK unstructured grid (.vtu).
 
@@ -476,6 +603,10 @@ def export_vtk(filename, subcase=1, modes=None, output_dir=None):
       so each mode shape can be opened/animated independently in
       ParaView: ``<base>_1.vtu``, ``<base>_2.vtu``, etc. (the suffix is
       the actual Nastran mode number).
+    - If ``theta_deg`` is given, the VAT fibre angle of every ply is
+      attached to every exported file as an element field
+      ``theta_ply<k>_deg`` (constant across load cases/modes, since the
+      laminate lay-up doesn't change).
 
     Parameters
     ----------
@@ -493,6 +624,10 @@ def export_vtk(filename, subcase=1, modes=None, output_dir=None):
         If given, the directory is created if needed and the .vtu
         file(s) use the same base name as ``filename`` (e.g.
         ``<output_dir>/<basename>.vtu``).
+    theta_deg : np.ndarray, shape (N_layers, N_elements), or None
+        Fibre angles in degrees for every ply, indexed by element ID
+        (i.e. ``theta_deg[:, eid - 1]``) — the same array passed to
+        ``bdf_writer.write_bdf``. If None, no angle field is written.
 
     Output
     ------
@@ -615,6 +750,18 @@ def export_vtk(filename, subcase=1, modes=None, output_dir=None):
         writer.Write()
         print(f"VTK exported: {path}")
 
+    def _add_theta_fields(grid):
+        """Attach one cell-data array per ply with the VAT fibre angle [deg]."""
+        if theta_deg is None:
+            return
+        theta_arr = np.asarray(theta_deg)
+        n_layers  = theta_arr.shape[0]
+        for layer in range(n_layers):
+            vals = np.array([theta_arr[layer, eid - 1] for eid in elem_ids])
+            arr  = numpy_to_vtk(vals, deep=True)
+            arr.SetName(f"theta_ply{layer + 1}_deg")
+            grid.GetCellData().AddArray(arr)
+
     # ------------------------------------------------------------------
     # 5. Static displacements + stress (SOL 101 / 144) → single file
     # ------------------------------------------------------------------
@@ -640,6 +787,7 @@ def export_vtk(filename, subcase=1, modes=None, output_dir=None):
             arr.SetName(f"vonMises_SC{subcase}")
             static_grid.GetCellData().AddArray(arr)
 
+        _add_theta_fields(static_grid)
         _write_grid(static_grid, vtu_base + ".vtu")
 
     # ------------------------------------------------------------------
@@ -672,6 +820,7 @@ def export_vtk(filename, subcase=1, modes=None, output_dir=None):
             _add_field(mode_grid, node_ids, eig.data[mi],
                        result_node_ids, "Mode_shape")
 
+            _add_theta_fields(mode_grid)
             _write_grid(mode_grid, f"{vtu_base}_{mode_num}.vtu")
 
     if not has_static and not has_modal:
